@@ -1,0 +1,707 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ナビゲーションのスタイル設定 */
+nav {
+    width: 100%;
+    background-color: #17191C;
+    height: 62px;
+    display: flex;
+    z-index: 10; /* ナビゲーションのz-indexを設定 */
+    position: relative; /* z-indexを効果的にするために必要 */
+}
+
+.logo_pic {
+    margin-top: 5px;
+    margin-left: 8px;
+    height: 51px;
+}
+
+.head_block {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.mainimg{
+    width: 100vw;
+    overflow: hidden; /* 横方向の内容がはみ出た場合に非表示にする */
+    height: 100%;
+}
+
+/* ログインボタンのスタイル */
+.login-button a {
+    display: inline-block;
+    background-color: #000; /* ボタンの背景色 */
+    color: white;
+    padding: 10px 20px;
+    border: 2px solid #fff; /* ボタンの境界線 */
+    border-radius: 20px; /* 角の丸み */
+    text-decoration: none;
+    font-weight: bold;
+    z-index: 10; /* ボタンのz-indexを設定 */
+}
+
+.login-button a:hover {
+    background-color: #555; /* ホバー時の背景色 */
+}
+
+.login-button {
+    position: absolute;
+    right: 10%;
+    margin-top: 7px;
+    z-index: 10; /* ボタンのz-indexを設定 */
+}
+
+#slideshow {
+    position: relative;
+    max-height: 790px; /* 最大高さを指定 */
+    width: 100vw; /* 画面幅全体 */
+    overflow-x: hidden; /* 横方向の内容がはみ出た場合に非表示にする */
+    z-index: 1; /* スライドショーのz-indexを低く設定 */
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0; /* 最初はすべてのスライドを非表示にする */
+    transition: opacity 1s; /* 透明度の変化にトランジション効果を追加 */
+    animation: zoomOut 10s infinite;
+    margin-top: -62px;
+}
+
+#mainimg h1 {
+    position: absolute;
+    font-size: 70px;
+    top: 75%;
+    left: 15%;
+    transform: translate(-50%, -50%);
+    z-index: 2; /* スライド上のテキストを前面に表示 */
+    color: white; /* テキストの色 */
+    text-align: center; /* テキストを中央揃え */
+    text-shadow: 2px 2px 4px rgba(4, 4, 4, 4);
+}
+
+@keyframes zoomOut {
+    0%, 100% {
+        transform: scale(1); /* 100%に保つ */
+    }
+    50% {
+        transform: scale(1); /* 100%より大きくしない */
+    }
+}
+
+.sinup-button a{
+    display: inline-block;
+    font-size: 20px;
+    background-color: #00000000; /* ボタンの背景色 */
+    color: white;
+    padding: 10px 20px;
+    border: 2px solid #fff; /* ボタンの境界線 */
+    border-radius: 40px; /* 角の丸み */
+    text-decoration: none;
+    font-weight: bold;
+    z-index: 10; /* ボタンのz-indexを設定 */
+}
+
+.sinup-button {
+    position: absolute;
+    right: 14%;
+    top: 80%;
+    z-index: 10; /* ボタンのz-indexを設定 */
+}
+
+.sinup-button a:hover {
+    background-color: #ffffffa4; /* ホバー時の背景色 */
+    color: #000;
+}
+
+.fast_section{
+    width: 100%;
+    height: 955px;
+    background-color: #202131;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    top: 770px; /* スライドショーとの間に隙間がないように微調整 */
+    z-index: 2; /* スライドショーの上に表示 */
+    padding-top: 5px; /* 必要に応じて調整 */
+}
+
+.point_ja{
+    position: absolute;
+    margin-top: 100px;
+    color: #EEE6FF;
+    right: 12%;
+    z-index: 18;
+    font-size: 32px;
+}
+
+.point_en{
+    position: absolute;
+    margin-top: 210px;
+    color: #EEE6FF;
+    right: 9%;
+    z-index: 18;
+    font-size: 15px;
+}
+
+.good_points{
+    position: absolute;
+    width: 94%;
+    height: 640px;
+    background-color: #E3E6F0;
+    bottom: 0%;
+    right: 0%;
+    border-radius: 20px 0px 0px 0px; /* 角の丸み */
+}
+
+.fast_section h2{
+    position: absolute;
+    width: 700px;
+    top: 400px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+}
+
+.situation_block{
+    display: flex;
+    position: absolute;
+    top: 655px;
+    height: 330px;
+    margin-right: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.situation_pic{
+    width: 330px;
+    height: 330px;
+    margin-right: 45px;
+    margin-left: 45px;
+}
+
+@media (max-width: 1070px) {
+    .situation_pic {
+        width: 200px; /* サイズを小さく調整 */
+        height: 200px; /* サイズを小さく調整 */
+        margin-right: 35px;
+        margin-left: 35px;
+    }
+}
+
+.pair {
+    display: flex; /* フレックスコンテナとして設定 */
+    flex-direction: column; /* 子要素を縦方向に並べる */
+    align-items: center; /* 子要素を水平方向の中央に揃える */
+    text-align: center; /* テキストを中央揃え */
+}
+
+.pair h4{
+    margin-top: 20px;
+    font-size: 26px;
+}
+
+.advertisement{
+    position: relative;
+    top: 770px;
+    width: 100%;
+    height: 537px;
+    background-color: #C5D0F7;
+}
+
+.adv_pic{
+    width: 440px;
+    top: 140px;
+    left: 17%;
+}
+
+
+
+.advertisement h2{
+    font-size: 48px;
+    top: 140px;
+    color: #335AE7;
+}
+
+.block{
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    height: 310px;
+    left: 17%;
+    top: 136px;
+}
+
+.custom-button {
+    background-color: #335AE7; /* ボタンの背景色 */
+    color: white; /* テキスト色 */
+    padding: 10px 20px; /* パディング */
+    border: none; /* 境界線なし */
+    border-radius: 40px; /* 角の丸み */
+    font-size: 24px; /* フォントサイズ */
+    font-weight: bold; /* フォントの太さ */
+    text-decoration: none; /* テキストの下線を消す */
+    cursor: pointer; /* カーソルをポインターに */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 影を付ける */
+    transition: background-color 0.3s, box-shadow 0.3s; /* 色と影のトランジションを設定 */
+    width: 330px;
+    height: 66px;
+    margin-top: 50px;
+}
+
+.custom-button:hover {
+    background-color: #5A7BD8; /* ホバー時の背景色 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* ホバー時の影を大きくする */
+}
+
+.custom-button:focus {
+    outline: none; /* ボタンがフォーカスされたときのアウトラインを消す */
+}
+
+.right_block{
+    margin-left: 125px;
+}
+
+.info_section{
+    width: 100%;
+    height: 3084px;
+    top: 769px;
+    position: relative;
+    background-color: #F9F9F9;
+}
+
+.info_section h2{
+    position: absolute;
+    font-size: 48px;
+    top: 70px;
+    left: 115px;
+}
+
+.features_block1 {
+    display: flex; /* Flexboxを有効化 */
+    flex-direction: column; /* 子要素を縦方向に並べる */
+    align-items: center; /* 子要素を水平方向の中央に揃える */
+    text-align: center; /* テキストを中央揃え */
+    margin-right: 178px;
+}
+
+.features{
+    position: relative;
+    top: 180px;
+    display: flex;
+    display: flex; /* Flexboxを有効化 */
+    justify-content: center; /* 水平方向の中央に揃える */
+    flex-wrap: wrap; /* コンテンツが多い場合は折り返し */
+    text-align: center; /* テキストを中央揃え */
+}
+
+.feature_pic {
+    /* 画像のスタイル設定があればここに追加 */
+    /* 例: width: 100%; max-width: 560px; など */
+}
+
+.features_block1 h4 {
+    /* h4のスタイル設定があればここに追加 */
+    margin-top: 20px; /* 画像との間隔を設定 */
+    font-size: 34px;
+}
+
+.features_block1 p {
+    max-width: 560px; /* 最大横幅を560pxに設定 */
+    margin-top: 10px; /* h4タグとの間隔を設定 */
+    font-size: 24px;
+}
+
+.features_block2 {
+    display: flex; /* Flexboxを有効化 */
+    flex-direction: column; /* 子要素を縦方向に並べる */
+    align-items: center; /* 子要素を水平方向の中央に揃える */
+    text-align: center; /* テキストを中央揃え */
+}
+
+.features_block2 h4 {
+    /* h4のスタイル設定があればここに追加 */
+    margin-top: 20px; /* 画像との間隔を設定 */
+    font-size: 34px;
+}
+
+.features_block2 p {
+    max-width: 560px; /* 最大横幅を560pxに設定 */
+    margin-top: 10px; /* h4タグとの間隔を設定 */
+    font-size: 24px;
+}
+
+
+.shape {
+    position: absolute;
+    top: 850px;
+    width: 100%;
+    height: 790px; /* 必要な高さ */
+    background-color: #E3E6F0; /* 背景色 */
+    clip-path: polygon(0 100%, 100% 100%, 100% 30%, 25% 0, 0 20%);
+}
+
+.shape h2{
+    top: 120px;
+    left: 160px;
+    position: absolute;
+}
+
+.step-container {
+    position: relative; /* 子要素の絶対位置の基準にする */
+    padding-top: 50px; /* 円の半分のスペースを確保 */
+  }
+  
+  .step-circle {
+    position: absolute;
+    top: 8px; /* 円の半分の高さだけ上に移動 */
+    left: 50%;
+    transform: translateX(-50%); /* 円を中央に配置 */
+    width: 88px; /* 円の幅 */
+    height: 88px; /* 円の高さ */
+    background-color: #335AE7;
+    color: white;
+    border-radius: 50%; /* 円形にする */
+    text-align: center;
+    line-height: 50px; /* テキストを垂直中央に配置 */
+    font-size: 20px; /* テキストのサイズ調整 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 影をつける */
+  }
+  
+  .step-box {
+    width: 380px; /* 枠の幅 */
+    height: 435px; /* 枠の高さ */
+    background-color: #ffffff; /* 背景色 */
+    border-radius: 25px; /* 角の丸み */
+    border: 2px solid #335AE7; /* 枠線の色 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 影をつける */
+    margin-right: 40px;
+    margin-left: 40px;
+  }
+
+.step_block{
+    position: absolute;
+    top: 210px;
+    display: flex;
+    flex-wrap: wrap;
+    left: 3%;
+}
+
+.step-container h4{
+    font-size: 32px;
+    position: absolute;
+    left: 50%;
+    top: 35%;
+    transform: translateX(-50%); /* 円を中央に配置 */
+}
+
+.step-container h3{
+    font-size: 23px;
+    position: absolute;
+    left: 50%;
+    top: 120px;
+    transform: translateX(-50%); /* 円を中央に配置 */
+    font-weight: bold; /* フォントの太さ */
+}
+
+.step1_pic{
+    position: absolute;
+    top: 180px;
+    left: 50%;
+    transform: translateX(-50%); /* 円を中央に配置 */
+    height: 200px;
+}
+
+.step-container p{
+    font-size: 16px;
+    position: absolute;
+    left: 50%;
+    top: 410px;
+    transform: translateX(-50%); /* 円を中央に配置 */
+    font-weight: bold; /* フォントの太さ */
+    width: 280px;
+    color: #555555;
+}
+
+.article_section{
+    position: absolute;
+    top: 1640px;
+    width: 100%;
+    height: 840px;
+    background-color: #F9F9F9;
+}
+
+.article_section h2{
+    position: absolute;
+    font-size: 48px;
+    top: 70px;
+    left: 115px;
+}
+
+.article_section h3{
+    position: absolute;
+    font-size: 36px;
+    top: 130px;
+    left: 125px;
+    color: #335AE7;
+}
+
+.article_section p1{
+    position: absolute;
+    font-size: 24px;
+    top: 220px;
+    left: 125px;
+    color: #555555;
+}
+
+.article_section a{
+    font-size: 20px;
+    color: #555555;
+}
+
+.yazirusi {
+    display: flex;
+    margin-top: -5px;
+  } 
+  .yazirusi::after {
+    content: '';
+    width: 125px;
+    height: 15px;
+    border-bottom: solid 1px;
+    border-right: solid 1px;
+    transform: skew(45deg);
+  }
+
+.add{
+    position: absolute;
+    top: 320px;
+    right: 125px;
+}
+
+.article_block{
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    top: 390px;
+    margin-left: 80px;
+}
+
+.article_view{
+    width: 380px;
+    height: 245px;
+    border: 1px solid #335AE7;
+    border-radius: 40px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.article_topic{
+    font-size: 18px;
+    margin-left: 40px;
+    margin-top: 5px;
+}
+
+.promotion_section{
+    position: absolute;
+    width: 100%;
+    top: 2480px;
+    height: 600px;
+    background-color: #5B7FFF;
+}
+
+.sinup-button1 a {
+    display: flex; /* Flexboxを有効化 */
+    justify-content: center; /* 水平方向の中央に揃える */
+    align-items: center; /* 垂直方向の中央に揃える */
+    font-size: 24px;
+    background-color: transparent; /* ボタンの背景色を透明に設定 */
+    color: white;
+    padding: 10px 20px;
+    border: 2px solid #fff; /* ボタンの境界線 */
+    border-radius: 40px; /* 角の丸み */
+    text-decoration: none;
+    font-weight: bold;
+    z-index: 10; /* ボタンのz-indexを設定 */
+    width: 286px;
+    height: 80px;
+    /* 'inline-block'は削除し、'flex'に置き換えます */
+    text-align: center; /* テキストを中央揃え */
+    box-sizing: border-box; /* paddingとborderがwidthとheightに含まれるように設定 */
+}
+
+.sinup-button1 {
+    position: absolute;
+    top: 350px;
+    left: 890px;
+    z-index: 10; /* ボタンのz-indexを設定 */
+}
+
+.sinup-button1 a:hover {
+    background-color: #ffffffa4; /* ホバー時の背景色 */
+    color: #000;
+}
+
+.promotion_pic{
+    width: 660px;
+    position: absolute;
+    top: 75px;
+    left: 65px;
+}
+
+.promotion2_pic{
+    width: 580px;
+    position: absolute;
+    top: 135px;
+    left: 790px;
+}
+
+.install_block{
+    position: absolute;
+    top: 500px;
+    left: 800px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.install_pic{
+    margin-right: 30px;
+    margin-left: 30px;
+}
+
+.promotion_section p{
+    font-size: 20px;
+    color: #ffffff;
+    position: absolute;
+    top: 460px;
+    left: 790px;
+}
+
+footer{
+    width: 100%;
+    height: 660px;
+    background-color: #F9F9F9;
+    position: relative;
+    top: 770px;
+}
+
+.link_block{
+    position: absolute;
+    top: 100px;
+    left: 150px;
+}
+
+.link_block li{
+    color: #171C61;
+    font-size: 18px;
+}
+
+.footer_topic{
+    position: absolute;
+    top: 220px;
+    left: 150px;
+    color: #171C61;
+    font-size: 14px;
+}
+
+.footer_topic1{
+    position: absolute;
+    top: 320px;
+    left: 145px;
+    color: #171C61;
+    font-size: 12px;
+}
+
+.app{
+    position: absolute;
+    top: 220px;
+    left: 500px;
+}
+
+.install_pic2{
+    margin-right: 15px;
+    margin-left: 15px;
+    width: 150px;
+    margin-top: 50px;
+}
+
+.app p{
+    color: #171C61;
+    font-size: 14px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 1240px) {
+    .situation_pic {
+        width: 250px; /* サイズを小さく調整 */
+        height: 250px; /* サイズを小さく調整 */
+        margin-right: 40px;
+        margin-left: 40px;
+    }
+
+    .advertisement h2 {
+        font-size: 38px;
+        top: 140px;
+        color: #335AE7;
+    }
+
+    .custom-button {
+        /* 必要に応じてサイズ調整 */
+        width: 300px;
+        height: 60px;
+        font-size: 20px; /* フォントサイズ */
+    }
+
+    .block {
+        /* フレックスコンテナのスタイリング */
+        position: absolute;
+        display: flex;
+        flex-wrap: wrap;
+        height: 310px;
+        left: 12%;
+        top: 136px;
+    }
+
+    .right_block {
+        margin-left: 80px;
+    }
+}
+
