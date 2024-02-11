@@ -100,32 +100,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-// モーダルウィンドウを取得
-var modal = document.getElementById('myModal');
+  // モーダルを取得
+var modal = document.getElementById("myModal");
 
-// モーダルウィンドウを開く関数
+// モーダルを開く関数
 function openModal() {
-  modal.style.display = 'block';
-  document.body.style.overflow = 'hidden'; // スクロールを無効にする
+  modal.style.display = "block";
 }
 
-// モーダルウィンドウを閉じる関数
+// モーダルを閉じる関数
 function closeModal() {
-  modal.style.display = 'none';
-  document.body.style.overflow = ''; // スクロールを有効にする
+  modal.style.display = "none";
 }
 
-// モーダルのクローズボタンを取得
-var closeButton = document.getElementsByClassName('close')[0];
-
-// クローズボタンがクリックされたらモーダルを閉じる
-closeButton.onclick = function() {
+// <span> (x)をクリックするとモーダルを閉じる
+document.getElementsByClassName("close")[0].onclick = function() {
   closeModal();
-};
+}
 
-// モーダルウィンドウの外側がクリックされたらモーダルを閉じる
-window.onclick = function(event) {
-  if (event.target == modal) {
-    closeModal();
-  }
-};
+// モーダルの外側をクリックするとモーダルを閉

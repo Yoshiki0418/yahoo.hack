@@ -498,41 +498,18 @@ nav {
 .article_view{
     width: 380px;
     height: 245px;
-    /*border: 1px solid #335AE7;*/
-    position: relative;
+    border: 1px solid #335AE7;
     border-radius: 40px;
     margin-left: 30px;
     margin-right: 30px;
-    overflow: hidden; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 影を付ける */
 }
 
-/* オーバーレイ用のコンテナを追加 */
-.article_view .overlay {
-    display: none; /* ホバーしていないときは非表示 */
-    position: absolute; /* 親要素に対して絶対位置 */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒色 */
-    color: white; /* 白色のテキスト */
-    justify-content: center; /* 水平中央揃え */
-    align-items: center; /* 垂直中央揃え */
-    text-align: center; /* テキストを中央に */
-    font-size: 1.5em; /* フォントサイズを調整 */
-  }
-
-  .article_topic{
+.article_topic{
     font-size: 18px;
     margin-left: 40px;
     margin-top: 5px;
 }
-  
-  /* ホバー時にオーバーレイを表示 */
-  .article_view:hover .overlay {
-    display: flex; /* ホバー時に表示する */
-  }
+
 .promotion_section{
     position: absolute;
     width: 100%;
@@ -697,14 +674,6 @@ footer{
     margin-bottom: 20px; /* 必要に応じて下のマージンを設定します */
   }
 
-.adv_pic_2{
-    width: 380px;
-}
-
-.adv_pic_3{
-    height: 245px;
-}
-
 
 
 
@@ -807,7 +776,7 @@ footer{
   .modal {
     display: none; /* 初期状態では非表示 */
     position: fixed; /* ページ上に固定表示 */
-    z-index: 13; /* 他の内容よりも前面に表示 */
+    z-index: 1; /* 他の内容よりも前面に表示 */
     left: 0;
     top: 0;
     width: 100%; /* 幅は全画面 */
@@ -848,27 +817,23 @@ footer{
   
   #signupForm input[type="text"],
   #signupForm input[type="password"] {
-    width: 305px;
-    height: 48px;
+    width: calc(100% - 20px); /* パディングを考慮した幅 */
     padding: 10px;
-    margin-left: 25px;
-    margin-bottom: 29px;
-    border: 1px solid #DBDBDB;
-    background-color: #FAFAFA;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box; /* パディングとボーダーを含めた幅にする */
   }
   
   .signup-button {
-    width: 305px;
+    width: 100%;
     padding: 10px 0;
-    background-color: #67B5FA;
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    margin-left: 25px;
     transition: background-color 0.2s;
   }
   
@@ -877,19 +842,10 @@ footer{
   }
   
   .modal-text {
-    color: #888484;
+    color: #666;
     font-size: 14px;
     text-align: center;
     margin-top: 20px;
-  }
-
-  .horizontal-line-modal{
-    width: 90%; /* 線の幅を親要素の幅に合わせます */
-    margin-left: 5%;
-    height: 0.7px; /* 線の太さを2pxに設定します */
-    background-color: #555555; /* 線の色を黒に設定します */
-    margin-top: 30px; /* 必要に応じて上のマージンを設定します */
-    margin-bottom: 30px; /* 必要に応じて下のマージンを設定します */
   }
   
   

@@ -522,12 +522,6 @@ nav {
     text-align: center; /* テキストを中央に */
     font-size: 1.5em; /* フォントサイズを調整 */
   }
-
-  .article_topic{
-    font-size: 18px;
-    margin-left: 40px;
-    margin-top: 5px;
-}
   
   /* ホバー時にオーバーレイを表示 */
   .article_view:hover .overlay {

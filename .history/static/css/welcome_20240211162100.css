@@ -507,32 +507,38 @@ nav {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 影を付ける */
 }
 
-/* オーバーレイ用のコンテナを追加 */
-.article_view .overlay {
-    display: none; /* ホバーしていないときは非表示 */
+/* オーバーレイのスタイル */
+.overlay {
+    display: none; /* ホバーしていないときは非表示にする */
     position: absolute; /* 親要素に対して絶対位置 */
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒色 */
-    color: white; /* 白色のテキスト */
-    justify-content: center; /* 水平中央揃え */
-    align-items: center; /* 垂直中央揃え */
-    text-align: center; /* テキストを中央に */
-    font-size: 1.5em; /* フォントサイズを調整 */
+    background: rgba(0, 0, 0, 0.5); /* 半透明の黒色 */
+    color: white; /* テキストの色 */
+    display: flex; /* テキストを中央に配置 */
+    align-items: center; /* 垂直方向の中央揃え */
+    justify-content: center; /* 水平方向の中央揃え */
+  }
+  
+  /* ホバー時にオーバーレイを表示する */
+  .article_view:hover .overlay {
+    display: block; /* ホバー時にオーバーレイを表示 */
+  }
+  
+  /* テキストのスタイル */
+  .overlay-text {
+    display: none; /* ホバーしていないときは非表示にする */
+    font-size: 1.5em; /* テキストのサイズ調整 */
+    text-align: center; /* テキストの中央揃え */
+  }
+  
+  /* ホバー時にテキストを表示する */
+  .article_view:hover .overlay-text {
+    display: block; /* ホバー時にテキストを表示 */
   }
 
-  .article_topic{
-    font-size: 18px;
-    margin-left: 40px;
-    margin-top: 5px;
-}
-  
-  /* ホバー時にオーバーレイを表示 */
-  .article_view:hover .overlay {
-    display: flex; /* ホバー時に表示する */
-  }
 .promotion_section{
     position: absolute;
     width: 100%;
