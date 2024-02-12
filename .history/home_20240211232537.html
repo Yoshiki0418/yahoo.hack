@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="static/css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <title>Document</title>
+</head>
+<body>
+    <hedaer>
+        <nav>
+            <div class="head_block">
+                <li><a><img src="static/image/logo.png" class="logo_pic"></a></li>
+                <div class="login-button">
+                    <a href="/login">ログイン</a>
+                </div>
+             </div>
+          </nav> 
+    </hedaer>
+    <main>
+        <div class="icon-text-container">
+            <div class="type_movie">
+                <i class="fas fa-home icon"></i>
+                <span class="text">おすすめ</span>
+            </div>
+            <div class="type_movie">
+                <i class="fas fa-user icon"></i>
+                <span class="text">フォロー中</span>
+            </div>
+            <div class="type_movie">
+                <i class="fas fa-search icon"></i>
+                <span class="text">探索</span>
+            </div>
+        </div>
+        <div id="footer-ad-banner">
+            <!-- 広告スライド -->
+            <div class="ad-slides fade">
+              <img src="static/image/adv11.png" style="width:100%">
+            </div>
+            <div class="ad-slides fade">
+              <img src="static/image/adv12.png" style="width:100%">
+            </div>
+            <div class="ad-slides fade">
+              <img src="static/image/adv13.png" style="width:100%">
+            </div>
+            <div class="ad-slides fade">
+                <img src="static/image/adv14.png" style="width:100%">
+              </div>
+              <div class="ad-slides fade">
+                <img src="static/image/adv15.png" style="width:100%">
+              </div>
+              <div class="ad-slides fade">
+                <img src="static/image/adv16.png" style="width:100%">
+              </div>
+            <!-- インジケーター -->
+            <div class="ad-indicators">
+              <span class="dot" onclick="currentSlide(1)" style="display:none"></span>
+              <span class="dot" onclick="currentSlide(2)" style="display:none"></span>
+              <span class="dot" onclick="currentSlide(3)" style="display:none"></span>
+              <span class="dot" onclick="currentSlide(4)" style="display:none"></span>
+              <span class="dot" onclick="currentSlide(5)" style="display:none"></span>
+              <span class="dot" onclick="currentSlide(6)" style="display:none"></span>
+            </div>
+        </div>
+        <div class="movie_container">
+            <!--ここにアルゴリズムで選択された動画・写真・何系であるかを適用させる-->
+            <div class="movie_block">
+                <img src="static/image/sample.png">
+                <h1 class="text-with-stroke">カジュアル系</h1>
+                <div class="favorite-container">
+                    <i class="fas fa-star favorite-icon"></i>
+                </div>
+            </div>
+            <div class="upload_user">
+                <div class="user_icon">
+    
+                </div>
+                <h3>＋フォローする</h3>
+            </div>
+            <div class="item_container">
+                <div class="item_block">
+                    <div class="item_pic">
+                        <img src="static/image/sample1.png">
+                    </div>
+                    <h5 class="price">¥100,000</h5>
+                    <p class="set1">系統</p>
+                    <div class="horizontal-line1"></div>
+                    <p class="set2">カテゴリー</p>
+                    <div class="horizontal-line2"></div>
+                    <p class="set3">ブランド</p>
+                    <div class="horizontal-line3"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="home.js"></script>
+</body>
+</html>

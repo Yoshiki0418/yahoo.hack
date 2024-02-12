@@ -1,0 +1,221 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ナビゲーションのスタイル設定 */
+nav {
+    width: 100%;
+    background-color: #17191C;
+    height: 62px;
+    display: flex;
+    z-index: 10; /* ナビゲーションのz-indexを設定 */
+    position: relative; /* z-indexを効果的にするために必要 */
+}
+
+.logo_pic {
+    margin-top: 5px;
+    margin-left: 8px;
+    height: 51px;
+}
+
+.head_block {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.mainimg{
+    width: 100vw;
+    overflow: hidden; /* 横方向の内容がはみ出た場合に非表示にする */
+    height: 100%;
+}
+
+/* ログインボタンのスタイル */
+.login-button a {
+    display: inline-block;
+    background-color: #000; /* ボタンの背景色 */
+    color: white;
+    padding: 10px 20px;
+    border: 2px solid #fff; /* ボタンの境界線 */
+    border-radius: 20px; /* 角の丸み */
+    text-decoration: none;
+    font-weight: bold;
+    z-index: 10; /* ボタンのz-indexを設定 */
+}
+
+.login-button a:hover {
+    background-color: #555; /* ホバー時の背景色 */
+}
+
+.login-button {
+    position: absolute;
+    right: 10%;
+    margin-top: 7px;
+    z-index: 10; /* ボタンのz-indexを設定 */
+}
+
+:root {
+    --header-height: 62px; /* ヘッダーの高さを変数として定義 */
+  }
+
+main{
+    position: relative;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    height: calc(100vh - var(--header-height));
+}
+
+.icon-text-container {
+    position: absolute;
+    top: 70px;
+    left: 70px;
+}
+  
+  .icon {
+    color: #6B6D73; /* アイコンの色 */
+    margin-right: 8px; /* アイコンとテキストの間隔 */
+    font-size: 24px;
+  }
+  
+  .text {
+    color: #6B6D73; /* テキストの色 */
+    font-weight: bold; /* テキストを太字にする */
+    font-size: 24px;
+  }
+
+.type_movie{
+    margin-bottom: 13px;
+}
+
+#footer-ad-banner {
+    position: absolute;
+    width: 100%; /* フッターの広告バナーの幅 */
+    max-width: 680px; /* または望む幅に設定 */
+    margin: auto;
+    overflow: hidden;
+    top: 650px;
+    left: 20.5%;
+    height: 115px;
+  }
+  
+  .ad-slides {
+    display: none;
+    width: 100%;
+  }
+  
+  .fade {
+    animation-name: fade;
+    animation-duration: 5s;
+  }
+  
+  @keyframes fade {
+    from {opacity: 0.4}
+    to {opacity: 1}
+  }
+  
+  .ad-indicators {
+    position: absolute;
+    bottom: 10px; /* インジケーターの位置を調整 */
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+  
+  .dot {
+    cursor: pointer;
+    height: 10px;
+    width: 10px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+  }
+  
+  .dot.active, .dot:hover {
+    background-color: #717171;
+  }
+
+.movie_container{
+    width: 700px;
+    height: 600px;
+    border-radius: 20px;
+    border: 2px solid #555555;
+    position: absolute;
+    top: 20px;
+    left: 20%;
+    overflow: hidden;
+}
+
+.movie_block{
+    width: 400px;
+    height: 600px;
+    overflow: hidden;
+    position: absolute;
+}
+
+.movie_block h1{
+    font-size: 32px;
+    color: #ffffff;
+    -webkit-text-stroke: 1px black; /* Webkitブラウザ用のテキストの枠線 */
+    position: absolute;
+    top: 500px;
+    left: 30px;
+    font-weight: bold;
+}
+
+.favorite-container {
+    position: absolute; /* 画面に固定 */
+    top: 10px; /* 上からの距離 */
+    right: 10px; /* 右からの距離 */
+    z-index: 1000; /* 他の要素より前面に表示 */
+  }
+  
+  .favorite-icon {
+    font-size: 2em; /* アイコンのサイズを大きくする */
+    color: rgba(255, 255, 0, 0.284); /* アイコンの色 */
+    cursor: pointer; /* ホバー時にカーソルを指マークにする */
+  }
+  
+  .favorite-icon:hover {
+    color: yellow; /* ホバー時の色を変更 */
+  }
+
+.user_icon{
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background-color: #000;
+}
+
+.upload_user{
+    position: absolute;
+    top: 10px;
+    left: 410px;
+}
+
+.upload_user h3{
+    position: absolute;
+    left: 60px;
+    width: 115px;
+    height: 33px;
+    border: 2px solid #FB1313;
+    font-size: 13px;
+    color: #FB1313;
+    top: 10px;
+    line-height: 33px; /* heightと同じ値にすることで垂直中央揃えになる */
+    text-align: center; /* テキストを水平方向に中央揃えにする */
+    display: flex; /* Flexbox コンテナとして指定 */
+    align-items: center; /* Flexbox を使用して垂直方向に中央揃え */
+    justify-content: center; /* Flexbox を使用して水平方向に中央揃え */
+    overflow: hidden; /* もしテキストが枠を超えた場合に隠す */
+    white-space: nowrap; /* テキストが複数行にならないようにする */
+}
+
+.item_container{
+    width: 300px;
+}
+  

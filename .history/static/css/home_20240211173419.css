@@ -1,0 +1,91 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ナビゲーションのスタイル設定 */
+nav {
+    width: 100%;
+    background-color: #17191C;
+    height: 62px;
+    display: flex;
+    z-index: 10; /* ナビゲーションのz-indexを設定 */
+    position: relative; /* z-indexを効果的にするために必要 */
+}
+
+.logo_pic {
+    margin-top: 5px;
+    margin-left: 8px;
+    height: 51px;
+}
+
+.head_block {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.mainimg{
+    width: 100vw;
+    overflow: hidden; /* 横方向の内容がはみ出た場合に非表示にする */
+    height: 100%;
+}
+
+/* ログインボタンのスタイル */
+.login-button a {
+    display: inline-block;
+    background-color: #000; /* ボタンの背景色 */
+    color: white;
+    padding: 10px 20px;
+    border: 2px solid #fff; /* ボタンの境界線 */
+    border-radius: 20px; /* 角の丸み */
+    text-decoration: none;
+    font-weight: bold;
+    z-index: 10; /* ボタンのz-indexを設定 */
+}
+
+.login-button a:hover {
+    background-color: #555; /* ホバー時の背景色 */
+}
+
+.login-button {
+    position: absolute;
+    right: 10%;
+    margin-top: 7px;
+    z-index: 10; /* ボタンのz-indexを設定 */
+}
+
+:root {
+    --header-height: 62px; /* ヘッダーの高さを変数として定義 */
+  }
+
+main{
+    position: relative;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    height: calc(100vh - var(--header-height));
+}
+
+.icon-text-container {
+    position: absolute;
+    top: 70px;
+    left: 70px;
+}
+  
+  .icon {
+    color: #6B6D73; /* アイコンの色 */
+    margin-right: 8px; /* アイコンとテキストの間隔 */
+    font-size: 24px;
+  }
+  
+  .text {
+    color: #6B6D73; /* テキストの色 */
+    font-weight: bold; /* テキストを太字にする */
+    font-size: 24px;
+  }
+
+.type_movie{
+    margin-bottom: 13px;
+}
