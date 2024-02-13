@@ -9,8 +9,8 @@ def welcome():
     return render_template('welcome.html')
 
 @app.route('/home')
-def home():
-    return render_template('home.html')
+def Introduction():
+    return render_template('Introduction.html')
 
 @app.route('/introduction')
 def Introduction():

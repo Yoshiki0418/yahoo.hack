@@ -50,9 +50,9 @@ document.addEventListener("DOMContentLoaded", function() {
   function updateUI() {
     if (currentIndex < categories.length) {
       document.querySelector(".text-category").textContent = categories[currentIndex];
-      document.querySelector(".main-image").src = `../static/image/${images.main[currentIndex]}`;
+      document.querySelector(".main-image").src = `../static/img/${images.main[currentIndex]}`;
       images.sub.forEach((value, index) => {
-        document.querySelector(`.sub-image${index + 1}`).src = `../static/image/${value[currentIndex]}`;
+        document.querySelector(`.sub-image${index + 1}`).src = `../static/img/${value[currentIndex]}`;
       });
     } else {
       document.querySelector(".choice").style.display = 'none';
