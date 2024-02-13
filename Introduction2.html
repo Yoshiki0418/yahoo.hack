@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../static/css/styles_introduction2.css" />
+    <script src="../static/js/Introduction2.js"></script>
+  </head>
+  <body>
+    <div class="screen">
+        <header class="overlap-group">
+          <div class="text-wrapper">Cloudrobe</div>
+        </header>
+        
+        <div class="text-wrapper-2">自分のクローゼットを持ち歩こう</div>
+        <div class="overlap-group-2">
+          <div class="rectangle"></div>
+          <div class="rectangle-2"></div>
+          <div class="rectangle-7" id="imagePreview"></div>
+          <div class="rectangle-8"></div>
+          <div class="rectangle-9"></div>
+          <button class="button-save">保存</button>
+           <!-- 画像アップロードのinputを追加 -->
+          <input type="file" id="imageUpload" style="display:none;" onchange="previewImage();" />
+          <label for="imageUpload" class="image-upload-label" id="imageUploadLabel">
+            <img class="image" src="../static/img/hunger.jpg" />
+          </label>
+          
+          <div class="text-wrapper-4">基本情報(必須)</div>
+          <div class="text-wrapper-5">系統</div>
+          <div class="text-wrapper-6">ブランド</div>
+          <div class="text-wrapper-7">サイズ</div>
+          <div class="text-wrapper-8">価格</div>
+          <div class="text-wrapper-9">購入日</div>
+          <div class="text-wrapper-10">思い出メモ</div>
+          <div class="text-wrapper-11">カテゴリー</div>
+          <div class="text-wrapper-12">詳細情報</div>
+        </div>
+        <div class="overlap-2">
+          <button class="button-13">次に進む</button>
+
+          <div class="text-wrapper-14">２つ以上登録してください</div>
+        </div>
+        <div class="text-wrapper-15">後で追加することもできます</div>
+    </div>
+  </body>
+</html>
