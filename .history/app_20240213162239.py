@@ -4,16 +4,12 @@ import sqlite3
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/welcome')
 def welcome():
-    return render_template('welcome.html')
+    return render_template('Introduction.html')
 
-@app.route('/home')
+@app.route('/')
 def home():
-    return render_template('home.html')
-
-@app.route('/introduction')
-def Introduction():
     return render_template('Introduction.html')
 
 @app.route('/introduction2')

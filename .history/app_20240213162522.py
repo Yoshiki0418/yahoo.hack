@@ -8,12 +8,8 @@ app = Flask(__name__)
 def welcome():
     return render_template('welcome.html')
 
-@app.route('/home')
+@app.route('/')
 def home():
-    return render_template('home.html')
-
-@app.route('/introduction')
-def Introduction():
     return render_template('Introduction.html')
 
 @app.route('/introduction2')
