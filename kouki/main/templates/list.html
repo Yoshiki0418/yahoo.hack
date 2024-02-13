@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <h1>リスト画面</h1>
+{% endblock %}
+
+
+{% block content %}
+    {% for i in list %}
+
+    <h4>{{i}}</h4>
+
+    {%endfor%}
+
+{% endblock %}
