@@ -1,0 +1,773 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ナビゲーションのスタイル設定 */
+nav {
+    width: 100%;
+    background-color: #17191C;
+    height: 62px;
+    display: flex;
+    z-index: 10; /* ナビゲーションのz-indexを設定 */
+    position: relative; /* z-indexを効果的にするために必要 */
+}
+
+.logo_pic {
+    margin-top: 5px;
+    margin-left: 8px;
+    height: 51px;
+}
+
+.head_block {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.mainimg{
+    width: 100vw;
+    overflow: hidden; /* 横方向の内容がはみ出た場合に非表示にする */
+    height: 100%;
+}
+
+/* ログインボタンのスタイル */
+.login-button a {
+    display: inline-block;
+    background-color: #000; /* ボタンの背景色 */
+    color: white;
+    padding: 10px 20px;
+    border: 2px solid #fff; /* ボタンの境界線 */
+    border-radius: 20px; /* 角の丸み */
+    text-decoration: none;
+    font-weight: bold;
+    z-index: 10; /* ボタンのz-indexを設定 */
+}
+
+.login-button a:hover {
+    background-color: #555; /* ホバー時の背景色 */
+}
+
+.login-button {
+    position: absolute;
+    right: 10%;
+    margin-top: 7px;
+    z-index: 10; /* ボタンのz-indexを設定 */
+}
+
+:root {
+    --header-height: 62px; /* ヘッダーの高さを変数として定義 */
+  }
+
+main{
+    position: relative;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    height: calc(100vh - var(--header-height));
+}
+
+.icon-text-container {
+    position: absolute;
+    top: 70px;
+    left: 70px;
+}
+  
+  .icon {
+    color: #6B6D73; /* アイコンの色 */
+    margin-right: 8px; /* アイコンとテキストの間隔 */
+    font-size: 24px;
+  }
+  
+  .text {
+    color: #6B6D73; /* テキストの色 */
+    font-weight: bold; /* テキストを太字にする */
+    font-size: 24px;
+  }
+
+.type_movie{
+    margin-bottom: 13px;
+}
+
+#footer-ad-banner {
+    position: absolute;
+    width: 100%; /* フッターの広告バナーの幅 */
+    max-width: 680px; /* または望む幅に設定 */
+    margin: auto;
+    overflow: hidden;
+    top: 650px;
+    left: 20.5%;
+    height: 115px;
+  }
+  
+  .ad-slides {
+    display: none;
+    width: 100%;
+  }
+  
+  .fade {
+    animation-name: fade;
+    animation-duration: 5s;
+  }
+  
+  @keyframes fade {
+    from {opacity: 0.4}
+    to {opacity: 1}
+  }
+  
+  .ad-indicators {
+    position: absolute;
+    bottom: 10px; /* インジケーターの位置を調整 */
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+  
+  .dot {
+    cursor: pointer;
+    height: 10px;
+    width: 10px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+  }
+  
+  .dot.active, .dot:hover {
+    background-color: #717171;
+  }
+
+.movie_container{
+    width: 700px;
+    height: 600px;
+    border-radius: 20px;
+    border: 1.5px solid #555555;
+    position: absolute;
+    top: 20px;
+    left: 20%;
+    overflow: hidden;
+}
+
+.movie_container_main{
+    width: 864px;
+    height: 740px;
+    border-radius: 20px;
+    border: 1.5px solid #555555;
+    position: absolute;
+    top: 13px;
+    left: 8%;
+    overflow: hidden;
+}
+
+.movie_block{
+    width: 400px;
+    height: 600px;
+    overflow: hidden;
+    position: absolute;
+}
+
+.movie_block_main{
+    width: 494px;
+    height: 740px;
+    overflow: hidden;
+    position: absolute;
+}
+
+.movie_block_main img {
+    max-width: 100%;
+    max-height: 100%;
+    min-width: 100%; /* コンテナの最小幅を画像の最小幅として設定 */
+    min-height: 100%; /* コンテナの最小高さを画像の最小高さとして設定 */
+    object-fit: contain; /* 画像のアスペクト比を維持しつつ、指定された幅と高さに収まるように調整 */
+}
+
+
+.movie_block h1{
+    font-size: 32px;
+    color: #ffffff;
+    -webkit-text-stroke: 1px black; /* Webkitブラウザ用のテキストの枠線 */
+    position: absolute;
+    top: 500px;
+    left: 30px;
+    font-weight: bold;
+}
+
+.movie_block_main h1{
+    font-size: 36px;
+    color: #ffffff;
+    -webkit-text-stroke: 1px black; /* Webkitブラウザ用のテキストの枠線 */
+    position: absolute;
+    top: 615px;
+    left: 30px;
+    font-weight: bold;
+}
+
+.favorite-container {
+    position: absolute; /* 画面に固定 */
+    top: 10px; /* 上からの距離 */
+    right: 10px; /* 右からの距離 */
+    z-index: 1000; /* 他の要素より前面に表示 */
+  }
+  
+  .favorite-icon {
+    font-size: 2em; /* アイコンのサイズを大きくする */
+    color: rgba(255, 255, 0, 0.284); /* アイコンの色 */
+    cursor: pointer; /* ホバー時にカーソルを指マークにする */
+  }
+  
+  .favorite-icon:hover {
+    color: yellow; /* ホバー時の色を変更 */
+  }
+
+  .favorite-container_main {
+    position: absolute; /* 画面に固定 */
+    top: 10px; /* 上からの距離 */
+    right: 10px; /* 右からの距離 */
+    z-index: 1000; /* 他の要素より前面に表示 */
+  }
+  
+  .favorite-icon_main {
+    font-size: 2em; /* アイコンのサイズを大きくする */
+    color: rgba(255, 255, 0, 0.284); /* アイコンの色 */
+    cursor: pointer; /* ホバー時にカーソルを指マークにする */
+  }
+  
+  .favorite-icon_main:hover {
+    color: yellow; /* ホバー時の色を変更 */
+  }
+
+.user_icon{
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background-color: #000;
+}
+
+.user_icon_main{
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: #000;
+}
+
+.upload_user{
+    position: absolute;
+    top: 10px;
+    left: 410px;
+}
+
+.upload_user_main{
+    position: absolute;
+    top: 10px;
+    left: 60%;
+}
+
+.upload_user h3{
+    position: absolute;
+    left: 60px;
+    width: 115px;
+    height: 33px;
+    border: 2px solid #FB1313;
+    font-size: 13px;
+    color: #FB1313;
+    top: 10px;
+    line-height: 33px; /* heightと同じ値にすることで垂直中央揃えになる */
+    text-align: center; /* テキストを水平方向に中央揃えにする */
+    display: flex; /* Flexbox コンテナとして指定 */
+    align-items: center; /* Flexbox を使用して垂直方向に中央揃え */
+    justify-content: center; /* Flexbox を使用して水平方向に中央揃え */
+    overflow: hidden; /* もしテキストが枠を超えた場合に隠す */
+    white-space: nowrap; /* テキストが複数行にならないようにする */
+}
+
+.upload_user_main h3{
+    position: absolute;
+    left: 73px;
+    width: 141px;
+    height: 40px;
+    border: 2px solid #FB1313;
+    font-size: 13px;
+    color: #FB1313;
+    top: 10px;
+    line-height: 33px; /* heightと同じ値にすることで垂直中央揃えになる */
+    text-align: center; /* テキストを水平方向に中央揃えにする */
+    display: flex; /* Flexbox コンテナとして指定 */
+    align-items: center; /* Flexbox を使用して垂直方向に中央揃え */
+    justify-content: center; /* Flexbox を使用して水平方向に中央揃え */
+    overflow: hidden; /* もしテキストが枠を超えた場合に隠す */
+    white-space: nowrap; /* テキストが複数行にならないようにする */
+}
+
+.item_container{
+    width: 300px;
+    height: 480px;
+    position: absolute;
+    top: 75px;
+    left: 400px;
+    background-color: #ffffff;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.item_container_main{
+    width: 369px;
+    height: 590px;
+    position: absolute;
+    top: 92px;
+    left: 58%;
+    background-color: #ffffff;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.item_block{
+    background-color: #fff;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.item_block_main{
+    background-color: #fff;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.item_pic{
+    height: 150px;
+    width: 150px;
+    border: 1px solid #beb6b6;
+    border-radius: 40px;
+    overflow: hidden;
+    display: flex; /* Flexboxコンテナを定義 */
+    justify-content: center; /* 水平方向の中央揃え */
+    align-items: center; /* 垂直方向の中央揃え */
+    background-color: #fff;
+    margin-left: 10px;
+}
+
+.item_pic_main{
+    height: 185px;
+    width: 185px;
+    border: 1px solid #beb6b6;
+    border-radius: 40px;
+    overflow: hidden;
+    display: flex; /* Flexboxコンテナを定義 */
+    justify-content: center; /* 水平方向の中央揃え */
+    align-items: center; /* 垂直方向の中央揃え */
+    background-color: #fff;
+    margin-left: 10px;
+}
+  
+.item_pic img {
+    max-width: 100%; /* コンテナを超えないように最大幅を設定 */
+    max-height: 100%; /* コンテナを超えないように最大高さを設定 */
+    object-fit: contain; /* 画像のアスペクト比を保ちながら最大サイズにフィット */
+}
+
+.item_pic_main img {
+    max-width: 100%; /* コンテナを超えないように最大幅を設定 */
+    max-height: 100%; /* コンテナを超えないように最大高さを設定 */
+    object-fit: contain; /* 画像のアスペクト比を保ちながら最大サイズにフィット */
+}
+
+.price{
+    background-color: #bbb;
+    width: 90px;
+    height: 20px;
+    position: absolute;
+    top: 10px;
+    left: 180px;
+}
+
+.price_main{
+    background-color: #bbb;
+    width: 110px;
+    height: 24px;
+    position: absolute;
+    top: 10px;
+    left: 60%;
+    text-align: center;
+}
+
+.horizontal-line1 {
+    position: absolute;
+    top: 65px;
+    left: 175px;
+    width: 100px; /* 線の幅を親要素の幅に合わせます */
+    height: 0.7px; /* 線の太さを2pxに設定します */
+    background-color: #EFEFEF; /* 線の色を黒に設定します */
+}
+
+.horizontal-line1_main {
+    position: absolute;
+    top: 80px;
+    left: 58%;
+    width: 123px; /* 線の幅を親要素の幅に合わせます */
+    height: 1px; /* 線の太さを2pxに設定します */
+    background-color: #EFEFEF; /* 線の色を黒に設定します */
+}
+
+.horizontal-line2 {
+    position: absolute;
+    top: 95px;
+    left: 175px;
+    width: 100px; /* 線の幅を親要素の幅に合わせます */
+    height: 0.7px; /* 線の太さを2pxに設定します */
+    background-color: #EFEFEF; /* 線の色を黒に設定します */
+}
+
+.horizontal-line2_main {
+    position: absolute;
+    top: 116px;
+    left: 58%;
+    width: 123px; /* 線の幅を親要素の幅に合わせます */
+    height: 1px; /* 線の太さを2pxに設定します */
+    background-color: #EFEFEF; /* 線の色を黒に設定します */
+}
+
+.horizontal-line3 {
+    position: absolute;
+    top: 125px;
+    left: 175px;
+    width: 100px; /* 線の幅を親要素の幅に合わせます */
+    height: 0.7px; /* 線の太さを2pxに設定します */
+    background-color: #EFEFEF; /* 線の色を黒に設定します */
+}
+
+.horizontal-line3_main {
+    position: absolute;
+    top: 153px;
+    left: 58%;
+    width: 123px; /* 線の幅を親要素の幅に合わせます */
+    height: 1px; /* 線の太さを2pxに設定します */
+    background-color: #EFEFEF; /* 線の色を黒に設定します */
+}
+
+.set1{
+    position: absolute;
+    top: 38px;
+    left: 175px;
+    font-size: 8px;
+    color: #888484;
+}
+
+.set1_main{
+    position: absolute;
+    top: 47px;
+    left: 58%;
+    font-size: 10px;
+    color: #888484;
+}
+
+.set2{
+    position: absolute;
+    top: 68px;
+    left: 175px;
+    font-size: 8px;
+    color: #888484;
+}
+
+.set2_main{
+    position: absolute;
+    top: 83px;
+    left: 58%;
+    font-size: 10px;
+    color: #888484;
+}
+
+.set3{
+    position: absolute;
+    top: 98px;
+    left: 175px;
+    font-size: 8px;
+    color: #888484;
+}
+
+.set3_main{
+    position: absolute;
+    top: 120px;
+    left: 58%;
+    font-size: 10px;
+    color: #888484;
+}
+
+.submit-button {
+    position: absolute;
+    top: 130px;
+    left: 200px;
+    width: 70px; 
+    height: 15px;
+    padding: 10px; /* ボタン内の余白 */
+    border: none; /* 枠線なし */
+    background-color: #fffcfc; /* 背景色 */
+    color: #0a0a0a; /* 文字色 */
+    font-size: 16px; /* 文字のサイズ */
+    cursor: pointer; /* カーソルを指マークにする */
+    border-radius: 4px; /* 角の丸み */
+    border: 1px solid #484848;
+    font-size: 8px;
+    text-align: center;
+    padding: 1px 0; /* 上下のパディングのみ指定 */
+  }
+  
+  .submit-button:hover {
+    background-color: #e5e5e5; /* ホバー時の背景色を暗くする */
+  }
+
+  .submit-button_main {
+    position: absolute;
+    top: 160px;
+    left: 68%;
+    width: 86px; 
+    height: 18px;
+    padding: 10px; /* ボタン内の余白 */
+    border: none; /* 枠線なし */
+    background-color: #fffcfc; /* 背景色 */
+    color: #0a0a0a; /* 文字色 */
+    font-size: 19px; /* 文字のサイズ */
+    cursor: pointer; /* カーソルを指マークにする */
+    border-radius: 4px; /* 角の丸み */
+    border: 1px solid #484848;
+    font-size: 8px;
+    text-align: center;
+    padding: 1px 0; /* 上下のパディングのみ指定 */
+  }
+  
+  .submit-button_main:hover {
+    background-color: #e5e5e5; /* ホバー時の背景色を暗くする */
+  }
+
+.total_price{
+    font-size: 16px;
+    position: absolute;
+    bottom: 6px;
+    left: 500px;
+}
+
+.total_price_main{
+    font-size: 19px;
+    position: absolute;
+    bottom: 8px;
+    left: 69%;
+}
+
+.my_code_block{
+    position: absolute;
+    top: 10px;
+    left: 1030px;
+    width: 400px;
+    height: 750px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #484848;
+}
+
+.code_container{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: #ffffff;
+    width: 100%;
+    height: 600px;
+    border-radius: 20px 20px 0px 0px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.code_block{
+    background-color: #fff;
+    margin-top: 15px;
+    position: relative;
+}
+
+.code_pic_submit{
+    height: 185px;
+    width: 185px;
+    border: 2px solid #767676;
+    border-radius: 40px;
+    overflow: hidden;
+    display: flex; /* Flexboxコンテナを定義 */
+    justify-content: center; /* 水平方向の中央揃え */
+    align-items: center; /* 垂直方向の中央揃え */
+    background-color: #d5d5d5c4;
+    margin-left: 10px;
+}
+
+.code_pic{
+    height: 185px;
+    width: 185px;
+    border: 2px solid #767676;
+    border-radius: 40px;
+    overflow: hidden;
+    display: flex; /* Flexboxコンテナを定義 */
+    justify-content: center; /* 水平方向の中央揃え */
+    align-items: center; /* 垂直方向の中央揃え */
+    background-color: #fff;
+    margin-left: 10px;
+}
+
+.code_pic img {
+    max-width: 100%; /* コンテナを超えないように最大幅を設定 */
+    max-height: 100%; /* コンテナを超えないように最大高さを設定 */
+    object-fit: contain; /* 画像のアスペクト比を保ちながら最大サイズにフィット */
+}
+
+
+
+
+.code_price{
+    background-color: #d9d9d978;
+    width: 140px;
+    height: 20px;
+    position: absolute;
+    top: 10px;
+    left: 220px;
+    text-align: center;
+}
+
+.code_horizontal-line1 {
+    position: absolute;
+    top: 75px;
+    left: 220px;
+    width: 140px; /* 線の幅を親要素の幅に合わせます */
+    height: 1px; /* 線の太さを2pxに設定します */
+    background-color: #c1c0c0; /* 線の色を黒に設定します */
+}
+
+.code_horizontal-line2 {
+    position: absolute;
+    top: 115px;
+    left: 220px;
+    width: 140px; /* 線の幅を親要素の幅に合わせます */
+    height: 1px; /* 線の太さを2pxに設定します */
+    background-color: #c1c0c0; /* 線の色を黒に設定します */
+}
+
+.code_horizontal-line3 {
+    position: absolute;
+    top: 155px;
+    left: 220px;
+    width: 140px; /* 線の幅を親要素の幅に合わせます */
+    height: 1px; /* 線の太さを2pxに設定します */
+    background-color: #c1c0c0; /* 線の色を黒に設定します */
+}
+
+.code_set1{
+    position: absolute;
+    top: 42px;
+    left: 220px;
+    font-size: 10px;
+    color: #888484;
+}
+
+.code_set2{
+    position: absolute;
+    top: 82px;
+    left: 220px;
+    font-size: 10px;
+    color: #888484;
+}
+
+.code_set3{
+    position: absolute;
+    top: 122px;
+    left: 220px;
+    font-size: 10px;
+    color: #888484;
+}
+
+.code_submit-button {
+    position: absolute;
+    top: 160px;
+    left: 275px;
+    width: 70px; 
+    height: 20px;
+    padding: 10px; /* ボタン内の余白 */
+    border: none; /* 枠線なし */
+    background-color: #fffcfc; /* 背景色 */
+    color: #0a0a0a; /* 文字色 */
+    font-size: 16px; /* 文字のサイズ */
+    cursor: pointer; /* カーソルを指マークにする */
+    border-radius: 4px; /* 角の丸み */
+    border: 1px solid #484848;
+    font-size: 10px;
+    text-align: center;
+    padding: 1px 0; /* 上下のパディングのみ指定 */
+  }
+  
+  .code_submit-button:hover {
+    background-color: #e5e5e5; /* ホバー時の背景色を暗くする */
+  }
+
+.code_sub{
+    font-size: 16px;
+    position: absolute;
+    top: 50%;
+    left: 220px;
+}
+
+.add_mark{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #1FF6E9;
+    position: absolute;
+    top: 52px;
+    left: 115px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.code_total_price{
+    position: absolute;
+    bottom: 70px;
+    left: 50%;
+}
+
+.code_total_price_title{
+    position: absolute;
+    bottom: 70px;
+    left: 12%;
+}
+
+.keep_button{
+    background-color: #202131;
+    position: absolute;
+    bottom: 10px;
+    left: 30%;
+    color: #FFF;
+    font-size: 20px;
+    font-weight: bold;
+    width: 160px;
+    height: 46px;
+    border-radius: 30px;
+}
+
+.hamburger-menu{
+    position: absolute;
+    top: 20px;
+    left: 2%;
+    width: auto;
+    height: auto;
+}
+
+.fa-bars{
+    font-size: 35px;
+    color: #8f8f8f;
+}
+
+.icon-button{
+    position: relative;
+    top: -245px;
+    left: -20px;
+    width: auto;
+    height: auto;
+}
+
+.fa-arrow-left{
+    font-size: 35px;
+    color: #8f8f8f;
+}
