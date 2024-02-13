@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <h1>ログイン画面</h1>
+{% endblock %}
+
+
+{% block content %}
+    {% from "_formhelpers.html" import render_field %}
+    
+    <form method="POST" novalidate>
+        {{ form.csrf_token }}
+        {{render_field(form.email)}}
+        {{render_field(form.password)}}
+        <br>
+        {{ form.submit }}
+    </form>
+
+    <h3>{{msg}}</h3>
+
+{% endblock %}
+
+
