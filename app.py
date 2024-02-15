@@ -1,16 +1,63 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask,redirect,render_template,request,session,url_for,jsonify
+from Forms import login,sinUp
+from  FirebasePackage.Firebase import firebase
 import sqlite3
+import os
 
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = os.urandom(24)
 
-@app.route('/')
+FB = firebase()
+
+
+@app.route('/',methods=['GET'])
 def welcome():
-    return render_template('welcome.html')
+    if 'usr' in session:
+        return render_template('home.html')
+    else:
+        return render_template('welcome.html')
+
+@app.route('/sinup',methods=['GET','POST'])
+def sinup():
+    if request.method == "GET":
+        return render_template("welcome.html")
+    elif request.method == "POST":
+        _username = request.form['username']
+        _password = request.form['password']
+        isFlag,usr=FB.Signup(name="藤季", email=_username, password=_password)
+    else:
+        render_template("welcome.html")
+
+    if isFlag:
+        print("成功1",usr)
+        session["usr"] = _username
+        return render_template('Introduction.html')
+    else:
+        return render_template('welcome.html')
+    
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        return render_template('login.html')
+    elif request.method == 'POST':
+        _username = request.form['username']
+        _password = request.form['password']
+        isFlag, usr = FB.Login(email=_username, password=_password)
+        if isFlag:
+            session['usr'] = _username
+            return redirect(url_for('home'))
+        else:
+            return render_template('login.html', error='Invalid username or password')
+    else:
+        return render_template('login.html')
 
 @app.route('/home')
 def home():
-    return render_template('home.html')
+    if "usr" in session:
+        return render_template('home.html')
+    else:
+        return render_template('welcome.html')
 
 @app.route('/introduction')
 def Introduction():
@@ -35,6 +82,8 @@ def save_preference():
     conn.close()
 
     return jsonify({'status': 'success'})
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
