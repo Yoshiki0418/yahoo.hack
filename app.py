@@ -28,13 +28,12 @@ def sinup():
         isFlag,usr=FB.Signup(name="藤季", email=_username, password=_password)
     else:
         render_template("welcome.html")
-
     if isFlag:
         print("成功1",usr)
         session["usr"] = _username
         return render_template('Introduction.html')
     else:
-        return render_template('welcome.html')
+        return render_template('welcome.html',sinup_failed = not isFlag ,sinup_error= usr)
     
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -48,7 +47,7 @@ def login():
             session['usr'] = _username
             return redirect(url_for('home'))
         else:
-            return render_template('welcome.html', error='Invalid username or password')
+            return render_template('welcome.html', login_failed = not isFlag ,login_error='ユーザ名またはパスワードが間違っています')
     else:
         return render_template('welcome.html')
 

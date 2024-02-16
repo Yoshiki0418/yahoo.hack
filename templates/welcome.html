@@ -174,6 +174,7 @@
                   <input type="text" id="username" name="username" placeholder="ユーザー名、メールアドレス" required>
                   <input type="password" id="password" name="password" placeholder="パスワード" required>
                   <button type="submit" class="signup-button" >サインアップ</button>
+                  <h4>{{sinup_error}}</h4>
                 </form>
                 <div class="horizontal-line-modal"></div>
                 <p class="modal-text">
@@ -181,6 +182,15 @@
                 </p>
             </div>
         </div>
+        {% if sinup_failed %}
+            <script>
+                window.onload = function() {
+                    // モーダルを表示する関数、またはモーダルを開くためのコード
+                    var modal = document.getElementById('myModal');
+                    modal.style.display = 'block';
+                };
+            </script>
+        {% endif %}
 
         <!-- ログイン用のモーダル -->
         <div id="loginModal" class="modal">
@@ -192,6 +202,7 @@
                     <input type="text" id="loginUsername" name="username" placeholder="ユーザー名、メールアドレス" required>
                     <input type="password" id="loginPassword" name="password" placeholder="パスワード" required>
                     <button type="submit" class="login-button2">ログイン</button>
+                    <h4>{{login_error}}</h4>
                 </form>
                 <div class="horizontal-line-modal"></div>
                 <p class="modal-text">
@@ -199,6 +210,15 @@
                 </p>
             </div>
         </div>
+        {% if login_failed %}
+            <script>
+                window.onload = function() {
+                    // モーダルを表示する関数、またはモーダルを開くためのコード
+                    var modal = document.getElementById('loginModal');
+                    modal.style.display = 'block';
+                };
+            </script>
+        {% endif %}
     </main>
     <footer>
         <div class="link_block">
