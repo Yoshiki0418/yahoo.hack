@@ -14,33 +14,27 @@ FB = firebase()
 @app.route('/',methods=['GET'])
 def welcome():
     if 'usr' in session:
-        return render_template('home.html')
+        return redirect(url_for('home'))
     else:
         return render_template('welcome.html')
 
-@app.route('/sinup',methods=['GET','POST'])
+@app.route('/sinup', methods=['POST'])
 def sinup():
-    if request.method == "GET":
-        return render_template("welcome.html")
-    elif request.method == "POST":
+    if request.method == "POST":
         _username = request.form['username']
         _password = request.form['password']
-        isFlag,usr=FB.Signup(name="藤季", email=_username, password=_password)
-    else:
-        render_template("welcome.html")
-
-    if isFlag:
-        print("成功1",usr)
-        session["usr"] = _username
-        return render_template('Introduction.html')
+        isFlag, usr = FB.Signup(name="藤季", email=_username, password=_password)
+        if isFlag:
+            session["usr"] = _username
+            return redirect(url_for('Introduction'))
+        else:
+            return render_template('welcome.html', sinup_failed=not isFlag, sinup_error=usr)
     else:
         return render_template('welcome.html')
     
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['POST'])
 def login():
-    if request.method == 'GET':
-        return render_template('login.html')
-    elif request.method == 'POST':
+    if request.method == 'POST':
         _username = request.form['username']
         _password = request.form['password']
         isFlag, usr = FB.Login(email=_username, password=_password)
@@ -48,9 +42,14 @@ def login():
             session['usr'] = _username
             return redirect(url_for('home'))
         else:
-            return render_template('login.html', error='Invalid username or password')
+            return render_template('welcome.html', login_failed = not isFlag ,login_error='ユーザ名またはパスワードが間違っています')
     else:
-        return render_template('login.html')
+        return render_template('welcome.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('usr', None)
+    return redirect(url_for('welcome'))
 
 @app.route('/home')
 def home():
