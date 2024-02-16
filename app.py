@@ -39,7 +39,7 @@ def sinup():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
-        return render_template('login.html')
+        return render_template('welcome.html')
     elif request.method == 'POST':
         _username = request.form['username']
         _password = request.form['password']
@@ -48,9 +48,9 @@ def login():
             session['usr'] = _username
             return redirect(url_for('home'))
         else:
-            return render_template('login.html', error='Invalid username or password')
+            return render_template('welcome.html', error='Invalid username or password')
     else:
-        return render_template('login.html')
+        return render_template('welcome.html')
 
 @app.route('/home')
 def home():
