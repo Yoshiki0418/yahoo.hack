@@ -129,34 +129,3 @@ window.onclick = function(event) {
     closeModal();
   }
 };
-
-
-
-
-document.addEventListener("DOMContentLoaded", function() {
-    // ログインボタン
-    var loginButton = document.querySelector(".login-button a");
-    // ログインモーダル
-    var loginModal = document.getElementById("loginModal");
-    // モーダルを閉じるボタン
-    var closeLoginModal = document.querySelector(".close-login");
-
-    // ログインボタンクリックイベント
-    loginButton.addEventListener("click", function(event) {
-        event.preventDefault();
-        loginModal.style.display = "block";
-    });
-
-    // モーダルを閉じるボタンのクリックイベント
-    closeLoginModal.addEventListener("click", function() {
-        loginModal.style.display = "none";
-    });
-
-    // モーダルの外側をクリックした場合にモーダルを閉じる
-    window.addEventListener("click", function(event) {
-        if (event.target == loginModal) {
-            loginModal.style.display = "none";
-        }
-    });
-});
-

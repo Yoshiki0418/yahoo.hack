@@ -939,7 +939,7 @@ footer{
     box-sizing: border-box; /* パディングとボーダーを含めた幅にする */
   }
   
-  .login-button2 {
+  .login-button {
     width: 305px;
     padding: 10px 0;
     background-color: #67B5FA;
@@ -952,8 +952,24 @@ footer{
     transition: background-color 0.2s;
   }
   
-  .login-button2:hover {
+  .login-button:hover {
     background-color: #0056b3;
+  }
+  
+  .modal-text {
+    color: #888484;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .horizontal-line-modal{
+    width: 90%; /* 線の幅を親要素の幅に合わせます */
+    margin-left: 5%;
+    height: 0.7px; /* 線の太さを2pxに設定します */
+    background-color: #555555; /* 線の色を黒に設定します */
+    margin-top: 30px; /* 必要に応じて上のマージンを設定します */
+    margin-bottom: 30px; /* 必要に応じて下のマージンを設定します */
   }
   
   
