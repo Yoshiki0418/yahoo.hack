@@ -939,7 +939,7 @@ footer{
     box-sizing: border-box; /* パディングとボーダーを含めた幅にする */
   }
   
-  .login-button2 {
+  .login-button {
     width: 305px;
     padding: 10px 0;
     background-color: #67B5FA;
@@ -952,7 +952,7 @@ footer{
     transition: background-color 0.2s;
   }
   
-  .login-button2:hover {
+  .login-button:hover {
     background-color: #0056b3;
   }
   
