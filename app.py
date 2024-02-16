@@ -14,32 +14,27 @@ FB = firebase()
 @app.route('/',methods=['GET'])
 def welcome():
     if 'usr' in session:
-        return render_template('home.html')
+        return redirect(url_for('home'))
     else:
         return render_template('welcome.html')
 
-@app.route('/sinup',methods=['GET','POST'])
+@app.route('/sinup', methods=['POST'])
 def sinup():
-    if request.method == "GET":
-        return render_template("welcome.html")
-    elif request.method == "POST":
+    if request.method == "POST":
         _username = request.form['username']
         _password = request.form['password']
-        isFlag,usr=FB.Signup(name="藤季", email=_username, password=_password)
+        isFlag, usr = FB.Signup(name="藤季", email=_username, password=_password)
+        if isFlag:
+            session["usr"] = _username
+            return redirect(url_for('Introduction'))
+        else:
+            return render_template('welcome.html', sinup_failed=not isFlag, sinup_error=usr)
     else:
-        render_template("welcome.html")
-    if isFlag:
-        print("成功1",usr)
-        session["usr"] = _username
-        return render_template('Introduction.html')
-    else:
-        return render_template('welcome.html',sinup_failed = not isFlag ,sinup_error= usr)
-    
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'GET':
         return render_template('welcome.html')
-    elif request.method == 'POST':
+    
+@app.route('/login', methods=['POST'])
+def login():
+    if request.method == 'POST':
         _username = request.form['username']
         _password = request.form['password']
         isFlag, usr = FB.Login(email=_username, password=_password)
@@ -50,6 +45,11 @@ def login():
             return render_template('welcome.html', login_failed = not isFlag ,login_error='ユーザ名またはパスワードが間違っています')
     else:
         return render_template('welcome.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('usr', None)
+    return redirect(url_for('welcome'))
 
 @app.route('/home')
 def home():
