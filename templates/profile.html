@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/profile.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    <title>Document</title>
+  </head>
+  <body>
+    <hedaer>
+      <nav>
+          <div class="head_block">
+              <li><a><img src="../static/image/logo.png" class="logo_pic"></a></li>
+              <div class="login-button">
+                  <a href="/login">ログイン</a>
+              </div>
+           </div>
+        </nav> 
+    </hedaer>
+    <main>
+    <!--サイドバーの中身-->
+    <div id="sidebar" class="sidebar">
+      <div class="icon-text-container">
+          <div class="type_movie selected">
+              <i class="fas fa-home icon"></i>
+              <span class="text">おすすめ</span>
+          </div>
+          <div class="type_movie">
+              <i class="fas fa-user icon"></i>
+              <span class="text">フォロー中</span>
+          </div>
+          <div class="type_movie">
+              <i class="fas fa-chart-line icon"></i>
+              <span class="text">トレンド</span>
+          </div>
+          <div class="type_movie">
+              <i class="fas fa-search icon"></i>
+              <span class="text">探索</span>
+          </div>
+      </div>
+    </div>
+
+    <img src="static/images/a.png" class="my_icon" width="100" height="100">
+    <h2 class="name">Name</h2>
+    <h3 class="introduction">自己紹介</h3>
+
+<!--メインタブ-->
+    <div class="tabs">
+      <input id="closet" type="radio" name="tab-items" checked>
+      <label class="tab-team" for="closet">クローゼット</label>
+      <input id="coordination" type="radio" name="tab-items">
+      <label class="tab-team" for="coordination">保存済みコーデ</label>
+      <input id="post" type="radio" name="tab-items">
+      <label class="tab-team" for="post">投稿</label>
+
+  <!--クローゼットタブ-->
+      <div class="tab-content" id="closet-content">
+        
+          <input id="all" type="radio" name="tab-items-sub" checked>
+          <label class="tab-team-sub" for="all">すべて</label>
+          
+          <input id="bottoms" type="radio" name="tab-items-sub">
+          <label class="tab-team-sub" for="bottoms">ボトムス</label>
+
+          <input id="shoes" type="radio" name="tab-items-sub">
+          <label class="tab-team-sub" for="shoes">シューズ</label>
+
+          <input id="tops" type="radio" name="tab-items-sub">
+          <label class="tab-team-sub" for="tops">トップス</label>        
+          
+          <input id="accessories" type="radio" name="tab-items-sub">
+          <label class="tab-team-sub" for="accessories">アクセサリー</label>
+
+          <input id="others" type="radio" name="tab-items-sub">
+          <label class="tab-team-sub" for="others">その他</label>  
+
+          <div class="tab-content-sub" id="all-content">
+            <ul>
+              <li><a href=""><img src="static/images/add_closet.png" width="110" height="110" id="add"></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+            </ul>
+          </div>
+      </div>
+
+<!--保存済みコーデのタブ-->
+      <div class="tab-content" id="coordination-content">
+        <ul>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+        </ul>
+      </div>
+
+<!--マイコーデのタブ-->
+      <div class="tab-content" id="post-content">
+        投稿
+      </div>
+    </div>
+
+  </main>
+  </body>
+</html>
