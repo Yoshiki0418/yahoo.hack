@@ -1,46 +1,83 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../static/css/styles_introduction2.css" />
-    <script src="../static/js/Introduction2.js"></script>
-  </head>
-  <body>
-    <div class="screen">
-        <header class="overlap-group">
-          <div class="text-wrapper">Cloudrobe</div>
-        </header>
+<html lang="ja">
+<head>
+
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="../static/css/styles_introduction2.css" />
+  <script src="../static/js/Introduction2.js"></script>
+
+</head>
+<body>
+  <div class="screen">
+    <header class="header">
+      <div class="companyname">Cloudrobe</div>
+    </header>
         
-        <div class="text-wrapper-2">自分のクローゼットを持ち歩こう</div>
-        <div class="overlap-group-2">
-          <div class="rectangle"></div>
-          <div class="rectangle-2"></div>
-          <div class="rectangle-7" id="imagePreview"></div>
-          <div class="rectangle-8"></div>
-          <div class="rectangle-9"></div>
-          <button class="button-save">保存</button>
-           <!-- 画像アップロードのinputを追加 -->
+        <div class="explanation">自分のクローゼットを持ち歩こう</div>
+        
+        <div class="closet">
+          
+          <div class="data-input"></div>
+          <div id="saveArea" class="saveArea"></div>
+          <div class="preview" id="imagePreview"></div>
+
           <input type="file" id="imageUpload" style="display:none;" onchange="previewImage();" />
+          
           <label for="imageUpload" class="image-upload-label" id="imageUploadLabel">
-            <img class="image" src="../static/image/hunger.jpg" />
+            <img class="hunger-button" src="../static/img/hunger.jpg" />
           </label>
           
-          <div class="text-wrapper-4">基本情報(必須)</div>
-          <div class="text-wrapper-5">系統</div>
-          <div class="text-wrapper-6">ブランド</div>
-          <div class="text-wrapper-7">サイズ</div>
-          <div class="text-wrapper-8">価格</div>
-          <div class="text-wrapper-9">購入日</div>
-          <div class="text-wrapper-10">思い出メモ</div>
-          <div class="text-wrapper-11">カテゴリー</div>
-          <div class="text-wrapper-12">詳細情報</div>
-        </div>
-        <div class="overlap-2">
-          <button class="button-13">次に進む</button>
+          <div class="rectangle-1"></div>
+          <div class="rectangle-2"></div>
+          
+          <div class="text-wrapper-1">基本情報(必須)</div>
+          <div class="text-wrapper-2">詳細情報</div>
+          
+          <div class="input-group1">
+            <div class="information-1">系統</div>
+            <input type="text" class="input-field1" />
+          </div>
+          
+          <div class="input-group2">
+            <div class="information-2">ブランド</div>
+            <input type="text" class="input-field2" />
+          </div>
+          
+          <div class="input-group3">
+            <div class="information-3">サイズ</div>
+            <input type="text" class="input-field3" />
+          </div>
+          
+          <div class="input-group4">
+            <div class="information-4">価格</div>
+            <input type="text" class="input-field4" />
+          </div>
+          
+          <div class="input-group5">
+            <div class="information-5">購入日</div>
+            <input type="text" class="input-field5" />
+          </div>
+          
+          <div class="input-group6">
+            <div class="information-6">思い出メモ</div>
+            <input type="text" class="input-field6" />
+          </div>
+          
+          <div class="input-group7">
+            <div class="information-7">カテゴリー</div>
+            <input type="text" class="input-field7" />
+          </div>
 
-          <div class="text-wrapper-14">２つ以上登録してください</div>
+          <button class="button-save">保存</button>
+          
         </div>
-        <div class="text-wrapper-15">後で追加することもできます</div>
+        
+        <div class="next">
+          <button class="next-button">次に進む</button>
+        </div>
+        
+        <div class="supplement">後で追加することもできます</div>
+
     </div>
   </body>
 </html>
