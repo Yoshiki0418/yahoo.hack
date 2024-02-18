@@ -23,6 +23,8 @@ FB = firebase()
 
 
 
+
+
 @app.route('/',methods=['GET'])
 def welcome():
     if 'usr' in session:
@@ -38,8 +40,7 @@ def sinup():
         isFlag, usr = FB.Signup(name="藤季", email=_username, password=_password)
         if isFlag:
             session["usr"] = usr.uid
-            print(session["usr"])
-            create_user(usr.uid, "藤季", _username)
+            create_user(usr.uid, "藤季光樹" , _username)
             return redirect(url_for('Introduction'))
         else:
             return render_template('welcome.html', sinup_failed=not isFlag, sinup_error=usr)
@@ -53,7 +54,7 @@ def login():
         _password = request.form['password']
         isFlag, usr = FB.Login(email=_username, password=_password)
         if isFlag:
-            session['usr'] = _username
+            session['usr'] = usr.uid
             return redirect(url_for('home'))
         else:
             return render_template('welcome.html', login_failed = not isFlag ,login_error='ユーザ名またはパスワードが間違っています')
@@ -74,26 +75,26 @@ def home():
 
 @app.route('/introduction')
 def Introduction():
+    if "usr" not in session:
+        return redirect(url_for('welcome'))
     return render_template('Introduction.html')
 
 @app.route('/introduction2')
 def introduction2():
+    if "usr" not in session:
+        return redirect(url_for('welcome'))
     return render_template('Introduction2.html')
 
 @app.route('/save-preference', methods=['POST'])
 def save_preference():
+    if "usr" not in session:
+        return redirect(url_for('welcome'))
     data = request.get_json()
     category = data['category']
     preference = data['preference']
-    
-    # ここでデータベースに接続し、データを保存
-    conn = sqlite3.connect('preferences.db')
-    c = conn.cursor()
-    c.execute("CREATE TABLE IF NOT EXISTS preferences (id INTEGER PRIMARY KEY, category TEXT, preference TEXT)")
-    c.execute("INSERT INTO preferences (category, preference) VALUES (?, ?)", (category, preference))
-    conn.commit()
-    conn.close()
-
+    print(session['usr'])
+    # ユーザーの好みを保存
+    add_user_style_link(session['usr'], category)
     return jsonify({'status': 'success'})
 
 
@@ -132,21 +133,21 @@ class Follower(db.Model):
 # スタイルテーブル
 class Style(db.Model):
     __tablename__ = 'style'
-    id = db.Column(db.Integer, primary_key=True)
-    style_name = db.Column(db.String(50), nullable=False)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    style_name = db.Column(db.String(50), nullable=False, unique=True)
     users = db.relationship('User', secondary='user_style_link', back_populates='favorite_styles')
     closets = db.relationship('Closet', secondary='closet_style_link', back_populates='clothes_styles')
 
 # ユーザーとスタイルの中間テーブル
 user_style_link = db.Table('user_style_link',
-    db.Column('user_id', db.Integer, db.ForeignKey('user.uid', name='fk_user_style_user_id'), primary_key=True),
-    db.Column('style_id', db.Integer, db.ForeignKey('style.id', name='fk_user_style_style_id'), primary_key=True)
+    db.Column('user_id', db.String(50), db.ForeignKey('user.uid', name='fk_user_style_user_id'), primary_key=True),
+    db.Column('style_id', db.String(50), db.ForeignKey('style.id', name='fk_user_style_style_id'), primary_key=True)
 )
 
 # クローゼットとスタイルの中間テーブル
 closet_style_link = db.Table('closet_style_link',
-    db.Column('closet_id', db.Integer, db.ForeignKey('closet.id', name='fk_closet_style_closet_id'), primary_key=True),
-    db.Column('style_id', db.Integer, db.ForeignKey('style.id', name='fk_closet_style_style_id'), primary_key=True)
+    db.Column('closet_id', db.String(50), db.ForeignKey('closet.id', name='fk_closet_style_closet_id'), primary_key=True),
+    db.Column('style_id', db.String(50), db.ForeignKey('style.id', name='fk_closet_style_style_id'), primary_key=True)
 )
 
     
@@ -170,6 +171,21 @@ def create_follower(follower_uid, followed_uid):
         db.session.add(follower)
         db.session.commit()
         return follower
+    
+def create_style(style_name):
+    with app.app_context():
+        style = Style(style_name=style_name)
+        db.session.add(style)
+        db.session.commit()
+        print("成功")
+
+def add_user_style_link(user_id, style_name):
+    with app.app_context():
+        style = Style.query.filter_by(style_name=style_name).first()
+        stmt = user_style_link.insert().values(user_id=user_id, style_id=style.id)
+        db.session.execute(stmt)
+        db.session.commit()
+
 
 
 if __name__ == '__main__':
