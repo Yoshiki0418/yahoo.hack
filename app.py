@@ -96,14 +96,23 @@ def save_preference():
 #データベース
 class User(db.Model):
     __tablename__ = 'user'
-    uid = db.Column(db.Integer, primary_key=True)
+    uid = db.Column(db.Integer, primary_key=True,)
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
+    favoriteStyle = db.relationship('closet',secondary='style', back_populates='style')
     closet_items = db.relationship('Closet', backref='owner', lazy=True)
     followers = db.relationship('Follower', foreign_keys='Follower.follower_uid', backref='follower', lazy=True)
     followed = db.relationship('Follower', foreign_keys='Follower.followed_uid', backref='followed', lazy=True)
     def __str__(self):
         return f'uif:{self.uid},User:{self.name},Email:{self.email},Closet:{self.closet_items},Followers:{self.followers},Followed:{self.followed}'
+    
+class Style(db.Model):
+    __tablename__ = 'style'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_uid = db.Column(db.Integer, db.ForeignKey('user.uid'))
+    closet_id = db.Column(db.Integer, db.ForeignKey('closet.id'))
+    style = db.Column(db.String(50), nullable=False)
+
 
 class Closet(db.Model):
     __tablename__ = 'closet'
@@ -113,7 +122,7 @@ class Closet(db.Model):
     category = db.Column(db.String(50), nullable=False)
     brand = db.Column(db.String(50))
     image = db.Column(db.String(100), nullable=False)
-    style = db.Column(db.String(50), nullable=False)
+    favoriteStyle = db.relationship('user',secondary='style', back_populates='favoriteStyle')
 
     #オプションのカラム
     size = db.Column(db.String(50))
