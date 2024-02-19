@@ -1,0 +1,519 @@
+.screen {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.screen .header {
+  position: fixed; /* ヘッダーを固定位置に設定 */
+  width: 2000px;
+  height: 60px;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: #352f2f;
+}
+
+.screen .companyname {
+  position: absolute;
+  width: 204px;
+  top: 8px;
+  left: 65px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #fbf8f8;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.screen .explanation {
+  width: 613px;
+  top: 380px;
+  left: 871px;
+  font-family: "Inter-Bold", Helvetica;
+  font-weight: 700;
+  color: #000000;
+  font-size: 36px;
+  position: absolute;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.screen .closet {
+  position: absolute;
+  width: 795px;
+  top: 150px;
+  left: 51px;
+}
+
+.screen .data-input {
+  position: absolute;
+  width: 719px;
+  height: 700px;
+  top: -50px;
+  left: 6px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  border: 1px solid;
+  border-color: #000000;
+}
+
+.screen .saveArea {
+  position: absolute;
+  width: 491px;
+  height: 700px;
+  top: -50px; /* 必要に応じて調整 */
+  left: 0;
+  background-color: #fbf8f8; /* 背景色はデザインに合わせて調整 */
+  border: 1px solid #000000;
+  border-radius: 20px;
+  display: flex; /* 複数画像配置のため追加 */
+  flex-wrap: wrap; /* 画像が複数ある場合に折り返す */
+  align-items: flex-start; /* 上端から配置を開始 */
+}
+
+#saveArea {
+  position: relative; /* 必要に応じて */
+  width: 491px; /* 既存の設定を保持 */
+  height: 700px; /* 高さを固定（またはmax-heightを使用） */
+  overflow: auto; /* コンテンツがオーバーフローしたらスクロールバーを表示 */
+  border: 1px solid #000000; /* 既存のスタイル */
+  border-radius: 20px; /* 既存のスタイル */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+
+.saveArea-image {
+  width: 194px; /* 画像の幅を固定 */
+  height: 188px; /* 画像の高さを固定 */
+  margin: 10px; /* 画像間に余白を設定 */
+  object-fit: cover; /* 画像のアスペクト比を保ちながらコンテナに合わせる */
+  border-radius: 40px; /* 角丸の設定（必要に応じて） */
+}
+
+
+
+.closet-image {
+  width: 50%; /* 2列で表示するための幅 */
+  margin: 5%; /* 画像の間に余白を設ける */
+}
+
+.image-container {
+  position: relative;
+  width: 194px; /* 画像の幅に合わせる */
+  height: 188px; /* 画像の高さに合わせる */
+  margin: 10px;
+}
+
+.delete-button {
+  position: absolute;
+  top: 0; /* ボタンを少し上に移動させる */
+  right: -5px; /* ボタンを少し右に移動させる */
+  border: none;
+  background-color: black; /* 背景色を黒に変更 */
+  color: white; /* バツ印の色を白に変更 */
+  cursor: pointer; /* カーソルをポインターに */
+  width: 30px; /* ボタンのサイズを大きく調整 */
+  height: 30px; /* ボタンのサイズを大きく調整 */
+  font-size: 20px; /* バツ印のサイズを大きく調整 */
+  border-radius: 20px; /* ボタンをより円形に */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* 影を追加して立体感を出す */
+}
+
+.delete-button:hover {
+  background-color: #333; /* ホバー時の背景色を少し明るく */
+}
+
+
+
+.screen .preview {
+  position: absolute;
+  width: 194px;
+  height: 188px;
+  top: -10px;
+  left: 515px;
+  background-color: #d9d9d9;
+  border-radius: 40px;
+  background-size: cover; /* 画像がdivのサイズに合うように調整 */
+  background-position: center; /* 画像を中央に配置 */
+}
+
+.screen .preview img{
+
+}
+
+.screen .rectangle-1 {
+  position: absolute;
+  width: 229px;
+  height: 19px;
+  top: 260px;
+  left: 495px;
+  background-color: #d9d9d96b;
+}
+
+.screen .rectangle-2 {
+  position: absolute;
+  width: 229px;
+  height: 19px;
+  top: 385px;
+  left: 496px;
+  background-color: #d9d9d96b;
+}
+
+
+.screen .hunger-button {
+  position: absolute;
+  width: 77px;
+  height: 61px;
+  top: 53px;
+  left: 575px;
+  object-fit: cover;
+}
+
+.image-upload-label {
+  cursor: pointer; /* これにより、ラベルにマウスカーソルが重なった時にポインター（指の形）に変わります */
+}
+
+
+
+.screen .text-wrapper-1 {
+  width: 207px;
+  top: 263px;
+  left: 576px;
+  font-family: "IM FELL French Canon SC-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 10px;
+  position: absolute;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.screen .text-wrapper-2 {
+  width: 207px;
+  top: 388px;
+  left: 588px;
+  font-family: "IM FELL French Canon SC-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 10px;
+  position: absolute;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+
+.screen .input-group1 {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  top: 287px; /* text-wrapper-5のtopと同じ値 */
+  left: 508px; /* text-wrapper-5のleftと同じ値 */
+}
+
+.screen .input-group1 .information-1 {
+  color: #888383;
+  font-family: "IM FELL French Canon SC-Regular", Helvetica;
+  font-weight: 400;
+  width: 80px;
+  line-height: normal;
+  font-size: 10px;
+  margin-right: 10px; /* ラベルと入力欄の間に適切なスペースを作る */
+}
+
+.screen .input-field1 {
+  height: 10px; /* 適切な高さに調整 */
+  padding: 2px 3px;
+  font-size: 10px;
+  border: 1px solid #888383;
+  border-radius: 3px;
+  /* 必要に応じて幅を設定 */
+  width: 100px; /* 例: 入力欄の幅が100pxの場合 */
+}
+
+.screen .input-group2 {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  top: 315px; /* text-wrapper-5のtopと同じ値 */
+  left: 508px; /* text-wrapper-5のleftと同じ値 */
+}
+
+.screen .input-group2 .information-2 {
+  color: #888383;
+  font-family: "IM FELL French Canon SC-Regular", Helvetica;
+  font-weight: 400;
+  width: 80px;
+  line-height: normal;
+  font-size: 10px;
+  margin-right: 10px; /* ラベルと入力欄の間に適切なスペースを作る */
+}
+
+.screen .input-field2 {
+  height: 16px; /* 適切な高さに調整 */
+  padding: 0px 0px;
+  font-size: 10px;
+  border: 1px solid #888383;
+  border-radius: 3px;
+  /* 必要に応じて幅を設定 */
+  width: 108px; /* 例: 入力欄の幅が100pxの場合 */
+}
+
+
+.screen .input-group3 {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  top: 365px; /* text-wrapper-5のtopと同じ値 */
+  left: 508px; /* text-wrapper-5のleftと同じ値 */
+}
+
+.screen .input-group3 .information-3 {
+  color: #888383;
+  font-family: "IM FELL French Canon SC-Regular", Helvetica;
+  font-weight: 400;
+  width: 80px;
+  line-height: normal;
+  font-size: 10px;
+  margin-right: 10px; /* ラベルと入力欄の間に適切なスペースを作る */
+}
+
+.screen .input-field3 {
+  height: 10px; /* 適切な高さに調整 */
+  padding: 2px 3px;
+  font-size: 10px;
+  border: 1px solid #888383;
+  border-radius: 3px;
+  /* 必要に応じて幅を設定 */
+  width: 100px; /* 例: 入力欄の幅が100pxの場合 */
+}
+
+.screen .input-group4 {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  top: 413px; /* text-wrapper-5のtopと同じ値 */
+  left: 508px; /* text-wrapper-5のleftと同じ値 */
+}
+
+.screen .input-group4 .information-4 {
+  color: #888383;
+  font-family: "IM FELL French Canon SC-Regular", Helvetica;
+  font-weight: 400;
+  width: 80px;
+  line-height: normal;
+  font-size: 10px;
+  margin-right: 10px; /* ラベルと入力欄の間に適切なスペースを作る */
+}
+
+.screen .input-field4 {
+  height: 16px; /* 適切な高さに調整 */
+  padding: 0px 0px;
+  font-size: 10px;
+  border: 1px solid #888383;
+  border-radius: 3px;
+  /* 必要に応じて幅を設定 */
+  width: 108px; /* 例: 入力欄の幅が100pxの場合 */
+}
+
+
+.screen .input-group5 {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  top: 438px; /* text-wrapper-5のtopと同じ値 */
+  left: 508px; /* text-wrapper-5のleftと同じ値 */
+}
+
+.screen .input-group5 .information-5 {
+  color: #888383;
+  font-family: "IM FELL French Canon SC-Regular", Helvetica;
+  font-weight: 400;
+  width: 80px;
+  line-height: normal;
+  font-size: 10px;
+  margin-right: 10px; /* ラベルと入力欄の間に適切なスペースを作る */
+}
+
+.screen .input-field5 {
+  height: 10px; /* 適切な高さに調整 */
+  padding: 2px 3px;
+  font-size: 10px;
+  border: 1px solid #888383;
+  border-radius: 3px;
+  /* 必要に応じて幅を設定 */
+  width: 100px; /* 例: 入力欄の幅が100pxの場合 */
+}
+
+
+.screen .input-group6 {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  top: 467px; /* text-wrapper-5のtopと同じ値 */
+  left: 508px; /* text-wrapper-5のleftと同じ値 */
+}
+
+.screen .input-group6 .information-6 {
+  color: #888383;
+  font-family: "IM FELL French Canon SC-Regular", Helvetica;
+  font-weight: 400;
+  width: 80px;
+  line-height: normal;
+  font-size: 10px;
+  margin-right: 10px; /* ラベルと入力欄の間に適切なスペースを作る */
+}
+
+.screen .input-field6 {
+  height: 10px; /* 適切な高さに調整 */
+  padding: 2px 3px;
+  font-size: 10px;
+  border: 1px solid #888383;
+  border-radius: 3px;
+  /* 必要に応じて幅を設定 */
+  width: 100px; /* 例: 入力欄の幅が100pxの場合 */
+}
+
+.screen .input-group7 {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  top: 495px; /* text-wrapper-5のtopと同じ値 */
+  left: 508px; /* text-wrapper-5のleftと同じ値 */
+}
+
+.screen .input-group7 .information-7 {
+  color: #888383;
+  font-family: "IM FELL French Canon SC-Regular", Helvetica;
+  font-weight: 400;
+  width: 80px;
+  line-height: normal;
+  font-size: 10px;
+  margin-right: 10px; /* ラベルと入力欄の間に適切なスペースを作る */
+}
+
+.screen .input-field7 {
+  height: 10px; /* 適切な高さに調整 */
+  padding: 2px 3px;
+  font-size: 10px;
+  border: 1px solid #888383;
+  border-radius: 3px;
+  /* 必要に応じて幅を設定 */
+  width: 100px; /* 例: 入力欄の幅が100pxの場合 */
+}
+
+.button-save {
+  position: absolute;
+  width: 186px; 
+  height: 63px; 
+  top: 550px; 
+  left: 515px;
+  background-color: #d9d9d9; 
+  border-radius: 40px; 
+  font-family: "Inter-Black", Helvetica; /* フォント */
+  font-weight: 900; /* フォントウェイト */
+  color: #000000; /* 色 */
+  font-size: 20px; /* フォントサイズ */
+  letter-spacing: 0; /* letter-spacing */
+  line-height: normal; /* のline-height */
+  border: none; /* ボーダーを削除 */
+  cursor: pointer; /* ホバー時のカーソルを指示する */
+  outline: none; /* フォーカス時のアウトラインを削除 */
+  display: flex; /* テキストを中央に配置 */
+  align-items: center; /* 垂直方向の中央揃え */
+  justify-content: center; /* 水平方向の中央揃え */
+}
+
+.background_transparency{
+  position: absolute;
+  width: 170px; 
+  height: 50px; 
+  top: 200px; 
+  left: 525px;
+  background-color: #d9d9d9; 
+  border-radius: 40px; 
+  font-family: "Inter-Black", Helvetica; /* フォント */
+  font-weight: 900; /* フォントウェイト */
+  color: #000000; /* 色 */
+  font-size: 20px; /* フォントサイズ */
+  letter-spacing: 0; /* letter-spacing */
+  line-height: normal; /* のline-height */
+  border: none; /* ボーダーを削除 */
+  cursor: pointer; /* ホバー時のカーソルを指示する */
+  outline: none; /* フォーカス時のアウトラインを削除 */
+  display: flex; /* テキストを中央に配置 */
+  align-items: center; /* 垂直方向の中央揃え */
+  justify-content: center; /* 水平方向の中央揃え */
+}
+
+
+.screen .next {
+  position: absolute;
+  width: 304px;
+  height: 88px;
+  top: 600px;
+  left: 1067px;
+}
+
+.screen .next-button {
+  position: absolute;
+  width: 186px;
+  height: 63px;
+  background-color: #d9d9d9;
+  border-radius: 40px;
+  font-family: "Inter-Bold", Helvetica;
+  font-weight: 700;
+  color: #000000;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
+  border: none; /* デフォルトのボーダーを削除 */
+  cursor: pointer; /* ホバー時にカーソルを指に */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0; /* ボタンの内部余白をリセット */
+  outline: none; /* フォーカス時のアウトラインを削除 */
+}
+
+
+.screen .supplement {
+  top: 750px;
+  left: 1067px;
+  text-shadow: 0px 4px 4px #00000040;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 15px;
+  white-space: nowrap;
+  position: absolute;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+#imageInfoModal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+}
