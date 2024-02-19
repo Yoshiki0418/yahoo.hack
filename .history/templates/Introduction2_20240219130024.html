@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="../static/css/styles_introduction2.css" />
+  <script src="../static/js/Introduction2.js"></script>
+
+</head>
+<body>
+  <div class="screen">
+    <header class="header">
+      <div class="companyname">Cloudrobe</div>
+    </header>
+        
+        <div class="explanation">自分のクローゼットを持ち歩こう</div>
+        
+        <div class="closet">
+          
+          <div class="data-input"></div>
+          <div id="saveArea" class="saveArea"></div>
+          <div class="preview" id="imagePreview">
+            <img src="" alt="プレビュー画像" style="max-width: 100%; max-height: 100%; min-width: 100%; min-width: 100%; display: none;">
+          </div>
+
+          <input type="file" id="imageUpload" style="display:none;" />
+
+          <button class="background_transparency" disabled>背景削除</button>
+          
+          <label for="imageUpload" class="image-upload-label" id="imageUploadLabel">
+            <img class="hunger-button" src="../static/image/hunger.jpg" />
+          </label>
+          
+          <div class="rectangle-1"></div>
+          <div class="rectangle-2"></div>
+          
+          <div class="text-wrapper-1">基本情報(必須)</div>
+          <div class="text-wrapper-2">詳細情報</div>
+          
+          <div class="input-group1">
+            <div class="information-1">系統</div>
+            <input type="text" class="input-field1" />
+          </div>
+
+          <div class="input-group2">
+            <div class="information-2">カテゴリー</div>
+            <select class="input-field2">
+              <option value="street">ストリート系</option>
+              <option value="casual">カジュアル系</option>
+              <option value="sports">スポーツ系</option>
+            </select>
+          </div>
+          
+          
+          <div class="input-group3">
+            <div class="information-3">ブランド</div>
+            <input type="text" class="input-field3" />
+          </div>
+          
+          <div class="input-group4">
+            <div class="information-4">サイズ</div>
+            <select class="input-field4">
+              <option value="street">S</option>
+              <option value="casual">M</option>
+              <option value="sports">L</option>
+            </select>
+          </div>
+          
+          <div class="input-group5">
+            <div class="information-5">価格</div>
+            <input type="text" class="input-field5" />
+          </div>
+          
+          <div class="input-group6">
+            <div class="information-6">購入日</div>
+            <input type="text" class="input-field6" />
+          </div>
+          
+          <div class="input-group7">
+            <div class="information-7">思い出メモ</div>
+            <input type="text" class="input-field7" />
+          </div>
+          
+
+          <button class="button-save">保存</button>
+          
+        </div>
+
+        <!-- モーダルのHTML、初期状態は非表示にしておく -->
+        <div class="modal-content">
+          <div id="imageInfoModal" style="display:none;">
+            <img src="" alt="プレビュー画像" style="max-width: 100%; max-height: 100%; min-width: 100%; min-width: 100%; display: none;">
+            <span class="close-button">&times;</span>
+            <p id="modal-info-text">ここに情報が表示されます</p>
+          </div>
+        </div>
+
+        
+        <div class="next">
+          <button class="next-button">次に進む</button>
+        </div>
+        
+        <div class="supplement">後で追加することもできます</div>
+
+    </div>
+  </body>
+</html>
