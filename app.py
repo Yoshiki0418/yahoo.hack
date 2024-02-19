@@ -6,6 +6,8 @@ import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from datetime import datetime
+import asyncio
+from threading import Thread
 
 
 app = Flask(__name__)
@@ -19,10 +21,6 @@ db = SQLAlchemy(app)
 Migrate(app, db)
 
 FB = firebase()
-
-
-
-
 
 
 @app.route('/',methods=['GET'])
@@ -97,6 +95,15 @@ def save_preference():
     add_user_style_link(session['usr'], category)
     return jsonify({'status': 'success'})
 
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    image = request.files['image']  # 画像データの受け取り
+    print(image)
+    # 入力フィールドのデータを受け取る
+    field_data = {key: request.form[key] for key in request.form.keys()}
+    # ここでファイルの保存やデータの処理を行う
+    # 処理結果をJSONで返す
+    return jsonify({'message': 'ファイルを受け取りました', 'field_data': field_data})
 
 
 # ユーザーテーブル
@@ -151,33 +158,33 @@ closet_style_link = db.Table('closet_style_link',
 )
 
     
-def create_user(uid,name, email):
+async def create_user(uid, name, email):
     with app.app_context():
         user = User(uid=uid, name=name, email=email)
         db.session.add(user)
-        db.session.commit()
-        print("成功")
+        await db.session.commit()
+    print("成功: create_user")
 
-def create_closet(user_uid, category, brand, image, style, size=None, price=None, purchase_date=None, note=None):
+async def create_closet(user_uid, category, brand, image, size=None, price=None, purchase_date=None, note=None):
     with app.app_context():
-        closet = Closet(user_uid=user_uid, category=category, brand=brand, image=image, style=style, size=size, price=price, purchase_date=purchase_date, note=note)
+        closet = Closet(user_uid=user_uid, category=category, brand=brand, image=image, size=size, price=price, purchase_date=purchase_date, note=note)
         db.session.add(closet)
-        db.session.commit()
-        return closet
+        await db.session.commit()
+    print("成功: create_closet")
 
 def create_follower(follower_uid, followed_uid):
     with app.app_context():
         follower = Follower(follower_uid=follower_uid, followed_uid=followed_uid)
         db.session.add(follower)
         db.session.commit()
-        return follower
+    print("成功: create_follower")
     
 def create_style(style_name):
     with app.app_context():
         style = Style(style_name=style_name)
         db.session.add(style)
         db.session.commit()
-        print("成功")
+    print("成功: create_style")
 
 def add_user_style_link(user_id, style_name):
     with app.app_context():
@@ -185,6 +192,15 @@ def add_user_style_link(user_id, style_name):
         stmt = user_style_link.insert().values(user_id=user_id, style_id=style.id)
         db.session.execute(stmt)
         db.session.commit()
+    print("成功: add_user_style_link")
+
+def add_closet_style_link(closet_id, style_name):
+    with app.app_context():
+        style = Style.query.filter_by(style_name=style_name).first()
+        stmt = closet_style_link.insert().values(closet_id=closet_id, style_id=style.id)
+        db.session.execute(stmt)
+        db.session.commit()
+    print("成功: add_closet_style_link")
 
 
 
