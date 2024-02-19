@@ -8,6 +8,8 @@ from flask_migrate import Migrate
 from datetime import datetime
 from werkzeug.utils import secure_filename #新たに追加
 from transparency import transparency
+import asyncio
+from threading import Thread
 
 
 app = Flask(__name__)
@@ -21,7 +23,6 @@ db = SQLAlchemy(app)
 Migrate(app, db)
 
 FB = firebase()
-
 
 
 @app.route('/',methods=['GET'])
@@ -38,7 +39,8 @@ def sinup():
         _password = request.form['password']
         isFlag, usr = FB.Signup(name="藤季", email=_username, password=_password)
         if isFlag:
-            session["usr"] = _username
+            session["usr"] = usr.uid
+            create_user(usr.uid, "藤季光樹" , _username)
             return redirect(url_for('Introduction'))
         else:
             return render_template('welcome.html', sinup_failed=not isFlag, sinup_error=usr)
@@ -52,7 +54,7 @@ def login():
         _password = request.form['password']
         isFlag, usr = FB.Login(email=_username, password=_password)
         if isFlag:
-            session['usr'] = _username
+            session['usr'] = usr.uid
             return redirect(url_for('home'))
         else:
             return render_template('welcome.html', login_failed = not isFlag ,login_error='ユーザ名またはパスワードが間違っています')
@@ -73,26 +75,26 @@ def home():
 
 @app.route('/introduction')
 def Introduction():
+    if "usr" not in session:
+        return redirect(url_for('welcome'))
     return render_template('Introduction.html')
 
 @app.route('/introduction2')
 def introduction2():
+    if "usr" not in session:
+        return redirect(url_for('welcome'))
     return render_template('Introduction2.html')
 
 @app.route('/save-preference', methods=['POST'])
 def save_preference():
+    if "usr" not in session:
+        return redirect(url_for('welcome'))
     data = request.get_json()
     category = data['category']
     preference = data['preference']
-    
-    # ここでデータベースに接続し、データを保存
-    conn = sqlite3.connect('preferences.db')
-    c = conn.cursor()
-    c.execute("CREATE TABLE IF NOT EXISTS preferences (id INTEGER PRIMARY KEY, category TEXT, preference TEXT)")
-    c.execute("INSERT INTO preferences (category, preference) VALUES (?, ?)", (category, preference))
-    conn.commit()
-    conn.close()
-
+    print(session['usr'])
+    # ユーザーの好みを保存
+    add_user_style_link(session['usr'], category)
     return jsonify({'status': 'success'})
 
 @app.route('/remove-background', methods=['POST'])
@@ -120,73 +122,113 @@ def remove_background():
     return jsonify(response_data), 200
 
 #データベース
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    image = request.files['image']  # 画像データの受け取り
+    print(image)
+    # 入力フィールドのデータを受け取る
+    field_data = {key: request.form[key] for key in request.form.keys()}
+    # ここでファイルの保存やデータの処理を行う
+    # 処理結果をJSONで返す
+    return jsonify({'message': 'ファイルを受け取りました', 'field_data': field_data})
+
+
+# ユーザーテーブル
 class User(db.Model):
     __tablename__ = 'user'
-    uid = db.Column(db.Integer, primary_key=True,)
+    uid = db.Column(db.String(50), primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
-    favoriteStyle = db.relationship('closet',secondary='style', back_populates='style')
-    closet_items = db.relationship('Closet', backref='owner', lazy=True)
-    followers = db.relationship('Follower', foreign_keys='Follower.follower_uid', backref='follower', lazy=True)
-    followed = db.relationship('Follower', foreign_keys='Follower.followed_uid', backref='followed', lazy=True)
-    def __str__(self):
-        return f'uif:{self.uid},User:{self.name},Email:{self.email},Closet:{self.closet_items},Followers:{self.followers},Followed:{self.followed}'
-    
-class Style(db.Model):
-    __tablename__ = 'style'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_uid = db.Column(db.Integer, db.ForeignKey('user.uid'))
-    closet_id = db.Column(db.Integer, db.ForeignKey('closet.id'))
-    style = db.Column(db.String(50), nullable=False)
+    closet_items = db.relationship('Closet', backref='owner', lazy='dynamic')
+    favorite_styles = db.relationship('Style', secondary='user_style_link', back_populates='users')
 
-
+# クローゼットテーブル
 class Closet(db.Model):
     __tablename__ = 'closet'
-    #必須のカラム
     id = db.Column(db.Integer, primary_key=True)
-    user_uid = db.Column(db.Integer, db.ForeignKey('user.uid'), nullable=False)
+    uid = db.Column(db.String(50), db.ForeignKey('user.uid'), nullable=False)
     category = db.Column(db.String(50), nullable=False)
     brand = db.Column(db.String(50))
     image = db.Column(db.String(100), nullable=False)
-    favoriteStyle = db.relationship('user',secondary='style', back_populates='favoriteStyle')
-
+    clothes_styles = db.relationship('Style', secondary='closet_style_link', back_populates='closets')
     #オプションのカラム
     size = db.Column(db.String(50))
     price = db.Column(db.Float)
     purchase_date = db.Column(db.DateTime)
     note = db.Column(db.Text)
 
-    def __str__(self):
-        return f'id:{self.id},User:{self.user_uid},Category:{self.category},Color:{self.color},Brand:{self.brand},Season:{self.season},Size:{self.size},Price:{self.price},Purchase_date:{self.purchase_date},Image:{self.image},Note:{self.note}'
-
+# フォロワーテーブル
 class Follower(db.Model):
     __tablename__ = 'follower'
     id = db.Column(db.Integer, primary_key=True)
-    follower_uid = db.Column(db.Integer, db.ForeignKey('user.uid'), nullable=False)
-    followed_uid = db.Column(db.Integer, db.ForeignKey('user.uid'), nullable=False)
-    def __str__(self):
-        return f'id:{self.id},Follower:{self.follower_uid},Followed:{self.followed_uid}'
+    follower_uid = db.Column(db.String(50), db.ForeignKey('user.uid'), nullable=False)
+    followed_uid = db.Column(db.String(50), db.ForeignKey('user.uid'), nullable=False)
+
+# スタイルテーブル
+class Style(db.Model):
+    __tablename__ = 'style'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    style_name = db.Column(db.String(50), nullable=False, unique=True)
+    users = db.relationship('User', secondary='user_style_link', back_populates='favorite_styles')
+    closets = db.relationship('Closet', secondary='closet_style_link', back_populates='clothes_styles')
+
+# ユーザーとスタイルの中間テーブル
+user_style_link = db.Table('user_style_link',
+    db.Column('user_id', db.String(50), db.ForeignKey('user.uid', name='fk_user_style_user_id'), primary_key=True),
+    db.Column('style_id', db.String(50), db.ForeignKey('style.id', name='fk_user_style_style_id'), primary_key=True)
+)
+
+# クローゼットとスタイルの中間テーブル
+closet_style_link = db.Table('closet_style_link',
+    db.Column('closet_id', db.String(50), db.ForeignKey('closet.id', name='fk_closet_style_closet_id'), primary_key=True),
+    db.Column('style_id', db.String(50), db.ForeignKey('style.id', name='fk_closet_style_style_id'), primary_key=True)
+)
+
     
-def create_user(uid,name, email):
+async def create_user(uid, name, email):
     with app.app_context():
         user = User(uid=uid, name=name, email=email)
         db.session.add(user)
-        db.session.commit()
-        return user
+        await db.session.commit()
+    print("成功: create_user")
 
-def create_closet(user_uid, category, brand, image, style, size=None, price=None, purchase_date=None, note=None):
+async def create_closet(user_uid, category, brand, image, size=None, price=None, purchase_date=None, note=None):
     with app.app_context():
-        closet = Closet(user_uid=user_uid, category=category, brand=brand, image=image, style=style, size=size, price=price, purchase_date=purchase_date, note=note)
+        closet = Closet(user_uid=user_uid, category=category, brand=brand, image=image, size=size, price=price, purchase_date=purchase_date, note=note)
         db.session.add(closet)
-        db.session.commit()
-        return closet
+        await db.session.commit()
+    print("成功: create_closet")
 
 def create_follower(follower_uid, followed_uid):
     with app.app_context():
         follower = Follower(follower_uid=follower_uid, followed_uid=followed_uid)
         db.session.add(follower)
         db.session.commit()
-        return follower
+    print("成功: create_follower")
+    
+def create_style(style_name):
+    with app.app_context():
+        style = Style(style_name=style_name)
+        db.session.add(style)
+        db.session.commit()
+    print("成功: create_style")
+
+def add_user_style_link(user_id, style_name):
+    with app.app_context():
+        style = Style.query.filter_by(style_name=style_name).first()
+        stmt = user_style_link.insert().values(user_id=user_id, style_id=style.id)
+        db.session.execute(stmt)
+        db.session.commit()
+    print("成功: add_user_style_link")
+
+def add_closet_style_link(closet_id, style_name):
+    with app.app_context():
+        style = Style.query.filter_by(style_name=style_name).first()
+        stmt = closet_style_link.insert().values(closet_id=closet_id, style_id=style.id)
+        db.session.execute(stmt)
+        db.session.commit()
+    print("成功: add_closet_style_link")
+
 
 
 if __name__ == '__main__':
