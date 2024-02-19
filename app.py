@@ -1,4 +1,4 @@
-from flask import Flask,redirect,render_template,request,session,url_for,jsonify
+from flask import Flask,redirect,render_template,request,session,url_for,jsonify,send_file
 from Forms import login,sinUp
 from  FirebasePackage.Firebase import firebase
 import sqlite3
@@ -6,6 +6,8 @@ import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from datetime import datetime
+from werkzeug.utils import secure_filename #新たに追加
+from transparency import transparency
 import asyncio
 from threading import Thread
 
@@ -95,6 +97,31 @@ def save_preference():
     add_user_style_link(session['usr'], category)
     return jsonify({'status': 'success'})
 
+@app.route('/remove-background', methods=['POST'])
+def remove_background():
+    if 'image' not in request.files:
+        return 'No file part', 400
+    file = request.files['image']
+    filename = secure_filename(file.filename)
+
+    UPLOAD_FOLDER = 'static/upload_image'
+
+    # アップロードされた画像を指定したディレクトリに保存
+    file_path = os.path.join(UPLOAD_FOLDER, filename)
+    file.save(file_path)
+
+    # 背景削除処理
+    processed_image_path = transparency(file_path,file_path)
+    
+     # 処理結果をクライアントに返す
+    response_data = {
+        'message': 'File uploaded successfully',
+        'file_path': file_path
+    }
+
+    return jsonify(response_data), 200
+
+#データベース
 @app.route('/upload', methods=['POST'])
 def upload_file():
     image = request.files['image']  # 画像データの受け取り
