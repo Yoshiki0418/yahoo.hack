@@ -160,6 +160,25 @@ document.addEventListener('DOMContentLoaded', function() {
                     saveArea.removeChild(imageContainer);
                 });
 
+                // 画像アップロードする処理
+                const formData = new FormData();
+                formData.append('image', imageUpload.files[0]);
+                inputFields.forEach((field, index) => {
+                    formData.append(field.getAttribute('name'), field.value);
+                });
+
+                fetch('サーバーのエンドポイントURL', {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+
                 document.getElementById('imagePreview').style.backgroundImage = '';
                 document.getElementById('imageUploadLabel').style.display = 'block';
                 imageUpload.value = '';
