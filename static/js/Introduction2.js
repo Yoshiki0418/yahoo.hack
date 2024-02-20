@@ -5,12 +5,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const inputFields = document.querySelectorAll('.input-field1, .input-field2, .input-field3, .input-field4, .input-field5, .input-field6, .input-field7');
     const imageUpload = document.getElementById('imageUpload');
     const backgroundTransparencyButton = document.querySelector('.background_transparency');
+    const nextButton = document.querySelector('.next-button');
 
     imageUpload.addEventListener('change', function() {
         previewImage();
         handleFileUpload();
     });
 
+    nextButton.addEventListener('click', function() {
+        window.location.href = '/home';
+    });
+    
     // ファイルアップロードハンドラー
     function handleFileUpload() {
         const file = imageUpload.files[0];
@@ -24,6 +29,9 @@ document.addEventListener('DOMContentLoaded', function() {
             previewImage(); // プレビュー関数を呼び出す
         }
     }
+   
+
+
 
     backgroundTransparencyButton.addEventListener('click', function() {
         if (isImageUploaded) {
@@ -105,6 +113,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const file = imageUpload.files[0];
         if (file) {
             const reader = new FileReader();
+            let formData = new FormData();
+            formData.append('image', file);
             reader.onloadend = function() {
                 const saveArea = document.getElementById('saveArea');
                 const imageContainer = document.createElement('div');
@@ -120,14 +130,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 backgroundTransparencyButton.style.backgroundColor = ''; 
                 backgroundTransparencyButton.style.color = '';
 
-                // 入力フィールドの情報を取得し、未入力の場合は "none" を表示
-                const infoText = Array.from(inputFields).map((field, index) => {
+                //Json形式でデータを保存
+                const infoObject = Array.from(inputFields).reduce((acc, field, index) => {
                     const fieldName = document.querySelector(`.information-${index + 1}`).textContent.trim();
                     const fieldValue = field.value.trim() === '' ? 'none' : field.value.trim();
-                    return `${fieldName}: ${fieldValue}`;
-                }).join(', ');
+                    acc[fieldName] = fieldValue; // オブジェクトにフィールド名と値を追加
+                    return acc;
+                  }, {});
+                  
+                const infoJson = JSON.stringify(infoObject); // オブジェクトをJSON文字列に変換
+                
+                img.dataset.info = infoJson;
+                formData.append('info', infoJson);
 
-                img.dataset.info = infoText;
+                // サーバーにデータを送信
+                fetch('/save-image', {
+                    method: 'POST',
+                    body: formData, // FormDataオブジェクトをそのまま使用
+                }).then(response => {
+                    if (response.ok) {
+                        return response.json(); // 正常なレスポンスをJSONとしてパース
+                    }
+                    throw new Error('Network response was not ok.'); // レスポンスが異常な場合はエラーを投げる
+                }).then(data => {
+                    console.log('Success:', data);
+                    // 成功した場合の処理
+                }).catch(error => {
+                    console.error('Error:', error);
+                });
+
 
                 img.addEventListener('click', function() {
                     const modal = document.getElementById('imageInfoModal');

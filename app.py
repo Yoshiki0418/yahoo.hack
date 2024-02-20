@@ -10,13 +10,14 @@ from werkzeug.utils import secure_filename #新たに追加
 from transparency import transparency
 import asyncio
 from threading import Thread
+import json
 
 
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.urandom(24)
 base_dir = os.path.dirname(__file__)
-database = "sqlite:///" + os.path.join(base_dir, "data.sqlite")
+database = "sqlite:///" + os.path.join(base_dir, "mainData.sqlite")
 app.config["SQLALCHEMY_DATABASE_URI"] = database
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
@@ -25,8 +26,13 @@ Migrate(app, db)
 FB = firebase()
 
 
+
+# ルーティング
 @app.route('/',methods=['GET'])
 def welcome():
+    """ create_style("ストリート系")
+    create_style("カジュアル系")
+    create_style("スポーツ系") """
     if 'usr' in session:
         return redirect(url_for('home'))
     else:
@@ -121,6 +127,28 @@ def remove_background():
 
     return jsonify(response_data), 200
 
+@app.route('/save-image', methods=['POST'])
+def upload():
+    if "usr" not in session:
+        return "ログインしてください", 401
+    if 'image' not in request.files or 'info' not in request.form:
+        print("ファイルがありません")
+        return 'No file part', 400
+    
+    file = request.files['image']
+    filename = secure_filename(file.filename)
+    info = request.form.get('info')
+    info_dict = json.loads(info)
+    UPLOAD_FOLDER = 'static/post_image'
+    # アップロードされた画像を指定したディレクトリに保存
+    file_path = os.path.join(UPLOAD_FOLDER, filename)
+    file.save(file_path)
+    # データベースに保存
+    closet_id = create_closet(user_uid=session['usr'], category=info_dict['系統'], brand=info_dict['ブランド'], image=file_path, size=info_dict['サイズ'], price=info_dict['価格'],_purchase_date=info_dict['購入日'], note=info_dict['思い出メモ'])
+    add_closet_style_link(closet_id, info_dict['カテゴリー'])
+    return jsonify({'message': 'ファイルが正常にアップロードされました','info': info}), 200
+
+
 #データベース
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -145,7 +173,7 @@ class User(db.Model):
 # クローゼットテーブル
 class Closet(db.Model):
     __tablename__ = 'closet'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     uid = db.Column(db.String(50), db.ForeignKey('user.uid'), nullable=False)
     category = db.Column(db.String(50), nullable=False)
     brand = db.Column(db.String(50))
@@ -185,19 +213,21 @@ closet_style_link = db.Table('closet_style_link',
 )
 
     
-async def create_user(uid, name, email):
+def create_user(uid, name, email):
     with app.app_context():
         user = User(uid=uid, name=name, email=email)
         db.session.add(user)
-        await db.session.commit()
+        db.session.commit()
     print("成功: create_user")
 
-async def create_closet(user_uid, category, brand, image, size=None, price=None, purchase_date=None, note=None):
+def create_closet(user_uid, category, brand, image, size=None, price=None, _purchase_date=None, note=None):
     with app.app_context():
-        closet = Closet(user_uid=user_uid, category=category, brand=brand, image=image, size=size, price=price, purchase_date=purchase_date, note=note)
+        purchase_date = datetime.strptime(_purchase_date, '%Y%m%d')
+        closet = Closet(uid=user_uid, category=category, brand=brand, image=image, size=size, price=price, purchase_date=purchase_date, note=note)
         db.session.add(closet)
-        await db.session.commit()
-    print("成功: create_closet")
+        db.session.commit()
+        closet_id = closet.id
+    return closet_id
 
 def create_follower(follower_uid, followed_uid):
     with app.app_context():
