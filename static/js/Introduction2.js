@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const saveButton = document.querySelector('.button-save');
     const inputFields = document.querySelectorAll('.input-field1, .input-field2, .input-field3, .input-field4, .input-field5, .input-field6, .input-field7');
     const imageUpload = document.getElementById('imageUpload');
+    const changePhotoButton = document.querySelector('.change_photo');
     const backgroundTransparencyButton = document.querySelector('.background_transparency');
     const nextButton = document.querySelector('.next-button');
 
@@ -24,6 +25,12 @@ document.addEventListener('DOMContentLoaded', function() {
             backgroundTransparencyButton.disabled = false;
             backgroundTransparencyButton.style.backgroundColor = '#4CAF50'; // 例: 緑色に変更
             backgroundTransparencyButton.style.color = 'white'; // テキストの色を白に変更
+
+            // ボタンをアクティブにする
+            changePhotoButton.disabled = false;
+            changePhotoButton.style.backgroundColor = '#4CAF50'; // 例: 緑色に変更
+            changePhotoButton.style.color = 'white'; // テキストの色を白に変更
+
 
             // ここにプレビュー機能やその他の処理を追加する
             previewImage(); // プレビュー関数を呼び出す
@@ -56,6 +63,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 backgroundTransparencyButton.style.color = '';
             })
             .catch(error => console.error('Error:', error));
+        }
+    });
+
+    changePhotoButton.addEventListener('click', function() {
+        document.getElementById('imageUpload').click();
+    });
+
+    imageUpload.addEventListener('change', function() {
+        if (this.files.length > 0) {
+            previewImage();
+        } else {
+            changePhotoButton.disabled = true;
+            backgroundTransparencyButton.disabled = true; // 画像が選択されていないため、ボタンを無効化
         }
     });
     
@@ -130,8 +150,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 backgroundTransparencyButton.style.backgroundColor = ''; 
                 backgroundTransparencyButton.style.color = '';
 
+
+                // ボタンをアクティブにする
+                changePhotoButton.disabled = true;
+                changePhotoButton.style.backgroundColor = ''; 
+                changePhotoButton.style.color = ''; 
+
+                // 入力フィールドの情報を取得し、未入力の場合は "none" を表示
+                const infoText = Array.from(inputFields).map((field, index) => {
+
                 //Json形式でデータを保存
                 const infoObject = Array.from(inputFields).reduce((acc, field, index) => {
+
                     const fieldName = document.querySelector(`.information-${index + 1}`).textContent.trim();
                     const fieldValue = field.value.trim() === '' ? 'none' : field.value.trim();
                     acc[fieldName] = fieldValue; // オブジェクトにフィールド名と値を追加
