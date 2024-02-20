@@ -63,12 +63,6 @@ def login():
         isFlag, usr = FB.Login(email=_username, password=_password)
         if isFlag:
             session['usr'] = usr['localId']
-            for i in myCloset(usr['localId']):
-                print(i.category)
-                print(i.id)
-            print("自分の好きなスタイル")
-            for i in myFavoriteStyle(usr['localId']):
-                print(i)
             return redirect(url_for('home'))
         else:
             return render_template('welcome.html', login_failed = not isFlag ,login_error='ユーザ名またはパスワードが間違っています')
@@ -153,10 +147,9 @@ def upload():
     file_path = os.path.join(UPLOAD_FOLDER, filename)
     file.save(file_path)
     
-
     # データベースに保存
-    closet_id = create_closet(user_uid=session['usr'], category=info_dict['系統'], brand=info_dict['ブランド'], image=file_path, size=changeNone(info_dict['サイズ']), price=changeNone(info_dict['価格']),purchase_date=changeNone(info_dict['購入日']), note=changeNone(info_dict['思い出メモ']))
-    add_closet_style_link(closet_id, info_dict['カテゴリー'])
+    style_id = find_style_id(info_dict['カテゴリー'])
+    create_closet(user_uid=session['usr'], category=info_dict['系統'], brand=info_dict['ブランド'],style_id= style_id ,image=file_path, size=changeNone(info_dict['サイズ']), price=changeNone(info_dict['価格']),purchase_date=changeNone(info_dict['購入日']), note=changeNone(info_dict['思い出メモ']))
     return jsonify({'message': 'ファイルが正常にアップロードされました','info': info}), 200
 
 
@@ -218,7 +211,7 @@ class Style(db.Model):
     # User との多対多のリレーションシップはそのまま維持
     users = db.relationship('User', secondary='user_style_link', back_populates='favorite_styles')
     # Closet とのリレーションシップを直接の1対多の関係に変更
-    closets = db.relationship('Closet', backref='style', lazy='dynamic')
+    closet_items = db.relationship('Closet', back_populates = 'style', lazy='dynamic')
 
 # ユーザーとスタイルの中間テーブル
 user_style_link = db.Table('user_style_link',
@@ -233,15 +226,15 @@ def create_user(uid, name, email):
         db.session.commit()
     print("成功: create_user")
 
-def create_closet(user_uid, category, brand, image, size, price, purchase_date, note):
+def create_closet(user_uid, category, brand, style_id,image, size, price, purchase_date, note):
     with app.app_context():
         if purchase_date != None:
             purchase_date = datetime.strptime(purchase_date, '%Y-%m-%d')
-        closet = Closet(uid=user_uid, category=category, brand=brand, image=image, size=size, price=price, purchase_date=purchase_date, note=note)
+        closet = Closet(uid=user_uid, category=category,style_id = style_id, brand=brand, image=image, size=size, price=price, purchase_date=purchase_date, note=note)
         db.session.add(closet)
         db.session.commit()
         closet_id = closet.id
-    return closet_id
+    return 
 
 def create_follower(follower_uid, followed_uid):
     with app.app_context():
@@ -265,13 +258,10 @@ def add_user_style_link(user_id, style_name):
         db.session.commit()
     print("成功: add_user_style_link")
 
-def add_closet_style_link(closet_id, style_name):
+def find_style_id(style_name):
     with app.app_context():
         style = Style.query.filter_by(style_name=style_name).first()
-        stmt = closet_style_link.insert().values(closet_id=closet_id, style_id=style.id)
-        db.session.execute(stmt)
-        db.session.commit()
-    print("成功: add_closet_style_link")
+    return style.id
 
 
 def myCloset(uid):
