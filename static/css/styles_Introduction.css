@@ -68,7 +68,7 @@
   font-size: 36px;
   letter-spacing: 0;
   line-height: normal;
-  border: 2px solid; /* 枠線の太さを維持 */
+  border: 5px solid; /* 枠線の太さを維持 */
   background: transparent; /* 背景色を透明に維持 */
   cursor: pointer; /* ホバー時のカーソルをポインタに維持 */
   border-radius: 20px; /* 角を丸くする */
