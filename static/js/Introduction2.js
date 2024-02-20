@@ -18,12 +18,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (file) {
             // ボタンをアクティブにする
             backgroundTransparencyButton.disabled = false;
-            backgroundTransparencyButton.style.backgroundColor = '#4CAF50'; // 例: 緑色に変更
+            backgroundTransparencyButton.style.backgroundColor = 'rgba(255, 0, 0, 0.5)'; // 例: 緑色に変更
             backgroundTransparencyButton.style.color = 'white'; // テキストの色を白に変更
 
             // ボタンをアクティブにする
             changePhotoButton.disabled = false;
-            changePhotoButton.style.backgroundColor = 'red'; // 例: 緑色に変更
+            changePhotoButton.style.backgroundColor = 'rgba(0, 0, 255, 0.5)';
             changePhotoButton.style.color = 'white'; // テキストの色を白に変更
 
             // ここにプレビュー機能やその他の処理を追加する

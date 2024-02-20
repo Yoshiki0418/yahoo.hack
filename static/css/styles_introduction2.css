@@ -425,6 +425,7 @@
   font-family: "Inter-Black", Helvetica; /* フォント */
   font-weight: 900; /* フォントウェイト */
   color: #000000; /* 色 */
+  opacity: 0.5; /* 透明度を下げる */
   font-size: 20px; /* フォントサイズ */
   letter-spacing: 0; /* letter-spacing */
   line-height: normal; /* のline-height */
@@ -443,12 +444,11 @@
   height: 30px; 
   top: 178px; 
   left: 525px;
-  background-color: #28bd52; 
   border-radius: 40px; 
   font-family: "Inter-Black", Helvetica; /* フォント */
   font-weight: 900; /* フォントウェイト */
   color: #ffffff; /* 色 */
-  font-size: 15px; /* フォントサイズ */
+  font-size: 13px; /* フォントサイズ */
   letter-spacing: 0; /* letter-spacing */
   line-height: normal; /* のline-height */
   border: none; /* ボーダーを削除 */
@@ -462,6 +462,7 @@
 .background_transparency[disabled] {
   background-color: #d9d9d9; /* 灰色の背景 */
   color: black; /* 黒色の文字 */ 
+  opacity: 0.5; /* 透明度を下げる */
   cursor: default;
 }
 
@@ -471,12 +472,11 @@
   height: 30px; 
   top: 219px; 
   left: 525px;
-  background-color: #c04c4c; 
   border-radius: 40px; 
   font-family: "Inter-Black", Helvetica; /* フォント */
   font-weight: 900; /* フォントウェイト */
   color: #ffffff; /* 色 */
-  font-size: 15px; /* フォントサイズ */
+  font-size: 13px; /* フォントサイズ */
   letter-spacing: 0; /* letter-spacing */
   line-height: normal; /* のline-height */
   border: none; /* ボーダーを削除 */
@@ -489,7 +489,8 @@
 
 .change_photo[disabled] {
   background-color: #d9d9d9; /* 灰色の背景 */
-  color: black; /* 黒色の文字 */ /* カーソルを禁止マークに */
+  color: black; /* 黒色の文字 */ 
+  opacity: 0.5; /* 透明度を下げる */
   cursor: default;
 }
 
