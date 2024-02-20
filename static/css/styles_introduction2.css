@@ -234,13 +234,13 @@
 }
 
 .screen .input-field1 {
-  height: 10px; /* 適切な高さに調整 */
-  padding: 2px 3px;
+  height: 16px; /* 適切な高さに調整 */
+  padding: 0px 0px;
   font-size: 10px;
   border: 1px solid #888383;
   border-radius: 3px;
   /* 必要に応じて幅を設定 */
-  width: 100px; /* 例: 入力欄の幅が100pxの場合 */
+  width: 108px; /* 例: 入力欄の幅が100pxの場合 */
 }
 
 .screen .input-group2 {
