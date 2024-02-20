@@ -93,6 +93,10 @@ def introduction2():
         return redirect(url_for('welcome'))
     return render_template('Introduction2.html')
 
+@app.route('/profile')
+def profile():
+    return render_template('profile.html')  
+
 @app.route('/save-preference', methods=['POST'])
 def save_preference():
     if "usr" not in session:

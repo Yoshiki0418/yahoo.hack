@@ -26,13 +26,13 @@
             <img src="" alt="プレビュー画像" style="max-width: 100%; max-height: 100%; min-width: 100%; min-width: 100%; display: none;">
           </div>
 
-          <input type="file" id="imageUpload" style="display:none;" />
-
           <button class="background_transparency" disabled>背景削除</button>
+          <button class="change_photo" disabled>写真変更</button>
           
           <label for="imageUpload" class="image-upload-label" id="imageUploadLabel">
             <img class="hunger-button" src="../static/image/hunger.jpg" />
           </label>
+          <input type="file" id="imageUpload" accept=".jpeg, .png" style="display:none;" />
           
           <div class="rectangle-1"></div>
           <div class="rectangle-2"></div>
@@ -43,6 +43,7 @@
           <div class="input-group1">
             <div class="information-1">系統</div>
             <select class="input-field1">
+              <option value="" selected>未設定</option>
               <option value="tops">トップス</option>
               <option value="pants">パンツ</option>
               <option value="shoes">シューズ
@@ -53,9 +54,10 @@
           <div class="input-group2">
             <div class="information-2">カテゴリー</div>
             <select class="input-field2">
-              <option value="ストリート系">ストリート系</option>
-              <option value="カジュアル系">カジュアル系</option>
-              <option value="スポーツ系">スポーツ系</option>
+              <option value="" selected>未設定</option>
+              <option value="street">ストリート系</option>
+              <option value="casual">カジュアル系</option>
+              <option value="sports">スポーツ系</option>
             </select>
           </div>
           
@@ -68,6 +70,7 @@
           <div class="input-group4">
             <div class="information-4">サイズ</div>
             <select class="input-field4">
+              <option value="" selected>未設定</option>
               <option value="S">S</option>
               <option value="M">M</option>
               <option value="L">L</option>

@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // ボタンをアクティブにする
             changePhotoButton.disabled = false;
-            changePhotoButton.style.backgroundColor = 'red'; // 例: 緑色に変更
+            changePhotoButton.style.backgroundColor = '#4CAF50'; // 例: 緑色に変更
             changePhotoButton.style.color = 'white'; // テキストの色を白に変更
 
             // ここにプレビュー機能やその他の処理を追加する

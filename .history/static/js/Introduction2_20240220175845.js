@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const inputFields = document.querySelectorAll('.input-field1, .input-field2, .input-field3, .input-field4, .input-field5, .input-field6, .input-field7');
     const imageUpload = document.getElementById('imageUpload');
     const backgroundTransparencyButton = document.querySelector('.background_transparency');
-    const changePhotoButton = document.querySelector('.change_photo');
 
     imageUpload.addEventListener('change', function() {
         previewImage();
@@ -23,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // ボタンをアクティブにする
             changePhotoButton.disabled = false;
-            changePhotoButton.style.backgroundColor = 'red'; // 例: 緑色に変更
+            changePhotoButton.style.backgroundColor = '#4CAF50'; // 例: 緑色に変更
             changePhotoButton.style.color = 'white'; // テキストの色を白に変更
 
             // ここにプレビュー機能やその他の処理を追加する
@@ -106,10 +105,6 @@ document.addEventListener('DOMContentLoaded', function() {
         saveButton.style.color = saveButton.disabled ? "" : "white";
     }
 
-    changePhotoButton.addEventListener('click', function() {
-        document.getElementById('imageUpload').click();
-    });
-
     saveButton.addEventListener('click', function() {
         const saveArea = document.getElementById('saveArea');
         const file = imageUpload.files[0];
@@ -129,11 +124,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 backgroundTransparencyButton.disabled = true;
                 backgroundTransparencyButton.style.backgroundColor = ''; 
                 backgroundTransparencyButton.style.color = '';
-
-                 // ボタンをアクティブにする
-                 changePhotoButton.disabled = true;
-                 changePhotoButton.style.backgroundColor = ''; 
-                 changePhotoButton.style.color = ''; 
 
                 // 入力フィールドの情報を取得し、未入力の場合は "none" を表示
                 const infoText = Array.from(inputFields).map((field, index) => {
