@@ -3,4 +3,4 @@ serviceAccountKey.json
 .DS_Store
 static/upload_image
 static/post_image
-data.sqlite
+mainData.sqlite
