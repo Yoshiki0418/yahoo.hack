@@ -1,15 +1,12 @@
 from flask import Flask,redirect,render_template,request,session,url_for,jsonify,send_file
 from Forms import login,sinUp
 from  FirebasePackage.Firebase import firebase
-import sqlite3
 import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from datetime import datetime
 from werkzeug.utils import secure_filename #新たに追加
 from transparency import transparency
-import asyncio
-from threading import Thread
 import json
 
 
@@ -25,11 +22,16 @@ Migrate(app, db)
 
 FB = firebase()
 
-
+#None判定
+def changeNone(e):
+    if e == 'none':
+        return None
+    return e
 
 # ルーティング
 @app.route('/',methods=['GET'])
 def welcome():
+    #スタイルの初期化用
     """ create_style("ストリート系")
     create_style("カジュアル系")
     create_style("スポーツ系") """
@@ -60,7 +62,13 @@ def login():
         _password = request.form['password']
         isFlag, usr = FB.Login(email=_username, password=_password)
         if isFlag:
-            session['usr'] = usr.uid
+            session['usr'] = usr['localId']
+            for i in myCloset(usr['localId']):
+                print(i.category)
+                print(i.id)
+            print("自分の好きなスタイル")
+            for i in myFavoriteStyle(usr['localId']):
+                print(i)
             return redirect(url_for('home'))
         else:
             return render_template('welcome.html', login_failed = not isFlag ,login_error='ユーザ名またはパスワードが間違っています')
@@ -98,9 +106,10 @@ def save_preference():
     data = request.get_json()
     category = data['category']
     preference = data['preference']
-    print(session['usr'])
     # ユーザーの好みを保存
-    add_user_style_link(session['usr'], category)
+    if preference == "LIKE":
+        add_user_style_link(session['usr'], category)
+        return jsonify({'status': 'successLike'})
     return jsonify({'status': 'success'})
 
 @app.route('/remove-background', methods=['POST'])
@@ -130,7 +139,7 @@ def remove_background():
 @app.route('/save-image', methods=['POST'])
 def upload():
     if "usr" not in session:
-        return "ログインしてください", 401
+        return redirect(url_for('welcome'))
     if 'image' not in request.files or 'info' not in request.form:
         print("ファイルがありません")
         return 'No file part', 400
@@ -143,8 +152,10 @@ def upload():
     # アップロードされた画像を指定したディレクトリに保存
     file_path = os.path.join(UPLOAD_FOLDER, filename)
     file.save(file_path)
+    
+
     # データベースに保存
-    closet_id = create_closet(user_uid=session['usr'], category=info_dict['系統'], brand=info_dict['ブランド'], image=file_path, size=info_dict['サイズ'], price=info_dict['価格'],_purchase_date=info_dict['購入日'], note=info_dict['思い出メモ'])
+    closet_id = create_closet(user_uid=session['usr'], category=info_dict['系統'], brand=info_dict['ブランド'], image=file_path, size=changeNone(info_dict['サイズ']), price=changeNone(info_dict['価格']),purchase_date=changeNone(info_dict['購入日']), note=changeNone(info_dict['思い出メモ']))
     add_closet_style_link(closet_id, info_dict['カテゴリー'])
     return jsonify({'message': 'ファイルが正常にアップロードされました','info': info}), 200
 
@@ -159,6 +170,12 @@ def upload_file():
     # ここでファイルの保存やデータの処理を行う
     # 処理結果をJSONで返す
     return jsonify({'message': 'ファイルを受け取りました', 'field_data': field_data})
+
+def changeNone(e):
+    if e == 'none':
+        return None
+    return e
+
 
 
 # ユーザーテーブル
@@ -178,7 +195,8 @@ class Closet(db.Model):
     category = db.Column(db.String(50), nullable=False)
     brand = db.Column(db.String(50))
     image = db.Column(db.String(100), nullable=False)
-    clothes_styles = db.relationship('Style', secondary='closet_style_link', back_populates='closets')
+    style_id = db.Column(db.Integer, db.ForeignKey('style.id'), nullable=True)
+    style = db.relationship('Style', backref='closets')
     #オプションのカラム
     size = db.Column(db.String(50))
     price = db.Column(db.Float)
@@ -197,21 +215,16 @@ class Style(db.Model):
     __tablename__ = 'style'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     style_name = db.Column(db.String(50), nullable=False, unique=True)
+    # User との多対多のリレーションシップはそのまま維持
     users = db.relationship('User', secondary='user_style_link', back_populates='favorite_styles')
-    closets = db.relationship('Closet', secondary='closet_style_link', back_populates='clothes_styles')
+    # Closet とのリレーションシップを直接の1対多の関係に変更
+    closets = db.relationship('Closet', backref='style', lazy='dynamic')
 
 # ユーザーとスタイルの中間テーブル
 user_style_link = db.Table('user_style_link',
     db.Column('user_id', db.String(50), db.ForeignKey('user.uid', name='fk_user_style_user_id'), primary_key=True),
     db.Column('style_id', db.String(50), db.ForeignKey('style.id', name='fk_user_style_style_id'), primary_key=True)
 )
-
-# クローゼットとスタイルの中間テーブル
-closet_style_link = db.Table('closet_style_link',
-    db.Column('closet_id', db.String(50), db.ForeignKey('closet.id', name='fk_closet_style_closet_id'), primary_key=True),
-    db.Column('style_id', db.String(50), db.ForeignKey('style.id', name='fk_closet_style_style_id'), primary_key=True)
-)
-
     
 def create_user(uid, name, email):
     with app.app_context():
@@ -220,9 +233,10 @@ def create_user(uid, name, email):
         db.session.commit()
     print("成功: create_user")
 
-def create_closet(user_uid, category, brand, image, size=None, price=None, _purchase_date=None, note=None):
+def create_closet(user_uid, category, brand, image, size, price, purchase_date, note):
     with app.app_context():
-        purchase_date = datetime.strptime(_purchase_date, '%Y%m%d')
+        if purchase_date != None:
+            purchase_date = datetime.strptime(purchase_date, '%Y-%m-%d')
         closet = Closet(uid=user_uid, category=category, brand=brand, image=image, size=size, price=price, purchase_date=purchase_date, note=note)
         db.session.add(closet)
         db.session.commit()
@@ -258,6 +272,20 @@ def add_closet_style_link(closet_id, style_name):
         db.session.execute(stmt)
         db.session.commit()
     print("成功: add_closet_style_link")
+
+
+def myCloset(uid):
+    with app.app_context():
+        print("自分の服を取得する")
+        closet = Closet.query.filter_by(uid=uid).all()
+    return closet
+
+def myFavoriteStyle(uid):
+    with app.app_context():
+        print("自分の好きなスタイルを取得する")
+        style = User.query.filter_by(uid=uid).first().favorite_styles
+    return style
+
 
 
 
