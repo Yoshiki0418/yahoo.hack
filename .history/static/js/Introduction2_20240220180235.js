@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const inputFields = document.querySelectorAll('.input-field1, .input-field2, .input-field3, .input-field4, .input-field5, .input-field6, .input-field7');
     const imageUpload = document.getElementById('imageUpload');
     const backgroundTransparencyButton = document.querySelector('.background_transparency');
-    const changePhotoButton = document.querySelector('.change_photo');
 
     imageUpload.addEventListener('change', function() {
         previewImage();

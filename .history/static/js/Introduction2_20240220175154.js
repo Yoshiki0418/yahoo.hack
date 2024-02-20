@@ -4,14 +4,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const saveButton = document.querySelector('.button-save');
     const inputFields = document.querySelectorAll('.input-field1, .input-field2, .input-field3, .input-field4, .input-field5, .input-field6, .input-field7');
     const imageUpload = document.getElementById('imageUpload');
-    const backgroundTransparencyButton = document.querySelector('.background_transparency');
     const changePhotoButton = document.querySelector('.change_photo');
+    const backgroundTransparencyButton = document.querySelector('.background_transparency');
+    const nextButton = document.querySelector('.next-button');
 
     imageUpload.addEventListener('change', function() {
         previewImage();
         handleFileUpload();
     });
 
+    nextButton.addEventListener('click', function() {
+        window.location.href = '/home';
+    });
+    
     // ファイルアップロードハンドラー
     function handleFileUpload() {
         const file = imageUpload.files[0];
@@ -26,10 +31,14 @@ document.addEventListener('DOMContentLoaded', function() {
             changePhotoButton.style.backgroundColor = '#4CAF50'; // 例: 緑色に変更
             changePhotoButton.style.color = 'white'; // テキストの色を白に変更
 
+
             // ここにプレビュー機能やその他の処理を追加する
             previewImage(); // プレビュー関数を呼び出す
         }
     }
+   
+
+
 
     backgroundTransparencyButton.addEventListener('click', function() {
         if (isImageUploaded) {
@@ -56,6 +65,19 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error:', error));
         }
     });
+
+    changePhotoButton.addEventListener('click', function() {
+        document.getElementById('imageUpload').click();
+    });
+
+    imageUpload.addEventListener('change', function() {
+        if (this.files.length > 0) {
+            previewImage();
+        } else {
+            changePhotoButton.disabled = true;
+            backgroundTransparencyButton.disabled = true; // 画像が選択されていないため、ボタンを無効化
+        }
+    });
     
 
     function previewImage() {
@@ -66,10 +88,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 // アップロードされた画像のデータURLをグローバル変数に保存
                 processedImageUrl = e.target.result;
     
-                const img = document.getElementById('imagePreview').querySelector('img');
+                let img = document.getElementById('imagePreview').querySelector('img');
                 if (!img) { // imgタグがまだなければ作成
-                    const newImg = document.createElement('img');
-                    document.getElementById('imagePreview').appendChild(newImg);
+                    img = document.createElement('img');
+                    document.getElementById('imagePreview').appendChild(img);
                 }
                 img.src = processedImageUrl; // 背景削除後の画像URLを設定
                 document.getElementById('imageUploadLabel').style.display = 'none';
@@ -106,15 +128,13 @@ document.addEventListener('DOMContentLoaded', function() {
         saveButton.style.color = saveButton.disabled ? "" : "white";
     }
 
-    changePhotoButton.addEventListener('click', function() {
-        document.getElementById('imageUpload').click();
-    });
-
     saveButton.addEventListener('click', function() {
         const saveArea = document.getElementById('saveArea');
         const file = imageUpload.files[0];
         if (file) {
             const reader = new FileReader();
+            let formData = new FormData();
+            formData.append('image', file);
             reader.onloadend = function() {
                 const saveArea = document.getElementById('saveArea');
                 const imageContainer = document.createElement('div');
@@ -130,19 +150,45 @@ document.addEventListener('DOMContentLoaded', function() {
                 backgroundTransparencyButton.style.backgroundColor = ''; 
                 backgroundTransparencyButton.style.color = '';
 
-                 // ボタンをアクティブにする
-                 changePhotoButton.disabled = true;
-                 changePhotoButton.style.backgroundColor = ''; 
-                 changePhotoButton.style.color = ''; 
+
+                // ボタンをアクティブにする
+                changePhotoButton.disabled = true;
+                changePhotoButton.style.backgroundColor = ''; 
+                changePhotoButton.style.color = ''; 
 
                 // 入力フィールドの情報を取得し、未入力の場合は "none" を表示
                 const infoText = Array.from(inputFields).map((field, index) => {
+
+                //Json形式でデータを保存
+                const infoObject = Array.from(inputFields).reduce((acc, field, index) => {
+
                     const fieldName = document.querySelector(`.information-${index + 1}`).textContent.trim();
                     const fieldValue = field.value.trim() === '' ? 'none' : field.value.trim();
-                    return `${fieldName}: ${fieldValue}`;
-                }).join(', ');
+                    acc[fieldName] = fieldValue; // オブジェクトにフィールド名と値を追加
+                    return acc;
+                  }, {});
+                  
+                const infoJson = JSON.stringify(infoObject); // オブジェクトをJSON文字列に変換
+                
+                img.dataset.info = infoJson;
+                formData.append('info', infoJson);
 
-                img.dataset.info = infoText;
+                // サーバーにデータを送信
+                fetch('/save-image', {
+                    method: 'POST',
+                    body: formData, // FormDataオブジェクトをそのまま使用
+                }).then(response => {
+                    if (response.ok) {
+                        return response.json(); // 正常なレスポンスをJSONとしてパース
+                    }
+                    throw new Error('Network response was not ok.'); // レスポンスが異常な場合はエラーを投げる
+                }).then(data => {
+                    console.log('Success:', data);
+                    // 成功した場合の処理
+                }).catch(error => {
+                    console.error('Error:', error);
+                });
+
 
                 img.addEventListener('click', function() {
                     const modal = document.getElementById('imageInfoModal');
