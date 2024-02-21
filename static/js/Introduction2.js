@@ -112,7 +112,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     saveButton.addEventListener('click', function() {
         const saveArea = document.getElementById('saveArea');
+        const formData = new FormData();
         const file = imageUpload.files[0];
+        formData.append('image', file);
         if (file) {
             const reader = new FileReader();
             reader.onloadend = function() {
@@ -135,14 +137,33 @@ document.addEventListener('DOMContentLoaded', function() {
                  changePhotoButton.style.backgroundColor = ''; 
                  changePhotoButton.style.color = ''; 
 
-                // 入力フィールドの情報を取得し、未入力の場合は "none" を表示
-                const infoText = Array.from(inputFields).map((field, index) => {
+                 const infoObject = Array.from(inputFields).reduce((acc, field, index) => {
                     const fieldName = document.querySelector(`.information-${index + 1}`).textContent.trim();
                     const fieldValue = field.value.trim() === '' ? 'none' : field.value.trim();
-                    return `${fieldName}: ${fieldValue}`;
-                }).join(', ');
+                    acc[fieldName] = fieldValue; // オブジェクトにフィールド名と値を追加
+                    return acc;
+                  }, {});
+                  
+                const infoJson = JSON.stringify(infoObject); // オブジェクトをJSON文字列に変換
+                
+                img.dataset.info = infoJson;
+                formData.append('info', infoJson);
 
-                img.dataset.info = infoText;
+                // サーバーにデータを送信
+                fetch('/save-image', {
+                    method: 'POST',
+                    body: formData, // FormDataオブジェクトをそのまま使用
+                }).then(response => {
+                    if (response.ok) {
+                        return response.json(); // 正常なレスポンスをJSONとしてパース
+                    }
+                    throw new Error('Network response was not ok.'); // レスポンスが異常な場合はエラーを投げる
+                }).then(data => {
+                    console.log('Success:', data);
+                    // 成功した場合の処理
+                }).catch(error => {
+                    console.error('Error:', error);
+                });
 
                 img.addEventListener('click', function() {
                     const modal = document.getElementById('imageInfoModal');

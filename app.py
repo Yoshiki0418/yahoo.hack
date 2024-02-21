@@ -150,10 +150,9 @@ def upload():
     # アップロードされた画像を指定したディレクトリに保存
     file_path = os.path.join(UPLOAD_FOLDER, filename)
     file.save(file_path)
-    
     # データベースに保存
-    style_id = find_style_id(info_dict['カテゴリー'])
-    create_closet(user_uid=session['usr'], category=info_dict['系統'], brand=info_dict['ブランド'],style_id= style_id ,image=file_path, size=changeNone(info_dict['サイズ']), price=changeNone(info_dict['価格']),purchase_date=changeNone(info_dict['購入日']), note=changeNone(info_dict['思い出メモ']))
+    create_closet(user_uid=session['usr'], category=info_dict['系統'], brand=info_dict['ブランド'],style_id= info_dict['カテゴリー'] ,image=file_path, size=changeNone(info_dict['サイズ']), price=changeNone(info_dict['価格']),purchase_date=changeNone(info_dict['購入日']), note=changeNone(info_dict['思い出メモ']))
+    print("ファイルが正常にアップロードされました")
     return jsonify({'message': 'ファイルが正常にアップロードされました','info': info}), 200
 
 
@@ -241,6 +240,7 @@ def create_closet(user_uid, category, brand, style_id,image, size, price, purcha
     return 
 
 def create_follower(follower_uid, followed_uid):
+
     with app.app_context():
         follower = Follower(follower_uid=follower_uid, followed_uid=followed_uid)
         db.session.add(follower)
@@ -265,6 +265,7 @@ def add_user_style_link(user_id, style_name):
 def find_style_id(style_name):
     with app.app_context():
         style = Style.query.filter_by(style_name=style_name).first()
+        print(style)
     return style.id
 
 
