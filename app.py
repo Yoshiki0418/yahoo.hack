@@ -37,17 +37,17 @@ def initialize_styles():
             create_style(style_name)
     print("成功: initialize_styles")
 
-
-
 # ルーティング
 @app.route('/',methods=['GET'])
 def welcome():
     initialize_styles()
     if 'usr' in session:
-        return redirect(url_for('home'))
+        closet = myCloset(session['usr'])
+        # 他の情報と一緒にmy_closetも渡す
+        return render_template('home.html', closet=closet)
     else:
         return render_template('welcome.html')
-
+    
 @app.route('/sinup', methods=['POST'])
 def sinup():
     if request.method == "POST":
@@ -76,7 +76,7 @@ def login():
             return render_template('welcome.html', login_failed = not isFlag ,login_error='ユーザ名またはパスワードが間違っています')
     else:
         return render_template('welcome.html')
-
+    
 @app.route('/logout')
 def logout():
     session.pop('usr', None)
@@ -85,14 +85,14 @@ def logout():
 @app.route('/home')
 def home():
     if "usr" in session:
-        my_closet = myCloset(session['usr'])
-        print(my_closet)
+        closet = myCloset(session['usr'])
+        print(closet)
         kh = SimilarStyle(session['usr'])
         print(kh)
-        return render_template('home.html')
+        return render_template('home.html', closet=closet, kh=kh)
     else:
         return render_template('welcome.html')
-
+    
 @app.route('/introduction')
 def Introduction():
     if "usr" not in session:
@@ -134,11 +134,9 @@ def remove_background():
     filename = f"{user_id}_{timestamp}_{original_filename}"
     
     UPLOAD_FOLDER = 'static/upload_image'
-
     # アップロードされた画像を指定したディレクトリに保存
     file_path = os.path.join(UPLOAD_FOLDER, filename)
     file.save(file_path)
-
     # 背景削除処理
     processed_image_path = transparency(file_path,file_path)
     
@@ -154,7 +152,7 @@ def remove_background():
 def upload_all():
     if "usr" not in session:
         return redirect(url_for('welcome'))
-    
+
 
     # 複数の画像と情報を処理
     files = request.files.to_dict(flat=False)  # ファイルを辞書形式で取得
@@ -163,11 +161,11 @@ def upload_all():
     # filesとinfosからキーを取得し、それらが一致するか確認
     file_keys = [key for key in files if key.startswith('images[')]
     info_keys = [key for key in infos if key.startswith('infos[')]
-    
+
     if not file_keys or not info_keys or len(file_keys) != len(info_keys):
         print("ファイルまたは情報が不足しています")
         return 'Invalid request', 400
-    
+
     UPLOAD_FOLDER = 'static/post_image'
 
     for key in file_keys:
@@ -179,18 +177,12 @@ def upload_all():
         # アップロードされた画像を指定したディレクトリに保存
         file_path = os.path.join(UPLOAD_FOLDER, filename)
         file.save(file_path)
-        
+
         # データベースに保存する処理を呼び出す
         create_closet(user_uid=session['usr'], category=info_dict['系統'], brand=info_dict['ブランド'],style_id=info_dict['カテゴリー'], image=file_path, size=changeNone(info_dict['サイズ']), price=changeNone(info_dict['価格']), purchase_date=changeNone(info_dict['購入日']), note=changeNone(info_dict['思い出メモ']))
-        
+
     print("全てのファイルが正常にアップロードされました")
     return jsonify({"message": "Files uploaded successfully"}), 200
-
-
-
-   
-
-
 
 #データベース
 @app.route('/upload', methods=['POST'])
@@ -208,10 +200,6 @@ def changeNone(e):
         return None
     return e
 
-
-
-
-
 # ユーザーテーブル
 class User(db.Model):
     __tablename__ = 'user'
@@ -228,9 +216,7 @@ class Post(db.Model):
     uid = db.Column(db.String(50), db.ForeignKey('user.uid'), nullable=False)
     image = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text)
-
     
-
 # クローゼットテーブル
 class Closet(db.Model):
     __tablename__ = 'closet'
@@ -242,20 +228,17 @@ class Closet(db.Model):
     
     style_id = db.Column(db.Integer, db.ForeignKey('style.id'), nullable=True)
     style = db.relationship('Style', back_populates='closet_items',uselist=False)
-
     #オプションのカラム
     size = db.Column(db.String(50))
     price = db.Column(db.Float)
     purchase_date = db.Column(db.DateTime)
     note = db.Column(db.Text)
-
 # フォロワーテーブル
 class Follower(db.Model):
     __tablename__ = 'follower'
     id = db.Column(db.Integer, primary_key=True)
     follower_uid = db.Column(db.String(50), db.ForeignKey('user.uid'), nullable=False)
     followed_uid = db.Column(db.String(50), db.ForeignKey('user.uid'), nullable=False)
-
 # スタイルテーブル
 class Style(db.Model):
     __tablename__ = 'style'
@@ -287,7 +270,7 @@ def create_closet(user_uid, category, brand, style_id,image, size, price, purcha
         db.session.add(closet)
         db.session.commit()
         return closet.id
-
+    
 def create_post(uid, image, description):
     with app.app_context():
         post = Post(uid=uid, image=image, description=description)
@@ -296,7 +279,6 @@ def create_post(uid, image, description):
     print("成功: create_post")
 
 def create_follower(follower_uid, followed_uid):
-
     with app.app_context():
         follower = Follower(follower_uid=follower_uid, followed_uid=followed_uid)
         db.session.add(follower)
@@ -335,9 +317,6 @@ def myFavoriteStyle(uid):
         print("自分の好きなスタイルを取得する")
         style = User.query.filter_by(uid=uid).first().favorite_styles
     return style
-
-
-
 
 def atherCloset(uid):
     with app.app_context():
@@ -454,6 +433,4 @@ def allowed_file(filename):
 
 
 if __name__ == '__main__':
-    app.run(debug=True,port=8080)
-    
-
+    app.run(debug=True,port=8080) 

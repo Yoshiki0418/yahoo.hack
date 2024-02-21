@@ -4,85 +4,24 @@ body {
 }
 
 
-.my_icon {
-    position: absolute;
-    top: 40px;
-    left: 280px;
-    border-radius: 30px;
-}
-
-.name {
-    position: absolute;
-    top: 40px;
-    left: 420px;
-    font-size: 24px;
-}
-
-.introduction{
-    width: auto;
-    height: auto;
-    position: absolute;
-    top: 105px;
-    left: 420px;
-    /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);*/
-}
-
-
-
-/*繧ｿ繝門�繧頑崛縺亥�菴薙�繧ｹ繧ｿ繧､繝ｫ*/
 .tabs {
-    margin-top: -30px;
+    margin-top: -200px;
     margin-left: 100px;
     padding-bottom: 40px;
-    /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);*/
-    width: 940px;
+    width: 1000px;
     /*margin: 0 auto;*/
     vertical-align: middle;
     position: absolute;
     top: 230px;
     left: 230px;
 }
-  
-
-/* 繧ｿ繝悶�繧ｹ繧ｿ繧､繝ｫ */
-
-.tab-items {
-    width: calc(100% / 3);
-    height: 50px;
-    border-bottom: 3px solid #5ab4bd;
-    background-color: #d9d9d9;
-    line-height: 50px;
-    font-size: 16px;
-    text-align: center;
-    color: #565656;
-    display: block;
-    float: left;
-    text-align: center;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    margin-left: 10px;
-}
-  
-.tab-items:hover {
-    opacity: 0.75;
-}
-
-
-
-  
- 
-  
-/* 繝ｩ繧ｸ繧ｪ繝懊ち繝ｳ繧偵☆縺ｹ縺ｦ豸医☆ */
+   
   
 input[name="tab-items"] {
     display: none;
 }
 
-input[name="tab-items-sub"] {
-    display: none;
-}
- 
-  /* 繧ｿ繝門�繧頑崛縺医�荳ｭ霄ｫ縺ｮ繧ｹ繧ｿ繧､繝ｫ */
+
   
 .tab-content {
     display: none;
@@ -94,10 +33,8 @@ input[name="tab-items-sub"] {
 .tab-content-sub {
     display: none;
     clear: both;
-    /*overflow: hidden;*/
 }
   
-  /* 驕ｸ謚槭＆繧後※縺�ｋ繧ｿ繝悶�繧ｳ繝ｳ繝�Φ繝��縺ｿ繧定｡ｨ遉ｺ */
   
 #closet:checked~#closet-content,
 #coordination:checked~#coordination-content,
@@ -113,29 +50,22 @@ input[name="tab-items-sub"] {
 
   
   
-/* 驕ｸ謚槭＆繧後※縺�ｋ繧ｿ繝悶�繧ｹ繧ｿ繧､繝ｫ繧貞､峨∴繧� */
 
 .tabs input:not(:checked) + .tab-team {
     color: gray;
+    font-size: 20px;
 }
 
 .tabs input:checked + .tab-team {
     color: black;
-    border-bottom: 1px solid;
+    border-bottom: 3px solid;
     border-width: medium;
     border-color: #C0C0C0;
+    font-size: 30px;
 }
 
-.tab-content input:not(:checked) + .tab-team-sub {
-    background-color: gray;
-}
 
-.tab-content input:checked + .tab-team-sub {
-    background-color: #66CCFF;
-    color: white;
-}
 
-/*繝｡繧､繝ｳ繧ｿ繝悶�菴咲ｽｮ隱ｿ謨ｴ*/
 .tab-team {
     margin-left: 130px;
     font-size: 14px;
@@ -143,30 +73,12 @@ input[name="tab-items-sub"] {
     margin-right: 30px;
 }
 
-/*繧ｵ繝悶ち繝悶�繝�じ繧､繝ｳ縺ｨ菴咲ｽｮ隱ｿ謨ｴ*/
-.tab-team-sub {
-    margin-left: 15px;
-    padding: 2px 30px 2px 30px; /* 荳贋ｸ九↓15px縲∝ｷｦ蜿ｳ縺ｫ30px縺ｮ菴咏區繧定ｨｭ螳� */
-    font-size: 12px;
-    font-weight: bold;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
 
-.tab-content-sub  {
-    display: none;
-    clear: both;
-    margin-top: 15px;
-    margin-left: -80px;
-}
 
-#closet-content {
-    margin-top: -28px;
-}
 
-/*逋ｻ骭ｲ繝ｪ繧ｹ繝�*/
+
+
+
 #all-content ul,
 #bottoms-content ul,
 #shoes-content ul,
@@ -195,7 +107,7 @@ input[name="tab-items-sub"] {
 
 
 
-/*繧｢繧､繝�Β縺ｮ繝ｪ繝ｳ繧ｯ*/
+
 #all-content li a,
 #all-content li a:visited,
 #bottoms-content li a,
@@ -206,14 +118,14 @@ input[name="tab-items-sub"] {
 	color: #111;
 }
 
-/*繧｢繧､繝�Β縺ｮ譁�ｫ�*/
+
 #all-content li p,
 #coordination-content li p{
 	font-size: 90%;
 	margin-bottom: 3px;
 }
 
-/*繧｢繧､繝�Β繧ｹ繝代Φ*/
+
 #all-content li span, 
 #coordination-content li span{
 	font-size: 80%;
@@ -222,7 +134,7 @@ input[name="tab-items-sub"] {
 
 
 
-/*蝠�刀逕ｻ蜒上�隱ｿ謨ｴ*/
+
 #all-content img,
 #bottoms-content img,
 #shoes-content img,
@@ -234,14 +146,10 @@ input[name="tab-items-sub"] {
     
 }
 
-.tab-content-sub li {
-	/*width: calc(20% - 20px);*/
-    width: calc(100% / 7);
-}
 
 
 
-/*菫晏ｭ俶ｸ医∩繧ｳ繝ｼ繝�判蜒上�繝�じ繧､繝ｳ*/
+
 #coordination-content,
 #post-content {
     margin-left: -70px;
@@ -259,7 +167,6 @@ input[name="tab-items-sub"] {
     width: calc(100% / 6);
 }
 
-/*繝｢繝ｼ繝繝ｫ繧ｦ繧｣繝ｳ繝峨え*/
 .modal {
     display: none;
     position: fixed;
@@ -323,8 +230,8 @@ input[name="tab-items-sub"] {
 
   .upload-show video,
   .upload-show img {
-    max-width: 100%; /* 譛螟ｧ蟷�ｒ隕ｪ隕∫ｴ�縺ｮ蟷�↓蜷医ｏ縺帙ｋ */
-    max-height: 100%; /* 譛螟ｧ鬮倥＆繧定ｦｪ隕∫ｴ�縺ｮ鬮倥＆縺ｫ蜷医ｏ縺帙ｋ */
+    max-width: 100%; 
+    max-height: 100%; 
   }
 
 #post-coordination10 {
@@ -341,7 +248,6 @@ input[name="tab-items-sub"] {
     height: 730px;
 }
 
-/* 繧ｫ繧ｹ繧ｿ繝�繝輔ぃ繧､繝ｫ繧｢繝��繝ｭ繝ｼ繝峨�繧ｿ繝ｳ縺ｮ繧ｹ繧ｿ繧､繝ｫ */
 .custom-file-upload {
     position: absolute;
     top: 10px;
@@ -570,13 +476,13 @@ input[name="tab-items-sub"] {
     
 }
 
-/*繧ｯ繝ｭ繝ｼ繧ｼ繝�ヨ霑ｽ蜉�繝懊ち繝ｳ繝�じ繧､繝ｳ*/
+
 #closetBtn {
     border: none;
     border-radius: 30%;
 }
 
-/*post-coordination縺ｮ菴咲ｽｮ隱ｿ謨ｴ*/
+
 #post-coordination {
     margin-left: 60px;
     margin-top: 30px;
@@ -628,35 +534,15 @@ input[name="tab-items-sub"] {
     margin-left: 50px;
 }
 
-/*蜑企勁繝懊ち繝ｳ*/
-li {
-    position: relative;
-    list-style: none;
-  }
-/* 蜑企勁繝懊ち繝ｳ縺ｮ繧ｹ繧ｿ繧､繝ｫ */
-.delete-button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 20px;
-    height: 20px;
-    background-color: red;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-  }
   
-  /* 蜑企勁繝懊ち繝ｳ縺ｫ繝槭え繧ｹ繧偵�繝舌�縺励◆譎ゅ�繧ｹ繧ｿ繧､繝ｫ */
-  .delete-button:hover {
-    background-color: darkred;
-  }
+
+
 
 .hunger-button {
     width: 60%;
     height: auto;
     outline: none; 
-    border: none; /* 繝懊�繝繝ｼ繧呈ｶ医☆�亥ｿ�ｦ√↓蠢懊§縺ｦ�� */
+    border: none; 
 }
 
 .mov_button{
