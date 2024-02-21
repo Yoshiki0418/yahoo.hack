@@ -21,7 +21,6 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 Migrate(app, db)
 
-
 FB = firebase()
 
 #None判定
@@ -30,19 +29,13 @@ def changeNone(e):
         return None
     return e
 
-def initialize_styles():
-    styles = ["ストリート系", "カジュアル系", "スポーツ系"]
-    if Style.query.count() == 0:  # Style テーブルが空の場合のみ実行
-        for style_name in styles:
-            create_style(style_name)
-    print("成功: initialize_styles")
-
-
-
 # ルーティング
 @app.route('/',methods=['GET'])
 def welcome():
-    initialize_styles()
+    #スタイルの初期化用
+    """create_style("ストリート系")
+    create_style("カジュアル系")
+    create_style("スポーツ系")"""
     if 'usr' in session:
         return redirect(url_for('home'))
     else:
@@ -85,10 +78,6 @@ def logout():
 @app.route('/home')
 def home():
     if "usr" in session:
-        my_closet = myCloset(session['usr'])
-        print(my_closet)
-        kh = SimilarStyle(session['usr'])
-        print(kh)
         return render_template('home.html')
     else:
         return render_template('welcome.html')
@@ -126,13 +115,9 @@ def save_preference():
 def remove_background():
     if 'image' not in request.files:
         return 'No file part', 400
-    
     file = request.files['image']
-    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
-    user_id = session['usr']
-    original_filename = secure_filename(file.filename)
-    filename = f"{user_id}_{timestamp}_{original_filename}"
-    
+    filename = secure_filename(file.filename)
+
     UPLOAD_FOLDER = 'static/upload_image'
 
     # アップロードされた画像を指定したディレクトリに保存
@@ -150,46 +135,27 @@ def remove_background():
 
     return jsonify(response_data), 200
 
-@app.route('/save-all-images', methods=['POST'])
-def upload_all():
+@app.route('/save-image', methods=['POST'])
+def upload():
     if "usr" not in session:
         return redirect(url_for('welcome'))
+    if 'image' not in request.files or 'info' not in request.form:
+        print("ファイルがありません")
+        return 'No file part', 400
     
-
-    # 複数の画像と情報を処理
-    files = request.files.to_dict(flat=False)  # ファイルを辞書形式で取得
-    infos = request.form.to_dict(flat=False)  # 情報を辞書形式で取得
-
-    # filesとinfosからキーを取得し、それらが一致するか確認
-    file_keys = [key for key in files if key.startswith('images[')]
-    info_keys = [key for key in infos if key.startswith('infos[')]
-    
-    if not file_keys or not info_keys or len(file_keys) != len(info_keys):
-        print("ファイルまたは情報が不足しています")
-        return 'Invalid request', 400
-    
+    file = request.files['image']
+    filename = secure_filename(file.filename)
+    info = request.form.get('info')
+    info_dict = json.loads(info)
     UPLOAD_FOLDER = 'static/post_image'
-
-    for key in file_keys:
-        file = request.files[key]  # 複数ファイル対応のための[0]
-        filename = secure_filename(file.filename)
-        info = request.form[key.replace('images', 'infos')]
-        info_dict = json.loads(info)
-
-        # アップロードされた画像を指定したディレクトリに保存
-        file_path = os.path.join(UPLOAD_FOLDER, filename)
-        file.save(file_path)
-        
-        # データベースに保存する処理を呼び出す
-        create_closet(user_uid=session['usr'], category=info_dict['系統'], brand=info_dict['ブランド'],style_id=info_dict['カテゴリー'], image=file_path, size=changeNone(info_dict['サイズ']), price=changeNone(info_dict['価格']), purchase_date=changeNone(info_dict['購入日']), note=changeNone(info_dict['思い出メモ']))
-        
-    print("全てのファイルが正常にアップロードされました")
-    return jsonify({"message": "Files uploaded successfully"}), 200
-
-
-
-   
-
+    # アップロードされた画像を指定したディレクトリに保存
+    file_path = os.path.join(UPLOAD_FOLDER, filename)
+    file.save(file_path)
+    
+    # データベースに保存
+    create_closet(user_uid=session['usr'], category=info_dict['系統'], brand=info_dict['ブランド'],style_id= info_dict['カテゴリー'] ,image=file_path, size=changeNone(info_dict['サイズ']), price=changeNone(info_dict['価格']),purchase_date=changeNone(info_dict['購入日']), note=changeNone(info_dict['思い出メモ']))
+    print("ファイルが正常にアップロードされました")
+    return jsonify({'message': 'ファイルが正常にアップロードされました','info': info}), 200
 
 
 #データベース
@@ -210,8 +176,6 @@ def changeNone(e):
 
 
 
-
-
 # ユーザーテーブル
 class User(db.Model):
     __tablename__ = 'user'
@@ -221,16 +185,6 @@ class User(db.Model):
     closet_items = db.relationship('Closet', backref='owner', lazy='dynamic')
     favorite_styles = db.relationship('Style', secondary='user_style_link', back_populates='users')
 
-# 投稿テーブル
-class Post(db.Model):
-    __tablename__ = 'post'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    uid = db.Column(db.String(50), db.ForeignKey('user.uid'), nullable=False)
-    image = db.Column(db.String(100), nullable=False)
-    description = db.Column(db.Text)
-
-    
-
 # クローゼットテーブル
 class Closet(db.Model):
     __tablename__ = 'closet'
@@ -239,10 +193,8 @@ class Closet(db.Model):
     category = db.Column(db.String(50), nullable=False)
     brand = db.Column(db.String(50))
     image = db.Column(db.String(100), nullable=False)
-    
     style_id = db.Column(db.Integer, db.ForeignKey('style.id'), nullable=True)
-    style = db.relationship('Style', back_populates='closet_items',uselist=False)
-
+    style = db.relationship('Style', backref='closets')
     #オプションのカラム
     size = db.Column(db.String(50))
     price = db.Column(db.Float)
@@ -286,14 +238,8 @@ def create_closet(user_uid, category, brand, style_id,image, size, price, purcha
         closet = Closet(uid=user_uid, category=category,style_id = style_id, brand=brand, image=image, size=size, price=price, purchase_date=purchase_date, note=note)
         db.session.add(closet)
         db.session.commit()
-        return closet.id
-
-def create_post(uid, image, description):
-    with app.app_context():
-        post = Post(uid=uid, image=image, description=description)
-        db.session.add(post)
-        db.session.commit()
-    print("成功: create_post")
+        closet_id = closet.id
+    return 
 
 def create_follower(follower_uid, followed_uid):
 
@@ -324,6 +270,7 @@ def find_style_id(style_name):
         print(style)
     return style.id
 
+
 def myCloset(uid):
     with app.app_context():
         print("自分の服を取得する")
@@ -336,62 +283,6 @@ def myFavoriteStyle(uid):
         style = User.query.filter_by(uid=uid).first().favorite_styles
     return style
 
-
-
-
-def atherCloset(uid):
-    with app.app_context():
-        print("他人の服を取得する")
-        closet = Closet.query.filter(Closet.uid != uid).all()
-    return closet
-
-def atherPost(uid):
-    with app.app_context():
-        print("他人の投稿を取得する")
-        post = Post.query.filter(Post.uid != uid).all()
-    return post
-
-def DeleteCloset(id):
-    with app.app_context():
-        print("服を削除する")
-        closet = Closet.query.filter_by(id=id).first()
-        db.session.delete(closet)
-        db.session.commit()
-    return
-
-def DeletePost(id):
-    with app.app_context():
-        print("投稿を削除する")
-        post = Post.query.filter_by(id=id).first()
-        db.session.delete(post)
-        db.session.commit()
-    return
-
-def SimilarStyle(current_user_id):
-    # 同じスタイルを共有するユーザーのクローゼットアイテムを取得
-    closet_items_from_similar_style_users = Closet.query.join(User, Closet.uid == User.uid)\
-    .join(user_style_link, User.uid == user_style_link.c.user_id)\
-    .join(Style, user_style_link.c.style_id == Style.id)\
-    .filter(Style.id.in_(
-        db.session.query(user_style_link.c.style_id)
-        .filter(user_style_link.c.user_id == current_user_id)
-    ))\
-    .filter(Closet.uid != current_user_id)\
-    .all()
-    return closet_items_from_similar_style_users
-
-def SimilarStylePost(current_user_id):
-    # 同じスタイルを共有するユーザーの投稿を取得
-    posts_from_similar_style_users = Post.query.join(User, Post.uid == User.uid)\
-    .join(user_style_link, User.uid == user_style_link.c.user_id)\
-    .join(Style, user_style_link.c.style_id == Style.id)\
-    .filter(Style.id.in_(
-        db.session.query(user_style_link.c.style_id)
-        .filter(user_style_link.c.user_id == current_user_id)
-    ))\
-    .filter(Post.uid != current_user_id)\
-    .all()
-    return posts_from_similar_style_users
 
 # アップロードした画像・動画を自動で切り取る関数
 @app.route('/ai-cuter', methods=['POST'])
@@ -417,25 +308,10 @@ def ai_cuter():
         # 画像処理のコード
         if media_type == 'image':
             file.save(os.path.join(app.config['UPLOAD_FOLDER_IMAGE'], filename))
-            item_images = detect_and_crop_items(f"static/post_image/image/{filename}", filename)
-
-            # 画像パスをカテゴリごとに整理
-            items_dict = {}
-
-            # 送信したくないカテゴリを指定
-            excluded_categories = ['skirt.png',"cort.png","one_piece.png"]
-
-            for item_image in item_images:
-                # ファイル名とカテゴリを分離
-                path, category = item_image.split(':')
-                if category not in excluded_categories:
-                    items_dict[category] = item_image
-            # 処理結果を格納したitems_dictをJSON形式で返す
-            return jsonify(items_dict)
-        # 動画処理のコード
+            
         elif media_type == 'video':
             file.save(os.path.join(app.config['UPLOAD_FOLDER_VIDEO'], filename))
-           
+            # 動画処理のコードをここに追加
         else:
             return jsonify({'error': '不正なメディアタイプです'}), 400
         
@@ -453,7 +329,7 @@ def allowed_file(filename):
 
 
 
-if __name__ == '__main__':
-    app.run(debug=True,port=8080)
-    
 
+
+if __name__ == '__main__':
+    app.run(debug=True)

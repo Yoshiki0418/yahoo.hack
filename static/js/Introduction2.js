@@ -190,6 +190,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 changePhotoButton.style.backgroundColor = ''; 
                 changePhotoButton.style.color = ''; 
     
+
                 // Json形式でデータを保存
                 const infoObject = Array.from(inputFields).reduce((acc, field, index) => {
                     const fieldName = document.querySelector(`.information-${index + 1}`).textContent.trim();
@@ -208,6 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // HTML要素にインデックスを紐付ける
                 imageContainer.setAttribute('data-index', index);
+
     
                 // 画像クリックでモーダル表示
                 img.addEventListener('click', function() {

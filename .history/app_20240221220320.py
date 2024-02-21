@@ -1,3 +1,4 @@
+
 from flask import Flask,redirect,render_template,request,session,url_for,jsonify,send_file
 from Forms import login,sinUp
 from  FirebasePackage.Firebase import firebase
@@ -150,45 +151,49 @@ def remove_background():
 
     return jsonify(response_data), 200
 
-@app.route('/save-all-images', methods=['POST'])
-def upload_all():
+@app.route('/save-image', methods=['POST'])
+def upload():
     if "usr" not in session:
         return redirect(url_for('welcome'))
+    if 'image' not in request.files or 'info' not in request.form:
+        print("ファイルがありません")
+        return 'No file part', 400
     
-
-    # 複数の画像と情報を処理
-    files = request.files.to_dict(flat=False)  # ファイルを辞書形式で取得
-    infos = request.form.to_dict(flat=False)  # 情報を辞書形式で取得
-
-    # filesとinfosからキーを取得し、それらが一致するか確認
-    file_keys = [key for key in files if key.startswith('images[')]
-    info_keys = [key for key in infos if key.startswith('infos[')]
-    
-    if not file_keys or not info_keys or len(file_keys) != len(info_keys):
-        print("ファイルまたは情報が不足しています")
-        return 'Invalid request', 400
-    
+    file = request.files['image']
+    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+    user_id = session['usr']
+    original_filename = secure_filename(file.filename)
+    filename = f"{user_id}_{timestamp}_{original_filename}"
+    info = request.form.get('info')
+    info_dict = json.loads(info)
     UPLOAD_FOLDER = 'static/post_image'
-
-    for key in file_keys:
-        file = request.files[key]  # 複数ファイル対応のための[0]
-        filename = secure_filename(file.filename)
-        info = request.form[key.replace('images', 'infos')]
-        info_dict = json.loads(info)
-
-        # アップロードされた画像を指定したディレクトリに保存
-        file_path = os.path.join(UPLOAD_FOLDER, filename)
-        file.save(file_path)
-        
-        # データベースに保存する処理を呼び出す
-        create_closet(user_uid=session['usr'], category=info_dict['系統'], brand=info_dict['ブランド'],style_id=info_dict['カテゴリー'], image=file_path, size=changeNone(info_dict['サイズ']), price=changeNone(info_dict['価格']), purchase_date=changeNone(info_dict['購入日']), note=changeNone(info_dict['思い出メモ']))
-        
-    print("全てのファイルが正常にアップロードされました")
-    return jsonify({"message": "Files uploaded successfully"}), 200
+    # アップロードされた画像を指定したディレクトリに保存
+    file_path = os.path.join(UPLOAD_FOLDER, filename)
+    file.save(file_path)
+    # データベースに保存
+    closet_id  = create_closet(user_uid=session['usr'], category=info_dict['系統'], brand=info_dict['ブランド'],style_id= info_dict['カテゴリー'] ,image=file_path, size=changeNone(info_dict['サイズ']), price=changeNone(info_dict['価格']),purchase_date=changeNone(info_dict['購入日']), note=changeNone(info_dict['思い出メモ']))
+    print("ファイルが正常にアップロードされました")
+    print(closet_id)
+    return jsonify({'message': 'ファイルが正常にアップロードされました','info': info,'id':closet_id}), 200
 
 
 
-   
+@app.route('/save-post', methods=['POST'])
+def save_post():
+    if "usr" not in session:
+        return redirect(url_for('welcome'))
+    if 'image' not in request.files or 'description' not in request.form:
+        return 'No file part', 400
+    file = request.files['image']
+    filename = secure_filename(file.filename)
+    description = request.form['description']
+    UPLOAD_FOLDER = 'static/post_image'
+    # アップロードされた画像を指定したディレクトリに保存
+    file_path = os.path.join(UPLOAD_FOLDER, filename)
+    file.save(file_path)
+    # データベースに保存
+    create_post(session['usr'], file_path, description)
+    return jsonify({'message': 'ファイルが正常にアップロードされました', 'description': description}), 200
 
 
 
@@ -393,61 +398,7 @@ def SimilarStylePost(current_user_id):
     .all()
     return posts_from_similar_style_users
 
-# アップロードした画像・動画を自動で切り取る関数
-@app.route('/ai-cuter', methods=['POST'])
-def ai_cuter():
-    # アップロードされたファイルを保存するディレクトリのパス
-    UPLOAD_FOLDER_IMAGE = 'static/post_image/image'
-    UPLOAD_FOLDER_VIDEO = 'static/post_image/video'
-    app.config['UPLOAD_FOLDER_IMAGE'] = UPLOAD_FOLDER_IMAGE
-    app.config['UPLOAD_FOLDER_VIDEO'] = UPLOAD_FOLDER_VIDEO
-    
-    if 'file' not in request.files:
-        return jsonify({'error': 'ファイルがありません'}), 400
-    
-    file = request.files['file']
-    media_type = request.form.get('mediaType')
-    
-    if file.filename == '':
-        return jsonify({'error': 'ファイルが選択されていません'}), 400
-    
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        
-        # 画像処理のコード
-        if media_type == 'image':
-            file.save(os.path.join(app.config['UPLOAD_FOLDER_IMAGE'], filename))
-            item_images = detect_and_crop_items(f"static/post_image/image/{filename}", filename)
 
-            # 画像パスをカテゴリごとに整理
-            items_dict = {}
-
-            # 送信したくないカテゴリを指定
-            excluded_categories = ['skirt.png',"cort.png","one_piece.png"]
-
-            for item_image in item_images:
-                # ファイル名とカテゴリを分離
-                path, category = item_image.split(':')
-                if category not in excluded_categories:
-                    items_dict[category] = item_image
-            # 処理結果を格納したitems_dictをJSON形式で返す
-            return jsonify(items_dict)
-        # 動画処理のコード
-        elif media_type == 'video':
-            file.save(os.path.join(app.config['UPLOAD_FOLDER_VIDEO'], filename))
-           
-        else:
-            return jsonify({'error': '不正なメディアタイプです'}), 400
-        
-        return jsonify({'message': 'ファイルが正常にアップロードされました', 'filename': filename}), 200
-    
-    return jsonify({'error': '許可されていないファイルタイプです'}), 400
-
-def allowed_file(filename):
-    # 許可するファイルの拡張子を定義
-    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'mp4', 'mov'}
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 
