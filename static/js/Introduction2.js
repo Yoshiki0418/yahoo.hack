@@ -117,7 +117,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     saveButton.addEventListener('click', function() {
         const saveArea = document.getElementById('saveArea');
+        const formData = new FormData();
         const file = imageUpload.files[0];
+        formData.append('image', file);
         if (file) {
             const reader = new FileReader();
             let formData = new FormData();
@@ -150,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     return acc;
                   }, {});
 
-                  const infoJson = JSON.stringify(infoObject); 
+                const infoJson = JSON.stringify(infoObject); 
 
                 img.dataset.info = infoJson;
                 formData.append('info', infoJson);
