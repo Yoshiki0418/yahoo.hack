@@ -6,10 +6,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const imageUpload = document.getElementById('imageUpload');
     const backgroundTransparencyButton = document.querySelector('.background_transparency');
     const changePhotoButton = document.querySelector('.change_photo');
+    const nextButton = document.querySelector('.next-button');
 
     imageUpload.addEventListener('change', function() {
         previewImage();
         handleFileUpload();
+    });
+
+    nextButton.addEventListener('click', function() {
+        window.location.href = '/home';
     });
 
     // ファイルアップロードハンドラー
@@ -117,6 +122,8 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append('image', file);
         if (file) {
             const reader = new FileReader();
+            let formData = new FormData();
+            formData.append('image', file);
             reader.onloadend = function() {
                 const saveArea = document.getElementById('saveArea');
                 const imageContainer = document.createElement('div');
@@ -137,12 +144,18 @@ document.addEventListener('DOMContentLoaded', function() {
                  changePhotoButton.style.backgroundColor = ''; 
                  changePhotoButton.style.color = ''; 
 
+
+                    //Json形式でデータを保存
                  const infoObject = Array.from(inputFields).reduce((acc, field, index) => {
+
+               
+
                     const fieldName = document.querySelector(`.information-${index + 1}`).textContent.trim();
                     const fieldValue = field.value.trim() === '' ? 'none' : field.value.trim();
                     acc[fieldName] = fieldValue; // オブジェクトにフィールド名と値を追加
                     return acc;
                   }, {});
+
                   
                 const infoJson = JSON.stringify(infoObject); // オブジェクトをJSON文字列に変換
                 
@@ -151,6 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // サーバーにデータを送信
                 fetch('/save-image', {
+
                     method: 'POST',
                     body: formData, // FormDataオブジェクトをそのまま使用
                 }).then(response => {
@@ -180,6 +194,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 deleteButton.addEventListener('click', function() {
                     saveArea.removeChild(imageContainer);
                 });
+
+               
 
                 document.getElementById('imagePreview').style.backgroundImage = '';
                 document.getElementById('imageUploadLabel').style.display = 'block';

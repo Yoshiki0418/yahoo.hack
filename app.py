@@ -32,9 +32,9 @@ def changeNone(e):
 @app.route('/',methods=['GET'])
 def welcome():
     #スタイルの初期化用
-    """ create_style("ストリート系")
+    """create_style("ストリート系")
     create_style("カジュアル系")
-    create_style("スポーツ系") """
+    create_style("スポーツ系")"""
     if 'usr' in session:
         return redirect(url_for('home'))
     else:
@@ -150,6 +150,7 @@ def upload():
     # アップロードされた画像を指定したディレクトリに保存
     file_path = os.path.join(UPLOAD_FOLDER, filename)
     file.save(file_path)
+    
     # データベースに保存
     create_closet(user_uid=session['usr'], category=info_dict['系統'], brand=info_dict['ブランド'],style_id= info_dict['カテゴリー'] ,image=file_path, size=changeNone(info_dict['サイズ']), price=changeNone(info_dict['価格']),purchase_date=changeNone(info_dict['購入日']), note=changeNone(info_dict['思い出メモ']))
     print("ファイルが正常にアップロードされました")
@@ -284,6 +285,10 @@ def myFavoriteStyle(uid):
 
 
 
+
+
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
-
