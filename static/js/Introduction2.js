@@ -144,21 +144,27 @@ document.addEventListener('DOMContentLoaded', function() {
                  changePhotoButton.style.backgroundColor = ''; 
                  changePhotoButton.style.color = ''; 
 
+
                     //Json形式でデータを保存
-                    const infoObject = Array.from(inputFields).reduce((acc, field, index) => {
+                 const infoObject = Array.from(inputFields).reduce((acc, field, index) => {
+
+               
+
                     const fieldName = document.querySelector(`.information-${index + 1}`).textContent.trim();
                     const fieldValue = field.value.trim() === '' ? 'none' : field.value.trim();
                     acc[fieldName] = fieldValue; // オブジェクトにフィールド名と値を追加
                     return acc;
                   }, {});
 
-                const infoJson = JSON.stringify(infoObject); 
-
+                  
+                const infoJson = JSON.stringify(infoObject); // オブジェクトをJSON文字列に変換
+                
                 img.dataset.info = infoJson;
                 formData.append('info', infoJson);
 
-                 // サーバーにデータを送信
-                 fetch('/save-image', {
+                // サーバーにデータを送信
+                fetch('/save-image', {
+
                     method: 'POST',
                     body: formData, // FormDataオブジェクトをそのまま使用
                 }).then(response => {

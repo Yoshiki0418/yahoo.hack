@@ -241,6 +241,7 @@ def create_closet(user_uid, category, brand, style_id,image, size, price, purcha
     return 
 
 def create_follower(follower_uid, followed_uid):
+
     with app.app_context():
         follower = Follower(follower_uid=follower_uid, followed_uid=followed_uid)
         db.session.add(follower)
@@ -280,6 +281,11 @@ def myFavoriteStyle(uid):
         print("自分の好きなスタイルを取得する")
         style = User.query.filter_by(uid=uid).first().favorite_styles
     return style
+
+
+
+
+
 
 
 
