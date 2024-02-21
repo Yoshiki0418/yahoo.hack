@@ -141,9 +141,10 @@ document.addEventListener('DOMContentLoaded', function() {
                  changePhotoButton.disabled = true;
                  changePhotoButton.style.backgroundColor = ''; 
                  changePhotoButton.style.color = ''; 
-    
-                //Json形式でデータを保存
-                const infoObject = Array.from(inputFields).reduce((acc, field, index) => {
+
+
+                    //Json形式でデータを保存
+                 const infoObject = Array.from(inputFields).reduce((acc, field, index) => {
                     const fieldName = document.querySelector(`.information-${index + 1}`).textContent.trim();
                     const fieldValue = field.value.trim() === '' ? 'none' : field.value.trim();
                     acc[fieldName] = fieldValue; // オブジェクトにフィールド名と値を追加
@@ -164,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     throw new Error('Network response was not ok.'); // レスポンスが異常な場合はエラーを投げる
                 }).then(data => {
-                    console.log('Success:', data);
+                    console.log('Success1:', data);
                     // 成功した場合の処理
                 }).catch(error => {
                     console.error('Error:', error);
