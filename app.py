@@ -20,6 +20,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 Migrate(app, db)
 
+
 FB = firebase()
 
 #None判定
@@ -28,13 +29,21 @@ def changeNone(e):
         return None
     return e
 
+def initialize_styles():
+    styles = ["ストリート系", "カジュアル系", "スポーツ系"]
+    if Style.query.count() == 0:  # Style テーブルが空の場合のみ実行
+        for style_name in styles:
+            create_style(style_name)
+    print("成功: initialize_styles")
+
+
+
+
+
 # ルーティング
 @app.route('/',methods=['GET'])
 def welcome():
-    #スタイルの初期化用
-    """create_style("ストリート系")
-    create_style("カジュアル系")
-    create_style("スポーツ系")"""
+    initialize_styles()
     if 'usr' in session:
         return redirect(url_for('home'))
     else:
@@ -192,8 +201,10 @@ class Closet(db.Model):
     category = db.Column(db.String(50), nullable=False)
     brand = db.Column(db.String(50))
     image = db.Column(db.String(100), nullable=False)
+    
     style_id = db.Column(db.Integer, db.ForeignKey('style.id'), nullable=True)
-    style = db.relationship('Style', backref='closets')
+    style = db.relationship('Style', back_populates='closet_items',uselist=False)
+
     #オプションのカラム
     size = db.Column(db.String(50))
     price = db.Column(db.Float)
@@ -237,7 +248,6 @@ def create_closet(user_uid, category, brand, style_id,image, size, price, purcha
         closet = Closet(uid=user_uid, category=category,style_id = style_id, brand=brand, image=image, size=size, price=price, purchase_date=purchase_date, note=note)
         db.session.add(closet)
         db.session.commit()
-        closet_id = closet.id
     return 
 
 def create_follower(follower_uid, followed_uid):
@@ -283,12 +293,6 @@ def myFavoriteStyle(uid):
     return style
 
 
-
-
-
-
-
-
-
 if __name__ == '__main__':
     app.run(debug=True)
+    
