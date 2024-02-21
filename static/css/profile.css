@@ -232,7 +232,6 @@ input[name="tab-items"] {
 #coordination-content img,
 #post-content img {
     border-radius: 10%;
-    border: 1px solid;
 }
 
 #coordination-content li,
@@ -544,7 +543,6 @@ input[name="tab-items"] {
 }
 
 #myBtn {
-    border: 0px solid;
     border-radius: 10%;
     
 }
@@ -621,4 +619,8 @@ input[name="tab-items"] {
 .mov_button{
     width: 220px;
     height: 391px;
+    position: relative;
+    right: -30px; /* 右に50pxずらすためには、マイナス値を使用 */
+    top: 50px; /* 下に10pxずらす */
 }
+
