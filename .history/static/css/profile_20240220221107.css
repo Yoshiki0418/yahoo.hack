@@ -1,0 +1,502 @@
+body {
+    margin: 0;
+    height: 100vh;
+}
+
+
+.my_icon {
+    position: absolute;
+    top: 40px;
+    left: 280px;
+    border-radius: 30px;
+}
+
+.name {
+    position: absolute;
+    top: 40px;
+    left: 420px;
+    font-size: 24px;
+}
+
+.introduction{
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 105px;
+    left: 420px;
+    /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);*/
+}
+
+
+
+/*タブ切り替え全体のスタイル*/
+.tabs {
+    margin-top: -30px;
+    margin-left: 100px;
+    padding-bottom: 40px;
+    /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);*/
+    width: 940px;
+    /*margin: 0 auto;*/
+    vertical-align: middle;
+    position: absolute;
+    top: 230px;
+    left: 230px;
+}
+  
+
+/* タブのスタイル */
+
+.tab-items {
+    width: calc(100% / 3);
+    height: 50px;
+    border-bottom: 3px solid #5ab4bd;
+    background-color: #d9d9d9;
+    line-height: 50px;
+    font-size: 16px;
+    text-align: center;
+    color: #565656;
+    display: block;
+    float: left;
+    text-align: center;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+  
+.tab-items:hover {
+    opacity: 0.75;
+}
+
+
+
+  
+ 
+  
+/* ラジオボタンをすべて消す */
+  
+input[name="tab-items"] {
+    display: none;
+}
+
+input[name="tab-items-sub"] {
+    display: none;
+}
+ 
+  /* タブ切り替えの中身のスタイル */
+  
+.tab-content {
+    display: none;
+    padding: 40px 40px 0;
+    clear: both;
+    /*overflow: hidden;*/
+}
+
+.tab-content-sub {
+    display: none;
+    clear: both;
+    /*overflow: hidden;*/
+}
+  
+  /* 選択されているタブのコンテンツのみを表示 */
+  
+#closet:checked~#closet-content,
+#coordination:checked~#coordination-content,
+#post:checked~#post-content,
+#all:checked ~#all-content,
+#bottoms:checked~#bottoms-content,
+#shoes:checked~#shoes-content,
+#tops:checked~#tops-content,
+#others:checked~#others-content,
+#accessories:checked~#accessories-content{
+    display: block;
+}
+
+  
+  
+/* 選択されているタブのスタイルを変える */
+
+.tabs input:not(:checked) + .tab-team {
+    color: gray;
+}
+
+.tabs input:checked + .tab-team {
+    color: black;
+    border-bottom: 1px solid;
+    border-width: medium;
+    border-color: #C0C0C0;
+}
+
+.tab-content input:not(:checked) + .tab-team-sub {
+    background-color: gray;
+}
+
+.tab-content input:checked + .tab-team-sub {
+    background-color: #66CCFF;
+    color: white;
+}
+
+/*メインタブの位置調整*/
+.tab-team {
+    margin-left: 130px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 30px;
+}
+
+/*サブタブのデザインと位置調整*/
+.tab-team-sub {
+    margin-left: 15px;
+    padding: 2px 30px 2px 30px; /* 上下に15px、左右に30pxの余白を設定 */
+    font-size: 12px;
+    font-weight: bold;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.tab-content-sub  {
+    display: none;
+    clear: both;
+    margin-top: 15px;
+    margin-left: -80px;
+}
+
+#closet-content {
+    margin-top: -28px;
+}
+
+/*登録リスト*/
+#all-content ul,
+#bottoms-content ul,
+#shoes-content ul,
+#tops-content ul,
+#accessories-content ul,
+#others-content ul,
+#coordination-content ul,
+#post-content ul{
+	width: calc(100 + 20px);
+	margin: 0 -10px;
+	display: flex;
+	flex-wrap: wrap;
+    list-style-type: none;
+}
+
+#all-content li,
+#bottoms-content li,
+#shoes-content li,
+#tops-content li,
+#accessories-content li,
+#others-content li,
+#coordination-content li,
+#post-content li{
+	padding: 0 10px 20px;
+}
+
+
+
+/*アイテムのリンク*/
+#all-content li a,
+#all-content li a:visited,
+#bottoms-content li a,
+#bottoms-content li a:visited,
+#coordination-content li a,
+#coordination-content li a:visited {
+	text-decoration: none;
+	color: #111;
+}
+
+/*アイテムの文章*/
+#all-content li p,
+#coordination-content li p{
+	font-size: 90%;
+	margin-bottom: 3px;
+}
+
+/*アイテムスパン*/
+#all-content li span, 
+#coordination-content li span{
+	font-size: 80%;
+	display: block;
+}
+
+
+
+/*商品画像の調整*/
+#all-content img,
+#bottoms-content img,
+#shoes-content img,
+#tops-content img,
+#others-content img,
+#accessories-content img {
+    border: 1px solid;
+    border-radius: 30%;
+    
+}
+
+.tab-content-sub li {
+	/*width: calc(20% - 20px);*/
+    width: calc(100% / 7);
+}
+
+
+
+/*保存済みコーデ画像のデザイン*/
+#coordination-content,
+#post-content {
+    margin-left: -70px;
+    margin-top: -20px;
+}
+
+#coordination-content img,
+#post-content img {
+    border-radius: 10%;
+    border: 1px solid;
+}
+
+#coordination-content li,
+#post-content li{
+    width: calc(100% / 6);
+}
+
+/*モーダルウィンドウ*/
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.myModal{
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.myModal .modal-content {
+    color: white;
+    background-color: #352F2F;
+    margin: auto;
+    margin-top: 74px;
+    padding: 10px;
+    border: 1px solid #352F2F;
+    width: 70%;
+    height: 750px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: modalopen;
+    animation-duration: 0.4s;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+}
+
+.myModal .close {
+    color: #aaa;
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    font-size: 28px;
+    font-weight: bold;
+  
+}
+
+.upload-show{
+    position: absolute;
+    width: 350px;
+    height: 622px;
+    left: 30px;
+    top: 70px;
+    
+}
+
+  .upload-show video,
+  .upload-show img {
+    max-width: 100%; /* 最大幅を親要素の幅に合わせる */
+    max-height: 100%; /* 最大高さを親要素の高さに合わせる */
+  }
+
+#post-coordination10 {
+    position: absolute;
+    top: 30px;
+    width: 50%;
+    height: 640px;
+}
+
+#infoForm10 {
+    position: absolute;
+    display: flex;
+    width: 98%;
+    height: 680px;
+}
+
+/* カスタムファイルアップロードボタンのスタイル */
+.custom-file-upload {
+    position: absolute;
+    left: 65px;
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #4CAF50; /* 緑色 */
+    color: white;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.custom-file-upload:hover {
+    background-color: #45a049;
+}
+
+.modal-title{
+    font-size: 28px;
+}
+  
+.modal-content {
+    color: white;
+    background-color: #CCCCCC;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 70%;
+    height: 80% auto;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: modalopen;
+    animation-duration: 0.4s;
+  
+}
+  
+@keyframes modalopen {
+    from {opacity: 0}
+    to {opacity: 1}
+  
+}
+  
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  
+}
+
+.close:hover,  
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#infoForm {
+    display: flex;
+}
+
+#myBtn {
+    border: 0px solid;
+    border-radius: 10%;
+    
+}
+
+/*クローゼット追加ボタンデザイン*/
+#closetBtn {
+    border: none;
+    border-radius: 30%;
+}
+
+/*post-coordinationの位置調整*/
+#post-coordination {
+    margin-left: 60px;
+    margin-top: 30px;
+}
+#img-items {
+    margin-left: 10px;
+    margin-top: 30px;
+}
+
+#input-status {
+    margin-left: 100px;
+    margin-top: 30px;
+}
+
+#upload-button {
+    position: absolute;
+    margin-top: -31px;
+    margin-left: 500px;
+}
+
+/*post-coordinationの写真調整*/
+.imageContainer_whole img{
+    height: 300px;
+    width: 200px;
+    border-top-right-radius: 20%;
+    border-top-left-radius: 20%;
+    border-bottom-right-radius: 20%;
+    border-bottom-left-radius: 20%;
+
+}
+
+.imageContainer_part img{
+    height: 100px;
+    width: 100px;
+    border-top-right-radius: 20%;
+    border-top-left-radius: 20%;
+    border-bottom-right-radius: 20%;
+    border-bottom-left-radius: 20%;
+}
+
+.imageContainer_closet img{
+    height: 250px;
+    width: 250px;
+    border-top-right-radius: 20%;
+    border-top-left-radius: 20%;
+    border-bottom-right-radius: 20%;
+    border-bottom-left-radius: 20%;
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
+/*削除ボタン*/
+li {
+    position: relative;
+    list-style: none;
+  }
+/* 削除ボタンのスタイル */
+.delete-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  /* 削除ボタンにマウスをホバーした時のスタイル */
+  .delete-button:hover {
+    background-color: darkred;
+  }
+
+.hunger-button {
+    width: 60%;
+    height: auto;
+    outline: none; 
+    border: none; /* ボーダーを消す（必要に応じて） */
+}
+
+.mov_button{
+    width: 220px;
+    height: 391px;
+}
+

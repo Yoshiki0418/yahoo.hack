@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Script-Type" content="js/profile.js">
+    <link rel="stylesheet" href="/static/css/profile.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    <script src="../static/js/profile.js"></script>
+    <script src="../static/js/profile2.js"></script>
+    <script src="../static/js/home.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <hedaer>
+      <nav>
+          <div class="head_block">
+              <li><a><img src="../static/image/logo.png" class="logo_pic"></a></li>
+              <div class="login-button">
+                  <a href="/login">ログアウト</a>
+              </div>
+           </div>
+        </nav> 
+    </hedaer>
+    <main>
+    <!--サイドバーの中身-->
+    <div id="sidebar" class="sidebar">
+      <div class="icon-text-container">
+          <div class="type_movie">
+              <a href="/home">
+              <i class="fas fa-home icon"></i>
+              <span class="text">おすすめ</span>
+              </a>
+          </div>
+          <div class="type_movie">
+              <i class="fas fa-user icon"></i>
+              <span class="text">フォロー中</span>
+          </div>
+          <div class="type_movie">
+              <i class="fas fa-chart-line icon"></i>
+              <span class="text">トレンド</span>
+          </div>
+          <div class="type_movie">
+              <i class="fas fa-search icon"></i>
+              <span class="text">探索</span>
+          </div>
+          <div class="type_movie selected">
+            <a href="/profile">
+            <i class="fas fa-portrait icon"></i>
+            <span class="text">プロフィール</span>
+            </a>
+          </div>
+      </div>
+    </div>
+
+    <img src="static/images/a.png" class="my_icon" width="100" height="100">
+    <h2 class="name">Name</h2>
+    <h3 class="introduction">自己紹介</h3>
+
+<!--メインタブ-->
+    <div class="tabs">
+      <input id="closet" type="radio" name="tab-items" checked>
+      <label class="tab-team" for="closet">クローゼット</label>
+      <input id="coordination" type="radio" name="tab-items">
+      <label class="tab-team" for="coordination">保存済みコーデ</label>
+      <input id="post" type="radio" name="tab-items">
+      <label class="tab-team" for="post">投稿</label>
+
+  <!--クローゼットタブ-->
+      <div class="tab-content" id="closet-content">
+        
+          <input id="all" type="radio" name="tab-items-sub" checked>
+          <label class="tab-team-sub" for="all">すべて</label>
+          
+          <input id="bottoms" type="radio" name="tab-items-sub">
+          <label class="tab-team-sub" for="bottoms">ボトムス</label>
+
+          <input id="shoes" type="radio" name="tab-items-sub">
+          <label class="tab-team-sub" for="shoes">シューズ</label>
+
+          <input id="tops" type="radio" name="tab-items-sub">
+          <label class="tab-team-sub" for="tops">トップス</label>        
+          
+          <input id="accessories" type="radio" name="tab-items-sub">
+          <label class="tab-team-sub" for="accessories">アクセサリー</label>
+
+          <input id="others" type="radio" name="tab-items-sub">
+          <label class="tab-team-sub" for="others">その他</label>  
+
+          <div class="tab-content-sub" id="all-content">
+            <ul>
+              <li><button id="closetBtn"><img src="static/images/add_closet.png" width="110" height="110" id="add"></button></li>
+              <li>
+                <button class="delete-button" onclick="deleteItem(this)">X</button>
+                <a href=""><img src="static/images/shoes.png" width="110" height="110"/></a>
+              </li>
+              <li> 
+                <button class="delete-button" onclick="deleteItem(this)">X</button><a href="">
+                <img src="static/images/shoes.png" width="110" height="110"/></a>
+              </li>
+              <li> 
+                <button class="delete-button" onclick="deleteItem(this)">X</button>
+                <a href=""><img src="static/images/shoes.png" width="110" height="110"/></a>
+              </li>
+              <li> 
+                <button class="delete-button" onclick="deleteItem(this)">X</button>
+                <a href=""><img src="static/images/shoes.png" width="110" height="110"/></a>
+              </li>
+              <li> 
+                <button class="delete-button" onclick="deleteItem(this)">X</button>
+                <a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li>
+                <button class="delete-button" onclick="deleteItem(this)">X</button>
+                <a href=""><img src="static/images/shoes.png" width="110" height="110"/></a>
+              </li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+            </ul>
+          </div>
+
+          <div class="tab-content-sub" id="bottoms-content">
+            <ul>
+              <li><a href=""><img src="static/images/add_closet.png" width="110" height="110" id="add"></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+            </ul>
+          </div>
+
+          <div class="tab-content-sub" id="shoes-content">
+            <ul>
+              <li><a href=""><img src="static/images/add_closet.png" width="110" height="110" id="add"></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+            </ul>
+          </div>
+
+          <div class="tab-content-sub" id="tops-content">
+            <ul>
+              <li><a href=""><img src="static/images/add_closet.png" width="110" height="110" id="add"></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+            </ul>
+          </div>
+
+          <div class="tab-content-sub" id="accessories-content">
+            <ul>
+              <li><a href=""><img src="static/images/add_closet.png" width="110" height="110" id="add"></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+            </ul>
+          </div>
+
+          <div class="tab-content-sub" id="others-content">
+            <ul>
+              <li><a href=""><img src="static/images/add_closet.png" width="110" height="110" id="add"></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+              <li><a href=""><img src="static/images/shoes.png" width="110" height="110"/></a></li>
+            </ul>
+          </div>
+      </div>
+
+<!--保存済みコーデのタブ-->
+      <div class="tab-content" id="coordination-content">
+        <ul>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+        </ul>
+      </div>
+
+      <!--マイコーデのタブ-->
+      <div class="tab-content" id="post-content">
+        <ul>
+          <li>
+            <button id="myBtn" class="mov_button">
+              <img class="hunger-button" src="../static/image/hunger.jpg">
+          </button>
+          <input type="file" id="fileInput" style="display: none;" onchange="displayImage(event, 'imageContainer')">
+          </li>
+          {% for item in posted_items %}
+          <li>
+            <a href="{{ item.link }}"><img src="{{ item.image_url }}" width="110" height="200"/></a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+
+  <!--モーダルウインドウ-->
+    <!-- モーダル内容 -->
+    <div id="myModal" class="myModal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3 class="modal-title">投稿のアップロード</h3>
+        <button id="AI-mode" class="AI-mode">AIモードを使用する</button>
+        <button id="hand-mode" class="hand-mode">カメラモードから選択</button>
+        <form id="infoForm10">
+          <div id="post-coordination10">
+            <!-- ファイル選択用の input 要素 -->
+            <!-- 隠れたファイル入力 -->
+            <input type="file" id="uploadInput10" style="display: none;" onchange="displayImage10(event, 'upload-show')">
+            <!-- カスタムデザインのラベル -->
+            <label for="uploadInput10" class="custom-file-upload">カメラロールから写真を選ぶ</label>
+            <!-- 選択された写真・動画を表示する領域 -->
+            <div id="upload-show" class="upload-show"></div>
+          </div>
+          <input type="submit" id="post_button" class="post_button" value="アップロード">
+        </form>
+        <div class="check_items_container">
+          <div class="add_item_block">
+            <div class="add_item_pic">
+                <img src="../static/image/sample3.png">
+            </div>
+              <div class="form-price">
+                <label class="topic" for="price">価格</label>
+                <input type="text" id="price" name="price" class="form-control" value="¥100,000">
+              </div>
+            
+              <div class="form-style">
+                <label class="topic" for="style">系統</label>
+                <input type="text" id="style" name="style" class="form-control">
+              </div>
+            
+            
+              <div class="form-category">
+                <label class="topic" for="category">カテゴリー</label>
+                <input type="text" id="category" name="category" class="form-control">
+              </div>
+            
+            
+              <div class="form-brand">
+                <label class="topic" for="brand">ブランド</label>
+                <input type="text" id="brand" name="brand" class="form-control">
+              </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- クローゼットモーダル内容 -->
+    <div id="closetModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>クローゼットに収納</h3>
+        <form id="infoForm">
+          <div id="post-coordination">
+            <!-- ファイル選択用の input 要素 -->
+            <input type="file" id="uploadInput" onchange="displayImage(event, 'imageContainer5')">
+            <!-- 選択された写真を表示する領域 -->
+            <div id="imageContainer5" class="imageContainer_closet"></div>
+          </div>
+
+          <div id="input-status">
+            <div class="input-group1">
+              <div class="information-1">系統</div>
+              <select class="input-field2">
+                <option value="bottoms">ボトムス</option>
+                <option value="shoes">シューズ</option>
+                <option value="tops">トップス</option>
+                <option value="accessories">アクセサリー</option>
+                <option value="others">その他</option>
+              </select>
+            </div>
+
+            <div class="input-group2">
+              <div class="information-2">カテゴリー</div>
+              <select class="input-field2">
+                <option value="street">ストリート系</option>
+                <option value="casual">カジュアル系</option>
+                <option value="sports">スポーツ系</option>
+              </select>
+            </div>
+
+            <div class="input-group4">
+              <div class="information-4">サイズ</div>
+              <select class="input-field4">
+                <option value="street">S</option>
+                <option value="casual">M</option>
+                <option value="sports">L</option>
+              </select>
+            </div>
+            
+            <div class="input-group5">
+              <div class="information-5">価格</div>
+              <input type="text" class="input-field5" />
+            </div>
+            
+            <div class="input-group6">
+              <div class="information-6">購入日</div>
+              <input type="text" class="input-field6" />
+            </div>
+            
+            <div class="input-group7">
+              <div class="information-7">思い出メモ</div>
+              <input type="text" class="input-field7" />
+            </div>
+
+            <div class="input-group3">
+              <div class="information-3">ブランド</div>
+              <input type="text" class="input-field3" />
+            </div><br>
+
+          </div>
+          
+          <input type="submit" id="upload-button" value="アップロード">
+        </form>
+      </div>
+    </div>
+
+  </main>
+  </body>
+</html>
