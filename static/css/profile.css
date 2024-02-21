@@ -273,9 +273,9 @@ input[name="tab-items-sub"] {
 }
 
   
-.modal-content {
-    color: white;
-    background-color: #CCCCCC;
+/*.modal-content {
+    color: black;
+    background-color: white;
     margin: 5% auto;
     padding: 20px;
     border: 1px solid #888;
@@ -285,7 +285,7 @@ input[name="tab-items-sub"] {
     animation-name: modalopen;
     animation-duration: 0.4s;
   
-}
+}*/
   
 @keyframes modalopen {
     from {opacity: 0}
@@ -319,7 +319,12 @@ input[name="tab-items-sub"] {
 }
 
 /*クローゼット追加ボタンデザイン*/
-#closetBtn {
+#closetBtn1,
+#closetBtn2,
+#closetBtn3,
+#closetBtn4,
+#closetBtn5,
+#closetBtn6 {
     border: none;
     border-radius: 30%;
 }
@@ -336,14 +341,39 @@ input[name="tab-items-sub"] {
 }
 
 #input-status {
-    margin-left: 100px;
-    margin-top: 30px;
+    margin-left: 390px;
+    top: -10px;
+    border: 2px solid ;
+    padding: 10px;
 }
 
-#upload-button {
+
+
+
+
+
+
+
+#button-save {
     position: absolute;
-    margin-top: -31px;
-    margin-left: 500px;
+    margin-top: 350px;
+    margin-left: 105px;
+    width: 170px; 
+    height: 50px; 
+    background-color: #d9d9d9; 
+    border-radius: 40px; 
+    font-family: "Inter-Black", Helvetica; /* フォント */
+    font-weight: 900; /* フォントウェイト */
+    color: #000000; /* 色 */
+    font-size: 20px; /* フォントサイズ */
+    letter-spacing: 0; /* letter-spacing */
+    line-height: normal; /* のline-height */
+    border: none; /* ボーダーを削除 */
+    cursor: pointer; /* ホバー時のカーソルを指示する */
+    outline: none; /* フォーカス時のアウトラインを削除 */
+    display: flex; /* テキストを中央に配置 */
+    align-items: center; /* 垂直方向の中央揃え */
+    justify-content: center; /* 水平方向の中央揃え */
 }
 
 /*post-coordinationの写真調整*/
@@ -381,7 +411,8 @@ input[name="tab-items-sub"] {
 li {
     position: relative;
     list-style: none;
-  }
+}
+
 /* 削除ボタンのスタイル */
 .delete-button {
     position: absolute;
@@ -394,13 +425,53 @@ li {
     border: none;
     border-radius: 50%;
     cursor: pointer;
-  }
+}
   
-  /* 削除ボタンにマウスをホバーした時のスタイル */
-  .delete-button:hover {
+/* 削除ボタンにマウスをホバーした時のスタイル */
+.delete-button:hover {
     background-color: darkred;
-  }
+}
 
 
 
+/*クローゼットモーダルウインドウ*/
+.closetmodal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
 
+.closetmodal-content {
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    left: 50px;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.closet {
+    position: absolute;
+    margin-top: -35px;
+    margin-left: -45px;
+}
