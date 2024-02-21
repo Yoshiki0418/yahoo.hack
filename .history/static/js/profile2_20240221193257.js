@@ -29,6 +29,7 @@ function displayImage10(event, containerId) {
     if (uploadedMedia) {
         // ファイルタイプに基づいてメディアタイプを決定
         mediaType = uploadedMedia.type.startsWith('image/') ? 'image' : 'video';
+        displayImage10(event, 'upload-show'); // ファイルプレビューを表示
     }
 
     var reader = new FileReader();
@@ -164,15 +165,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // AIモードボタンが再度クリックされた時の処理
     document.getElementById('AI-mode').addEventListener('click', function() {
-        if (!uploadedMedia || !mediaType) {
-            console.error("アップロードされたファイルまたはメディアタイプがありません");
+        if (!uploadedMedia) {
+            console.error("アップロードされたファイルがありません");
             return;
         }
-    
+
         const formData = new FormData();
-        formData.append('file', uploadedMedia); // ファイルを追加
-        formData.append('mediaType', mediaType); // メディアタイプを追加
-    
+        formData.append('file', uploadedMedia); // グローバル変数からファイルを取得して追加
+
         // Flaskサーバーへの送信
         fetch('/ai-cuter', {
             method: 'POST',
@@ -181,14 +181,6 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             console.log('送信成功:', data);
-            const itemsContainer = document.getElementById('itemsContainer'); // アイテムを追加するコンテナー
-        
-            // サーバーから受け取った各カテゴリーのアイテムに対してループ
-            for (const category in data) {
-                const imageSrc = data[category]; // 画像のパス
-                const newItemBlock = createNewItemBlock(imageSrc); // 新しいitem_blockを作成
-                itemsContainer.appendChild(newItemBlock); // itemsContainerに追加
-            }
         })
         .catch(error => {
             console.error('送信エラー:', error);

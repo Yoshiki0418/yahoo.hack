@@ -434,8 +434,7 @@ def ai_cuter():
                 path, category = item_image.split(':')
                 if category not in excluded_categories:
                     items_dict[category] = item_image
-            # 処理結果を格納したitems_dictをJSON形式で返す
-            return jsonify(items_dict)
+            print(items_dict)
         # 動画処理のコード
         elif media_type == 'video':
             file.save(os.path.join(app.config['UPLOAD_FOLDER_VIDEO'], filename))

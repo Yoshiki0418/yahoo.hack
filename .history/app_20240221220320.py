@@ -1,3 +1,4 @@
+
 from flask import Flask,redirect,render_template,request,session,url_for,jsonify,send_file
 from Forms import login,sinUp
 from  FirebasePackage.Firebase import firebase
@@ -397,61 +398,7 @@ def SimilarStylePost(current_user_id):
     .all()
     return posts_from_similar_style_users
 
-# アップロードした画像・動画を自動で切り取る関数
-@app.route('/ai-cuter', methods=['POST'])
-def ai_cuter():
-    # アップロードされたファイルを保存するディレクトリのパス
-    UPLOAD_FOLDER_IMAGE = 'static/post_image/image'
-    UPLOAD_FOLDER_VIDEO = 'static/post_image/video'
-    app.config['UPLOAD_FOLDER_IMAGE'] = UPLOAD_FOLDER_IMAGE
-    app.config['UPLOAD_FOLDER_VIDEO'] = UPLOAD_FOLDER_VIDEO
-    
-    if 'file' not in request.files:
-        return jsonify({'error': 'ファイルがありません'}), 400
-    
-    file = request.files['file']
-    media_type = request.form.get('mediaType')
-    
-    if file.filename == '':
-        return jsonify({'error': 'ファイルが選択されていません'}), 400
-    
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        
-        # 画像処理のコード
-        if media_type == 'image':
-            file.save(os.path.join(app.config['UPLOAD_FOLDER_IMAGE'], filename))
-            item_images = detect_and_crop_items(f"static/post_image/image/{filename}", filename)
 
-            # 画像パスをカテゴリごとに整理
-            items_dict = {}
-
-            # 送信したくないカテゴリを指定
-            excluded_categories = ['skirt.png',"cort.png","one_piece.png"]
-
-            for item_image in item_images:
-                # ファイル名とカテゴリを分離
-                path, category = item_image.split(':')
-                if category not in excluded_categories:
-                    items_dict[category] = item_image
-            # 処理結果を格納したitems_dictをJSON形式で返す
-            return jsonify(items_dict)
-        # 動画処理のコード
-        elif media_type == 'video':
-            file.save(os.path.join(app.config['UPLOAD_FOLDER_VIDEO'], filename))
-           
-        else:
-            return jsonify({'error': '不正なメディアタイプです'}), 400
-        
-        return jsonify({'message': 'ファイルが正常にアップロードされました', 'filename': filename}), 200
-    
-    return jsonify({'error': '許可されていないファイルタイプです'}), 400
-
-def allowed_file(filename):
-    # 許可するファイルの拡張子を定義
-    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'mp4', 'mov'}
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 

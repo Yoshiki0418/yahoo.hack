@@ -4,5 +4,4 @@ serviceAccountKey.json
 static/upload_image
 static/post_image
 mainData.sqlite
-ultralytics
-static/model
+.ultralytics
