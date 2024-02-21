@@ -11,24 +11,12 @@ function closeModal() {
     document.getElementById('myModal').style.display = "none";
 }
 
-// グローバル変数でアップロードされたメディアを格納
-var uploadedMedia = null;
-let mediaType = null; // メディアのタイプを格納するグローバル変数
-
-// 画像または動画を表示し、グローバル変数に格納する関数
+// 画像または動画を表示する関数
 function displayImage10(event, containerId) {
     var file = event.target.files[0];
     if (!file) {
         console.error("ファイルが選択されていません");
         return;
-    }
-
-    // グローバル変数にファイルを格納
-    uploadedMedia = file;
-
-    if (uploadedMedia) {
-        // ファイルタイプに基づいてメディアタイプを決定
-        mediaType = uploadedMedia.type.startsWith('image/') ? 'image' : 'video';
     }
 
     var reader = new FileReader();
@@ -162,33 +150,29 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // AIモードボタンが再度クリックされた時の処理
+    // AIモードボタンのイベントリスナーを動的に追加する処理を純粋なJavaScriptで実装
     document.getElementById('AI-mode').addEventListener('click', function() {
-        if (!uploadedMedia || !mediaType) {
-            console.error("アップロードされたファイルまたはメディアタイプがありません");
-            return;
+        // input[type="file"]からファイルを取得
+        var fileInput = document.getElementById('fileInput');
+        var file = fileInput.files[0]; // 選択されたファイル
+    
+        if (!file) {
+            console.log("ファイルが選択されていません。");
+            return; // ファイルが選択されていない場合はここで処理を終了
         }
     
-        const formData = new FormData();
-        formData.append('file', uploadedMedia); // ファイルを追加
-        formData.append('mediaType', mediaType); // メディアタイプを追加
+        // FormDataオブジェクトを作成し、ファイルを添付
+        var formData = new FormData();
+        formData.append('file', file); // 'file'はサーバー側でのファイルのパラメータ名
     
-        // Flaskサーバーへの送信
-        fetch('/ai-cuter', {
+        // FormDataを使用してファイルをPOSTリクエストで送信
+        fetch('/ai-cuter', { // エンドポイントを適切に設定
             method: 'POST',
-            body: formData
+            body: formData,
         })
         .then(response => response.json())
         .then(data => {
             console.log('送信成功:', data);
-            const itemsContainer = document.getElementById('itemsContainer'); // アイテムを追加するコンテナー
-        
-            // サーバーから受け取った各カテゴリーのアイテムに対してループ
-            for (const category in data) {
-                const imageSrc = data[category]; // 画像のパス
-                const newItemBlock = createNewItemBlock(imageSrc); // 新しいitem_blockを作成
-                itemsContainer.appendChild(newItemBlock); // itemsContainerに追加
-            }
         })
         .catch(error => {
             console.error('送信エラー:', error);

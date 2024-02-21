@@ -178,7 +178,6 @@ document.addEventListener('DOMContentLoaded', function() {
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())
         .then(data => {
             console.log('送信成功:', data);
             const itemsContainer = document.getElementById('itemsContainer'); // アイテムを追加するコンテナー

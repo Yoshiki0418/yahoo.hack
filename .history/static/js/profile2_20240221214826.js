@@ -71,6 +71,17 @@ function createNewItemBlock(imageSrc) {
     var newItemBlock = document.createElement('div');
     newItemBlock.className = 'add_item_block';
 
+    // カテゴリーマッピング
+    const categoryMapping = {
+        'tops.png': 'トップス',
+        'bottoms.png': 'ボトムス',
+        "shose.png":"シューズ",
+    };
+
+    // カテゴリー選択エリアの作成時に、ファイル名からカテゴリーを自動選択
+    var categoryDiv = createSelectDiv('category', 'カテゴリー', ['トップス', 'ボトムス', 'シューズ'], categoryMapping[category]);
+    newItemBlock.appendChild(categoryDiv);
+
     // 画像表示用のdivとimg要素
     var addPicDiv = document.createElement('div');
     addPicDiv.className = 'add_item_pic';
@@ -122,8 +133,8 @@ function createNewItemBlock(imageSrc) {
     return newItemBlock;
 }
 
-// 選択肢を持つdivを作成するヘルパー関数
-function createSelectDiv(id, label, options) {
+// 選択肢を持つdivを作成するヘルパー関数をカテゴリー自動選択に対応させる
+function createSelectDiv(id, label, options, selectedOption) {
     var div = document.createElement('div');
     div.className = 'form-' + id;
     var selectLabel = document.createElement('label');
@@ -134,14 +145,14 @@ function createSelectDiv(id, label, options) {
     select.id = id;
     select.name = id;
     select.className = 'form-control';
-    var defaultOption = document.createElement('option');
-    defaultOption.value = '';
-    defaultOption.textContent = '選択してください';
-    select.appendChild(defaultOption);
     options.forEach(function(optionText) {
         var option = document.createElement('option');
         option.value = optionText;
         option.textContent = optionText;
+        // 選択されるべきオプションを自動選択
+        if (optionText === selectedOption) {
+            option.selected = true;
+        }
         select.appendChild(option);
     });
     div.appendChild(selectLabel);

@@ -122,8 +122,8 @@ function createNewItemBlock(imageSrc) {
     return newItemBlock;
 }
 
-// 選択肢を持つdivを作成するヘルパー関数
-function createSelectDiv(id, label, options) {
+// 選択肢を持つdivを作成するヘルパー関数をカテゴリー自動選択に対応させる
+function createSelectDiv(id, label, options, selectedOption) {
     var div = document.createElement('div');
     div.className = 'form-' + id;
     var selectLabel = document.createElement('label');
@@ -134,14 +134,14 @@ function createSelectDiv(id, label, options) {
     select.id = id;
     select.name = id;
     select.className = 'form-control';
-    var defaultOption = document.createElement('option');
-    defaultOption.value = '';
-    defaultOption.textContent = '選択してください';
-    select.appendChild(defaultOption);
     options.forEach(function(optionText) {
         var option = document.createElement('option');
         option.value = optionText;
         option.textContent = optionText;
+        // 選択されるべきオプションを自動選択
+        if (optionText === selectedOption) {
+            option.selected = true;
+        }
         select.appendChild(option);
     });
     div.appendChild(selectLabel);

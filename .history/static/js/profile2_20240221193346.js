@@ -181,14 +181,6 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             console.log('送信成功:', data);
-            const itemsContainer = document.getElementById('itemsContainer'); // アイテムを追加するコンテナー
-        
-            // サーバーから受け取った各カテゴリーのアイテムに対してループ
-            for (const category in data) {
-                const imageSrc = data[category]; // 画像のパス
-                const newItemBlock = createNewItemBlock(imageSrc); // 新しいitem_blockを作成
-                itemsContainer.appendChild(newItemBlock); // itemsContainerに追加
-            }
         })
         .catch(error => {
             console.error('送信エラー:', error);
