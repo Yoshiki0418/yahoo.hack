@@ -20,12 +20,15 @@
   padding: 0 20px;
 }
 
-.screen .companyname {
+.screen .companyname a {
   font-family: "Inter-Regular", Helvetica;
-  font-weight: 400;
-  color: #fbf8f8;
   font-size: 36px;
+  font-weight: 400;
+  text-decoration: none; /* 下線を取り除く */
+  cursor: pointer; /* カーソルをポインタ（指）に変更 */
+  color: #fbf8f8; /* リンクの色を設定（必要に応じて変更） */
 }
+
 
 /* ログアウトボタンのスタイル */
 .screen .header .logout-button a {
