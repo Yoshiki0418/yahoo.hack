@@ -117,28 +117,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     saveButton.addEventListener('click', function() {
         const saveArea = document.getElementById('saveArea');
-        const formData = new FormData();
         const file = imageUpload.files[0];
-        formData.append('image', file);
         if (file) {
             const reader = new FileReader();
             let formData = new FormData();
             formData.append('image', file);
-            reader.onloadend = function() {
+            reader.onload = function() { // ここを変更しました
                 const saveArea = document.getElementById('saveArea');
                 const imageContainer = document.createElement('div');
                 imageContainer.className = 'image-container';
                 saveArea.appendChild(imageContainer);
-
+    
                 const img = document.createElement('img');
                 img.src = processedImageUrl; // 背景削除後の画像URLを使用
                 img.className = 'saveArea-image';
                 imageContainer.appendChild(img);
-
+    
                 backgroundTransparencyButton.disabled = true;
                 backgroundTransparencyButton.style.backgroundColor = ''; 
                 backgroundTransparencyButton.style.color = '';
-
+    
                  // ボタンをアクティブにする
                  changePhotoButton.disabled = true;
                  changePhotoButton.style.backgroundColor = ''; 
@@ -151,17 +149,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     const fieldValue = field.value.trim() === '' ? 'none' : field.value.trim();
                     acc[fieldName] = fieldValue; // オブジェクトにフィールド名と値を追加
                     return acc;
-                  }, {});
-
-                  
+                }, {});
+    
                 const infoJson = JSON.stringify(infoObject); // オブジェクトをJSON文字列に変換
-                
                 img.dataset.info = infoJson;
                 formData.append('info', infoJson);
-
+    
                 // サーバーにデータを送信
                 fetch('/save-image', {
-
                     method: 'POST',
                     body: formData, // FormDataオブジェクトをそのまま使用
                 }).then(response => {
@@ -175,25 +170,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 }).catch(error => {
                     console.error('Error:', error);
                 });
-
+    
                 img.addEventListener('click', function() {
                     const modal = document.getElementById('imageInfoModal');
                     const modalText = document.getElementById('modal-info-text');
                     modalText.textContent = this.dataset.info; // モーダルに情報をセット
                     modal.style.display = 'flex'; // モーダルを表示
                 });
-
+    
                 const deleteButton = document.createElement('button');
                 deleteButton.className = 'delete-button';
                 deleteButton.textContent = '×';
                 imageContainer.appendChild(deleteButton);
-
+    
                 deleteButton.addEventListener('click', function() {
                     saveArea.removeChild(imageContainer);
                 });
-
-               
-
+    
                 document.getElementById('imagePreview').style.backgroundImage = '';
                 document.getElementById('imageUploadLabel').style.display = 'block';
                 imageUpload.value = '';
@@ -205,6 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
             reader.readAsDataURL(file);
         }
     });
+    
 
     function resetInputFields() {
         inputFields.forEach(field => field.value = '');
