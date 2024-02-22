@@ -462,28 +462,28 @@ input[name="tab-items-sub"] {
 
 .form-style{
     position: absolute;
-    top: 35px;
+    top: 40px;
     right: 60px;
     display: flex;
 }
 
 .form-category{
     position: absolute;
-    top: 70px;
+    top: 80px;
     right: 60px;
     display: flex;
 }
 
 .form-brand{
     position: absolute;
-    top: 105px;
+    top: 120px;
     right: 60px;
     display: flex;
 }
 
 .form-seller-url{
     position: absolute;
-    top: 140px;
+    top: 160px;
     right: 60px;
     display: flex;
 }
