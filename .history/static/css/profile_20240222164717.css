@@ -512,7 +512,7 @@ input[name="tab-items-sub"] {
 
 .delete-item-btn {
     position: absolute;
-    top: 0px;
+    top: 7px;
     left: 170px;
     width: 30px; /* ボタンの幅 */
     height: 30px; /* ボタンの高さ */

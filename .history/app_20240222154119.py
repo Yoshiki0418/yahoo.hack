@@ -450,6 +450,8 @@ def ai_cuter():
            
         else:
             return jsonify({'error': '不正なメディアタイプです'}), 400
+        
+        return jsonify({'message': 'ファイルが正常にアップロードされました', 'filename': filename}), 200
     
     return jsonify({'error': '許可されていないファイルタイプです'}), 400
 
