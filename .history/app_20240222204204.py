@@ -113,6 +113,7 @@ def introduction2():
 @app.route('/profile')
 def profile():
     #データベースから情報を取得
+    
     return render_template('profile.html')  
 
 @app.route('/save-preference', methods=['POST'])

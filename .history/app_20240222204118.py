@@ -113,6 +113,9 @@ def introduction2():
 @app.route('/profile')
 def profile():
     #データベースから情報を取得
+    if "usr" not in session:
+        return redirect(url_for('welcome'))
+    data = request.get_json()
     return render_template('profile.html')  
 
 @app.route('/save-preference', methods=['POST'])

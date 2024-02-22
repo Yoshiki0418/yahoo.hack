@@ -61,7 +61,7 @@ def sinup():
         isFlag, usr = FB.Signup(name=_name, email=_username, password=_password)
         if isFlag:
             session["usr"] = usr.uid
-            create_user(usr.uid, _name , _username)
+            create_user(usr.uid, "藤季光樹" , _username)
             return redirect(url_for('Introduction'))
         else:
             return render_template('welcome.html', sinup_failed=not isFlag, sinup_error=usr)
@@ -112,7 +112,6 @@ def introduction2():
 
 @app.route('/profile')
 def profile():
-    #データベースから情報を取得
     return render_template('profile.html')  
 
 @app.route('/save-preference', methods=['POST'])
