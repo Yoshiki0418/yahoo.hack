@@ -17,6 +17,9 @@ body {
     left: 420px;
     font-size: 24px;
 }
+#fileInput {
+  display: none;
+}
 
 .introduction{
     width: auto;

@@ -140,3 +140,38 @@ function deleteItem(button) {
 */
 
 
+  document.addEventListener('DOMContentLoaded', function() {
+    // アイコン画像がクリックされた時のイベントリスナーを設定
+    document.getElementById('image').addEventListener('click', function() {
+      // 隠されたファイルインプットをクリックすることで、ファイル選択ダイアログを開く
+      document.getElementById('fileInput').click();
+    });
+
+    // ファイルが選択された時に、選択された画像を表示する
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+      if(event.target.files.length > 0) {
+        let selectedFile = event.target.files[0];
+        let reader = new FileReader();
+        let formData = new FormData();
+
+        formData.append('iconImage', selectedFile);
+        reader.onload = function(event) {
+          document.getElementById('image').src = event.target.result;
+        };
+        
+        fetch('/upload-icon', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+        });
+        reader.readAsDataURL(selectedFile);
+      }
+    });
+  });
+
+
+
+
