@@ -96,7 +96,7 @@ function createNewItemBlock(imageSrc) {
     newItemBlock.appendChild(priceDiv);
 
     // 系統選択エリア
-    var styleDiv = createSelectDiv('style', '系統', ['カジュアル', 'フォーマル', 'スポーティ']);
+    var styleDiv = createSelectDiv('style', '系統', ['1', '2', '3']);
     newItemBlock.appendChild(styleDiv);
 
     // カテゴリー選択エリア

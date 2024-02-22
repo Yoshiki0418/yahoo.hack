@@ -334,13 +334,22 @@ def create_closet(user_uid, category, brand, style_id,image, size, price, purcha
         return closet.id
     
 #投稿の作成      
-def create_post(uid, image, description):
+def create_post(uid, image):
     with app.app_context():
-        post = Post(uid=uid, image=image, description=description)
+        post = Post(uid=uid, image=image)
         db.session.add(post)
         db.session.commit()
         print("成功: create_post")
         return post.id
+    
+#投稿クローゼットの作成
+def create_post_closet(user_uid, post_id, image, url, style_id, price):
+    with app.app_context():
+        post_closet = PsotCloset(uid=user_uid, post_id=post_id, image=image, url=url, style_id=style_id, price=price)
+        db.session.add(post_closet)
+        db.session.commit()
+        print("成功: create_post_closet")
+        return post_closet.id
     
 
 #フォロワーの作成
@@ -587,6 +596,8 @@ def post_file():
         print(f'Media saved to {save_path}')
     else:
         print('No media uploaded')
+          
+    post_id =create_post(session['usr'], save_path)
 
     # 各アイテムの情報の処理
     items_data = []
@@ -602,6 +613,8 @@ def post_file():
 
     for item in items_data:
         print('Item data:', item)
+        create_post_closet(session['usr'], post_id, item['imageSrc'], item['sellerUrl'], item['style'], item['price'])
+        add_post_style(post_id, item['style'])
         # ここで各アイテムのデータ（imageSrc, price, style, category, brand, sellerUrl）を処理できます
 
     return jsonify({'status': 'success', 'message': 'Data uploaded successfully'})
