@@ -311,4 +311,250 @@
 
   
 
+
+.type_movie a {
+    text-decoration: none; /* リンクの下線を消す */
+    color: inherit; /* リンクの色を親要素と同じにする */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.screen .closet {
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    left: 51px;
+  }
+    
+    .screen .data-input {
+      position: absolute;
+      width: 400px;
+      height: 620px;
+      top: 30px;
+      left: 970px;
+      background-color: #ffffff;
+      border-radius: 20px;
+      border: 1px solid;
+      border-color: #000000;
+      overflow-y: auto; /* 縦方向に内容がはみ出る場合はスクロールバーを表示 */
+      padding: 10px; /* 内容と枠線の間に余白を設ける */
+    }  
   
+  /* モーダル背景 */
+  .closetmodal {
+    display: none; /* デフォルトではモーダルを非表示にする */
+    position: fixed; /* スクロールしてもモーダル位置は固定 */
+    z-index: 1; /* コンテンツの上に表示 */
+    left: 0;
+    top: 0;
+    width: 100%; /* 全幅 */
+    height: 100%; /* 全高さ */
+    overflow: auto; /* 外側のコンテンツが多すぎる場合はスクロールバーを表示 */
+    background-color: rgba(0,0,0,0.4); /* 黒色の背景に少し透明度を加える */
+  }
+  
+  /* モーダル内容 */
+  .closet-modal-content {
+    background-color: #fefefe;
+    margin: auto; /* 中央揃えのための自動マージン */
+    border: 1px solid #888;
+    border-radius: 45px;
+    width: 900px; /* 固定幅 */
+    height: 600px; /* 固定高さ */
+    overflow: auto; /* コンテンツがオーバーフローする場合はスクロールバーを表示 */
+    position: relative; /* クローズボタンの位置調整のため */
+    top: 50%;
+    transform: translateY(-50%); /* 垂直方向の中央に配置 */
+  }
+  
+  .closet-modal-title {
+    text-align: center; /* テキストを中央に寄せる */
+    font-weight: bold; /* テキストを太字にする */
+    margin-top: 20px; /* 上部に余白を設ける */
+    margin-bottom: 20px; /* 下部に余白を設ける */
+  }
+  
+  
+  /* クローズボタン */
+  .closet-close {
+    color: #aaaaaa;
+    position: absolute; /* .closet-modal-contentに対して絶対位置 */
+    top: 10px; /* 上端からの位置 */
+    right: 30px; /* 右端からの位置 */
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .closet-close:hover,
+  .closet-close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .closet-error-message {
+    text-align: center; /* テキストを中央に寄せる */
+    margin-top: 130px; /* 上部のマージン */
+    font-size: 16px; /* フォントサイズ */
+    color: #666; /* テキストの色 */
+  }
+  
+  .closet-add-button {
+    display: inline-block; /* ボタンのサイズを内容に合わせる */
+    background-color: #007bff; /* ボタンの背景色 */
+    color: white; /* テキストの色 */
+    padding: 10px 20px; /* 内側の余白 */
+    text-align: center; /* テキストを中央に寄せる */
+    text-decoration: none; /* 下線を消す */
+    font-size: 16px; /* フォントサイズ */
+    border-radius: 60px; /* 角の丸み */
+    margin-top: 10px; /* エラーメッセージとの間隔 */
+    cursor: pointer; /* ホバー時のカーソルを指に */
+  }
+  
+  .closet-add-button:hover {
+    background-color: #0056b3; /* ホバー時の背景色を濃く */
+  }
+  
+  .closet-item {
+    display: flex; /* Flexboxレイアウトを有効化 */
+    align-items: center; /* アイテムを垂直方向の中央に揃える */
+    margin-bottom: 20px; /* 各アイテムの下に余白を設ける */
+  }
+  
+  .closet-item img {
+    margin-right: 20px; /* 画像とテキストの間に余白を設ける */
+  }
+  
+  .closet-item p {
+    margin: 0; /* パラグラフのデフォルトのマージンを解除 */
+  }
+  
+  .add-button-container {
+    margin-right: 20px; /* ボタンと画像の間に余白を設ける */
+  }
+  
+  .text-info {
+    margin-left: 20px; /* 画像とテキスト情報の間に余白を設ける */
+  }
+  
+  .input-item {
+    margin-bottom: 20px; /* 各アイテムの間に余白を設ける */
+  }
+  
+  .input-item {
+    display: flex; /* Flexboxを有効化して要素を横並びに */
+    align-items: center; /* 子要素を垂直方向の中央に揃える */
+  }
+  
+  .input-item img {
+    border-radius: 40px;
+    border: 2px solid black;
+    width: 250px;
+    height: 250px;
+    /* 右側に余白を追加 */
+    margin-right: 20px;
+  }
+  
+  
+  
+  
+  
+  .add-button {
+    /* ボタンのスタイルを定義 */
+    margin-right: 20px; /* ボタンと画像の間に余白を設ける */
+    position: absolute; /* 絶対位置指定 */
+    right: 170px; /* 右端からの距離 */
+    background-color: #007bff; /* 背景色 */
+    color: white; /* 文字色 */
+    padding: 5px 10px; /* パディング */
+    border: none; /* ボーダーなし */
+    border-radius: 5px; /* 角を丸く */
+    cursor: pointer; /* カーソルをポインタに */
+  }
+  
+  .add-button:hover {
+    background-color: #0056b3; /* ホバー時の背景色 */
+  }
+  
+  
+  .delete-button {
+    padding: 5px 10px;
+    margin-left: 20px; /* テキスト情報の右側に余白を設ける */
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .delete-button:hover {
+    background-color: #ff3333;
+  }
+  
+  
+  
+  .button-container {
+    display: flex; /* Flexboxを使用 */
+    justify-content: center; /* 水平方向の中央に配置 */
+    align-items: center; /* 垂直方向の中央に配置（必要に応じて） */
+    margin-top: 40px; /* 上部のマージン */
+  }
+  
+  
+  
+  
+  
+    .screen .hunger-button {
+      position: absolute;
+      width: 55px;
+      height: 61px;
+      top: 690px;
+      left: 1350px;
+      object-fit: cover;
+    }
+    
+    .button-save {
+      position: absolute;
+      width: 186px; 
+      height: 63px; 
+      top: 690px; 
+      left: 1130px;
+      background-color: #d9d9d9; 
+      border-radius: 40px; 
+      font-family: "Inter-Black", Helvetica; /* フォント */
+      font-weight: 900; /* フォントウェイト */
+      color: #000000; /* 色 */
+      opacity: 0.5; /* 透明度を下げる */
+      font-size: 20px; /* フォントサイズ */
+      letter-spacing: 0; /* letter-spacing */
+      line-height: normal; /* のline-height */
+      border: none; /* ボーダーを削除 */
+      cursor: pointer; /* ホバー時のカーソルを指示する */
+      outline: none; /* フォーカス時のアウトラインを削除 */
+      display: flex; /* テキストを中央に配置 */
+      align-items: center; /* 垂直方向の中央揃え */
+      justify-content: center; /* 水平方向の中央揃え */
+      cursor: default;
+    }
+    
+
