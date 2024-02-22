@@ -422,27 +422,14 @@ def ai_cuter():
 
             # 送信したくないカテゴリを指定
             excluded_categories = ['skirt.png',"cort.png","one_piece.png"]
-            
-            # カテゴリごとのアイテムカウンターと既に見た画像を保持する辞書とセット
-            category_counters = {}
-            seen_images = set()
+
+            print(item_images)
 
             for item_image in item_images:
                 # ファイル名とカテゴリを分離
                 path, category = item_image.split(':')
-                if category not in excluded_categories and item_image not in seen_images:
-                    # 画像が既に処理されていないことを確認
-                    seen_images.add(item_image)  # 処理した画像に追加
-
-                    # カテゴリに対するカウンターを取得または初期化
-                    if category in category_counters:
-                        category_counters[category] += 1
-                    else:
-                        category_counters[category] = 1
-
-                    # カテゴリ名にカウンターを追加してユニークなキーを生成
-                    key_name = f"{category}{'' if category_counters[category] == 1 else category_counters[category]}"
-                    items_dict[key_name] = item_image
+                if category not in excluded_categories:
+                    items_dict[category] = item_image
             # 処理結果を格納したitems_dictをJSON形式で返す
             print(items_dict)
             return jsonify(items_dict)

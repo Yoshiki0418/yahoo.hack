@@ -423,17 +423,13 @@ def ai_cuter():
             # 送信したくないカテゴリを指定
             excluded_categories = ['skirt.png',"cort.png","one_piece.png"]
             
-            # カテゴリごとのアイテムカウンターと既に見た画像を保持する辞書とセット
+            # カテゴリごとのアイテムカウンターを保持する辞書
             category_counters = {}
-            seen_images = set()
 
             for item_image in item_images:
                 # ファイル名とカテゴリを分離
                 path, category = item_image.split(':')
-                if category not in excluded_categories and item_image not in seen_images:
-                    # 画像が既に処理されていないことを確認
-                    seen_images.add(item_image)  # 処理した画像に追加
-
+                if category not in excluded_categories:
                     # カテゴリに対するカウンターを取得または初期化
                     if category in category_counters:
                         category_counters[category] += 1
