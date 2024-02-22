@@ -174,20 +174,6 @@ function createSelectDiv(id, label, options) {
     return div;
 }
 
-// 価格が適切な数値であるか検証する関数
-function validatePrices() {
-    const itemsContainer = document.getElementById('itemsContainer');
-    const itemBlocks = itemsContainer.getElementsByClassName('add_item_block');
-    for (const itemBlock of itemBlocks) {
-        const priceInput = itemBlock.querySelector('input[name="price"]');
-        if (!priceInput.value.trim() || isNaN(priceInput.value)) {
-            alert('価格は数値で入力してください。');
-            return false; // 検証失敗
-        }
-    }
-    return true; // すべての価格が適切な数値である
-}
-
 
 
 // ページ読み込み完了後に実行される関数
@@ -242,60 +228,49 @@ document.addEventListener('DOMContentLoaded', function() {
             // AIモードを有効化するコードをここに記述
         }
     });
-
-    document.getElementById('uploadButton').addEventListener('click', function() {
-        if (!validatePrices()) {
-            return; // 価格入力に問題がある場合は処理を中断
-        }
-        // フォームデータを準備
-        const formData = new FormData();
-    
-        // コーディネートの画像・動画を追加
-        if (uploadedMedia && mediaType) {
-            formData.append('mediaType', mediaType); // 'image' or 'video'
-            formData.append('uploadedMedia', uploadedMedia); // Blob or File
-        }
-    
-        // 各アイテムの情報を追加
-        const itemsContainer = document.getElementById('itemsContainer');
-        const itemBlocks = itemsContainer.getElementsByClassName('add_item_block');
-        Array.from(itemBlocks).forEach((itemBlock, index) => {
-            const imgElement = itemBlock.querySelector('img');
-            const priceInput = itemBlock.querySelector('input[name="price"]');
-            const styleSelect = itemBlock.querySelector('select[name="style"]');
-            const categorySelect = itemBlock.querySelector('select[name="category"]');
-            const brandInput = itemBlock.querySelector('input[name="brand"]');
-            const sellerUrlInput = itemBlock.querySelector('input[name="sellerUrl"]');
-    
-            // 画像URLをフォームデータに追加
-            if (imgElement) {
-                formData.append(`items[${index}][imageSrc]`, imgElement.src);
-            }
-    
-            // その他の情報をフォームデータに追加
-            formData.append(`items[${index}][price]`, priceInput.value);
-            formData.append(`items[${index}][style]`, styleSelect.value);
-            formData.append(`items[${index}][category]`, categorySelect.value);
-            formData.append(`items[${index}][brand]`, brandInput.value);
-            formData.append(`items[${index}][sellerUrl]`, sellerUrlInput.value);
-        });
-
-        console.log('Success:' )
-        // データをFlaskに送信する前にフォームデータの内容をコンソールに出力
-        for (let [key, value] of formData.entries()) {
-            console.log(`${key}: ${value}`);
-        }
-    
-        // データをFlaskに送信
-        fetch('/post-file', {
-            method: 'POST',
-            body: formData,
-        })
-        .then(response => response.json())
-        .then(data => console.log('Success:', data))
-        .catch((error) => console.error('Error:', error));
-    });
 });
 
 
+document.getElementById('uploadButton').addEventListener('click', function() {
+    // フォームデータを準備
+    const formData = new FormData();
 
+    // コーディネートの画像・動画を追加
+    if (uploadedMedia && mediaType) {
+        formData.append('mediaType', mediaType); // 'image' or 'video'
+        formData.append('uploadedMedia', uploadedMedia); // Blob or File
+    }
+
+    // 各アイテムの情報を追加
+    const itemsContainer = document.getElementById('itemsContainer');
+    const itemBlocks = itemsContainer.getElementsByClassName('add_item_block');
+    Array.from(itemBlocks).forEach((itemBlock, index) => {
+        const imgElement = itemBlock.querySelector('img');
+        const priceInput = itemBlock.querySelector('input[name="price"]');
+        const styleSelect = itemBlock.querySelector('select[name="style"]');
+        const categorySelect = itemBlock.querySelector('select[name="category"]');
+        const brandInput = itemBlock.querySelector('input[name="brand"]');
+        const sellerUrlInput = itemBlock.querySelector('input[name="sellerUrl"]');
+
+        // 画像URLをフォームデータに追加
+        if (imgElement) {
+            formData.append(`items[${index}][imageSrc]`, imgElement.src);
+        }
+
+        // その他の情報をフォームデータに追加
+        formData.append(`items[${index}][price]`, priceInput.value);
+        formData.append(`items[${index}][style]`, styleSelect.value);
+        formData.append(`items[${index}][category]`, categorySelect.value);
+        formData.append(`items[${index}][brand]`, brandInput.value);
+        formData.append(`items[${index}][sellerUrl]`, sellerUrlInput.value);
+    });
+
+    // データをFlaskに送信
+    fetch('/your_flask_endpoint', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => console.log('Success:', data))
+    .catch((error) => console.error('Error:', error));
+});
