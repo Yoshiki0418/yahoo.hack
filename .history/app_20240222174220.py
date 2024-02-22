@@ -10,7 +10,6 @@ from transparency import transparency
 import json
 from image_cut import detect_and_crop_items
 from video_cut import detect_and_crop_items_from_video
-import re
 
 
 app = Flask(__name__)
@@ -20,8 +19,6 @@ base_dir = os.path.dirname(__file__)
 database = "sqlite:///" + os.path.join(base_dir, "mainData.sqlite")
 app.config["SQLALCHEMY_DATABASE_URI"] = database
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config['UPLOAD_FOLDER'] = 'static/post_image/'
-app.config['MAX_CONTENT_LENGTH'] = 64 * 1024 * 1024  # 16MB limit
 db = SQLAlchemy(app)
 Migrate(app, db)
 
@@ -463,39 +460,36 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-@app.route('/post-file', methods=['POST'])
-def post_file():
-    # コーディネートの画像・動画の処理
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    # コーディネートの画像または動画の処理
+    if 'uploadedMedia' not in request.files:
+        return jsonify({'error': 'No uploadedMedia part'}), 400
+    file = request.files['uploadedMedia']
     media_type = request.form.get('mediaType')
-    uploaded_media = request.files.get('uploadedMedia')
-
-    if uploaded_media:
-        filename = uploaded_media.filename
-        # 保存先のパスを設定
-        save_path = os.path.join('static/post', filename)
-        # ファイルを保存
-        uploaded_media.save(save_path)
-        print(f'Media saved to {save_path}')
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     else:
-        print('No media uploaded')
+        return jsonify({'error': 'Invalid uploadedMedia file'}), 400
 
     # 各アイテムの情報の処理
     items_data = []
-    item_pattern = re.compile(r'items\[(\d+)\]\[(\w+)\]')
-    for key, value in request.form.items():
-        match = item_pattern.match(key)
-        if match:
-            index, field = match.groups()
-            index = int(index)  # 文字列から整数へ正しく変換
-            if len(items_data) <= index:
-                items_data.append({})
-            items_data[index][field] = value
-
-    for item in items_data:
-        print('Item data:', item)
-        # ここで各アイテムのデータ（imageSrc, price, style, category, brand, sellerUrl）を処理できます
-
-    return jsonify({'status': 'success', 'message': 'Data uploaded successfully'})
+    for item_file in request.files.getlist('itemImages[]'):
+        if item_file and allowed_file(item_file.filename):
+            filename = secure_filename(item_file.filename)
+            item_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            item_data = {
+                'filename': filename,
+                'price': request.form[f'price_{filename}'],
+                'style': request.form[f'style_{filename}'],
+                'category': request.form[f'category_{filename}'],
+                'brand': request.form[f'brand_{filename}'],
+                'sellerUrl': request.form[f'sellerUrl_{filename}']
+            }
+            items_data.append(item_data)
+    
+    return jsonify({'message': 'Files successfully uploaded', 'items': items_data}), 200
 
 
 if __name__ == '__main__':

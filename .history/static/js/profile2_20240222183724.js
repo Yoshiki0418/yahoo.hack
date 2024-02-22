@@ -174,20 +174,6 @@ function createSelectDiv(id, label, options) {
     return div;
 }
 
-// 価格が適切な数値であるか検証する関数
-function validatePrices() {
-    const itemsContainer = document.getElementById('itemsContainer');
-    const itemBlocks = itemsContainer.getElementsByClassName('add_item_block');
-    for (const itemBlock of itemBlocks) {
-        const priceInput = itemBlock.querySelector('input[name="price"]');
-        if (!priceInput.value.trim() || isNaN(priceInput.value)) {
-            alert('価格は数値で入力してください。');
-            return false; // 検証失敗
-        }
-    }
-    return true; // すべての価格が適切な数値である
-}
-
 
 
 // ページ読み込み完了後に実行される関数

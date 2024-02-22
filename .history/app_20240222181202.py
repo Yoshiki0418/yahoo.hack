@@ -10,7 +10,6 @@ from transparency import transparency
 import json
 from image_cut import detect_and_crop_items
 from video_cut import detect_and_crop_items_from_video
-import re
 
 
 app = Flask(__name__)
@@ -20,7 +19,7 @@ base_dir = os.path.dirname(__file__)
 database = "sqlite:///" + os.path.join(base_dir, "mainData.sqlite")
 app.config["SQLALCHEMY_DATABASE_URI"] = database
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config['UPLOAD_FOLDER'] = 'static/post_image/'
+app.config['UPLOAD_FOLDER'] = 'static/postimage/'
 app.config['MAX_CONTENT_LENGTH'] = 64 * 1024 * 1024  # 16MB limit
 db = SQLAlchemy(app)
 Migrate(app, db)
@@ -463,7 +462,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-@app.route('/post-file', methods=['POST'])
+@app.route('/upload', methods=['POST'])
 def post_file():
     # コーディネートの画像・動画の処理
     media_type = request.form.get('mediaType')
@@ -472,7 +471,7 @@ def post_file():
     if uploaded_media:
         filename = uploaded_media.filename
         # 保存先のパスを設定
-        save_path = os.path.join('static/post', filename)
+        save_path = os.path.join('uploads', filename)
         # ファイルを保存
         uploaded_media.save(save_path)
         print(f'Media saved to {save_path}')
@@ -481,15 +480,14 @@ def post_file():
 
     # 各アイテムの情報の処理
     items_data = []
-    item_pattern = re.compile(r'items\[(\d+)\]\[(\w+)\]')
-    for key, value in request.form.items():
-        match = item_pattern.match(key)
-        if match:
-            index, field = match.groups()
-            index = int(index)  # 文字列から整数へ正しく変換
+    for key in request.form.keys():
+        if key.startswith('items['):
+            _, index, field = key.strip(']').split('[')
+            index = int(index)  # 文字列から整数へ変換
+            # アイテムデータが既に存在しない場合は初期化
             if len(items_data) <= index:
                 items_data.append({})
-            items_data[index][field] = value
+            items_data[index][field] = request.form[key]
 
     for item in items_data:
         print('Item data:', item)
