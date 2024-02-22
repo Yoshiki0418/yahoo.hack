@@ -13,7 +13,6 @@
     <script src="../static/js/profile.js"></script>
     <script src="../static/js/profile2.js"></script>
     <script src="../static/js/home.js"></script>
-    <script src="../static/js/Introduction2.js"></script>
     <title>Document</title>
   </head>
   <body>
@@ -95,7 +94,7 @@
           <div class="tab-content-sub" id="all-content">
             <ul>
               <li><button id="closetBtn1"><img src="static/images/add_closet.png" width="110" height="110" id="add"></button></li>
-              {% for post in posts %}
+              {% for post in closet %}
               <li>
                 <button class="delete-button" onclick="deleteItem(this)">X</button>
                 <a href=""><img src="" width="110" height="110"/></a>
@@ -269,9 +268,9 @@
     <div id="closetModal" class="closetmodal">
       <!--<div class="closetmodal-content">
         <span class="close">&times;</span>-->
-        <div class="screen">
+        <div class="screen-pro">
          
-              <div class="closet">
+              <div class="closet-pro">
                 
                 <div class="data-input"></div>
                 <div id="saveArea" class="saveArea">
@@ -286,7 +285,7 @@
                 <button class="change_photo" disabled>写真変更</button>
                 
                 <label for="imageUpload" class="image-upload-label" id="imageUploadLabel">
-                  <img class="hunger-button" src="../static/image/hunger.jpg" />
+                  <img class="hunger-button-pro" src="../static/image/hunger.jpg" />
                 </label>
                 <input type="file" id="imageUpload" accept=".jpeg, .png" style="display:none;" />
                 
@@ -349,7 +348,7 @@
                 </div>
                 
       
-                <button class="button-save">保存</button>
+                <button class="button-save-pro">収納</button>
                 
               </div>
       
@@ -363,7 +362,7 @@
               </div>
 
               <div class="next">
-                <button class="next-button">次に進む</button>
+                <button class="next-button">保存</button>
               </div>
       </div>
     </div>
