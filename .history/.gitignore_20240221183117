@@ -1,0 +1,7 @@
+firebaseConfig.json
+serviceAccountKey.json
+.DS_Store
+static/upload_image
+static/post_image
+mainData.sqlite
+ultralytics

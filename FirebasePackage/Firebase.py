@@ -37,6 +37,7 @@ class firebase:
     def Login(self, email, password):
         try:
             user = self.auth1.sign_in_with_email_and_password(email, password)
+            print(user['localId'])
             return True,user
         except Exception as e:
             return False, e

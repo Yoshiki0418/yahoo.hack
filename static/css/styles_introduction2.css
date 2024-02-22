@@ -219,7 +219,7 @@
   display: flex;
   position: absolute;
   align-items: center;
-  top: 287px; /* text-wrapper-5のtopと同じ値 */
+  top: 293px; /* text-wrapper-5のtopと同じ値 */
   left: 508px; /* text-wrapper-5のleftと同じ値 */
 }
 
@@ -247,7 +247,7 @@
   display: flex;
   position: absolute;
   align-items: center;
-  top: 315px; /* text-wrapper-5のtopと同じ値 */
+  top: 325px; /* text-wrapper-5のtopと同じ値 */
   left: 508px; /* text-wrapper-5のleftと同じ値 */
 }
 
@@ -276,7 +276,7 @@
   display: flex;
   position: absolute;
   align-items: center;
-  top: 365px; /* text-wrapper-5のtopと同じ値 */
+  top: 358px; /* text-wrapper-5のtopと同じ値 */
   left: 508px; /* text-wrapper-5のleftと同じ値 */
 }
 
@@ -405,7 +405,7 @@
 }
 
 .screen .input-field7 {
-  height: 10px; /* 適切な高さに調整 */
+  height: 35px; /* 適切な高さに調整 */
   padding: 2px 3px;
   font-size: 10px;
   border: 1px solid #888383;
@@ -418,13 +418,14 @@
   position: absolute;
   width: 186px; 
   height: 63px; 
-  top: 550px; 
+  top: 560px; 
   left: 515px;
   background-color: #d9d9d9; 
   border-radius: 40px; 
   font-family: "Inter-Black", Helvetica; /* フォント */
   font-weight: 900; /* フォントウェイト */
   color: #000000; /* 色 */
+  opacity: 0.5; /* 透明度を下げる */
   font-size: 20px; /* フォントサイズ */
   letter-spacing: 0; /* letter-spacing */
   line-height: normal; /* のline-height */
@@ -443,12 +444,11 @@
   height: 30px; 
   top: 178px; 
   left: 525px;
-  background-color: #28bd52; 
   border-radius: 40px; 
   font-family: "Inter-Black", Helvetica; /* フォント */
   font-weight: 900; /* フォントウェイト */
   color: #ffffff; /* 色 */
-  font-size: 15px; /* フォントサイズ */
+  font-size: 13px; /* フォントサイズ */
   letter-spacing: 0; /* letter-spacing */
   line-height: normal; /* のline-height */
   border: none; /* ボーダーを削除 */
@@ -457,12 +457,12 @@
   display: flex; /* テキストを中央に配置 */
   align-items: center; /* 垂直方向の中央揃え */
   justify-content: center; /* 水平方向の中央揃え */
-  cursor: default
 }
 
 .background_transparency[disabled] {
   background-color: #d9d9d9; /* 灰色の背景 */
   color: black; /* 黒色の文字 */ 
+  opacity: 0.5; /* 透明度を下げる */
   cursor: default;
 }
 
@@ -472,12 +472,11 @@
   height: 30px; 
   top: 219px; 
   left: 525px;
-  background-color: #c04c4c; 
   border-radius: 40px; 
   font-family: "Inter-Black", Helvetica; /* フォント */
   font-weight: 900; /* フォントウェイト */
   color: #ffffff; /* 色 */
-  font-size: 15px; /* フォントサイズ */
+  font-size: 13px; /* フォントサイズ */
   letter-spacing: 0; /* letter-spacing */
   line-height: normal; /* のline-height */
   border: none; /* ボーダーを削除 */
@@ -490,7 +489,8 @@
 
 .change_photo[disabled] {
   background-color: #d9d9d9; /* 灰色の背景 */
-  color: black; /* 黒色の文字 */ /* カーソルを禁止マークに */
+  color: black; /* 黒色の文字 */ 
+  opacity: 0.5; /* 透明度を下げる */
   cursor: default;
 }
 
@@ -508,11 +508,12 @@
   position: absolute;
   width: 186px;
   height: 63px;
-  background-color: #d9d9d9;
+  background-color: blue;
+  opacity: 0.5;
   border-radius: 40px;
   font-family: "Inter-Bold", Helvetica;
   font-weight: 700;
-  color: #000000;
+  color: white;
   font-size: 20px;
   letter-spacing: 0;
   line-height: normal;
