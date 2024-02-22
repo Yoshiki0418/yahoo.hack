@@ -58,7 +58,7 @@
       </div>
     </div>
 
-    <img src="static/image/icon_yoshi.png" class="my_icon" width="130" height="130">
+    <img src="static/images/a.png" class="my_icon" width="100" height="100">
     <h2 class="name">{{my_info.name}}</h2>
     <h3 class="introduction">自己紹介</h3>
 
@@ -190,23 +190,19 @@
 
       <!--マイコーデのタブ-->
       <div class="tab-content" id="post-content">
-        <div class="tab-content-sub2" style="display: block;">
-          <ul>
-            <li>
-              <button id="myBtn" class="mov_button">
-                <img class="hunger-button" src="../static/image/hunger.jpg">
-            </button>
-            <input type="file" id="fileInput" style="display: none;" onchange="displayImage(event, 'imageContainer')">
-            </li>
-            {% for post in my_post %}
-              {% if my_info.uid == post.uid %}
-              <li>
-                <a><img class="post_image_block" src="{{ post.image}}" width="220" height="391"/></a>
-              </li>
-              {% endif %}
-            {% endfor %}
-          </ul>
-        </div>
+        <ul>
+          <li>
+            <button id="myBtn" class="mov_button">
+              <img class="hunger-button" src="../static/image/hunger.jpg">
+          </button>
+          <input type="file" id="fileInput" style="display: none;" onchange="displayImage(event, 'imageContainer')">
+          </li>
+          {% for post in my_post %}
+          <li>
+            <a href="{{ post.link }}"><img src="{{ post.image}}" width="110" height="200"/></a>
+          </li>
+          {% endfor %}
+        </ul>
       </div>
 
 

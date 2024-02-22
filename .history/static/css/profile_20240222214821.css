@@ -96,28 +96,9 @@ input[name="tab-items-sub"] {
     clear: both;
     width: 940px;
     height: 470px;
-    background-color: #FFF;
+    background-color: red;
     display: flex;
     overflow-y: scroll;
-}
-
-.tab-content-sub2 {
-  clear: both;
-  margin-left: 40px;
-  width: 960px;
-  height: 470px;
-  background-color: #FFF;
-  display: flex;
-  flex-wrap: wrap;
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
-
-.tab-content-sub2 li{
-  width: 220px;
-  height: 391px;
-  margin-right: 25px;
-  margin-bottom: 25px;
 }
   
   /* 驕ｸ謚槭＆繧後※縺�ｋ繧ｿ繝悶�繧ｳ繝ｳ繝�Φ繝��縺ｿ繧定｡ｨ遉ｺ */
@@ -277,7 +258,8 @@ input[name="tab-items-sub"] {
     border: 1px solid;
 }
 
-#coordination-content li{
+#coordination-content li,
+#post-content li{
     width: calc(100% / 6);
 }
 
@@ -1345,41 +1327,5 @@ li {
 
 .my_code_clock{
   margin-left: 25px;
-  /* margin-right: 25px; */
-}
-
-#closetBtn1 {
-  border: none; /* 枠線をなくす */
-  background: transparent; /* 背景を透明にする */
-  cursor: pointer; /* ホバー時にカーソルをポインターに変更する */
-}
-
-#closetBtn2 {
-  border: none; /* 枠線をなくす */
-  background: transparent; /* 背景を透明にする */
-  cursor: pointer; /* ホバー時にカーソルをポインターに変更する */
-}
-
-#closetBtn3 {
-  border: none; /* 枠線をなくす */
-  background: transparent; /* 背景を透明にする */
-  cursor: pointer; /* ホバー時にカーソルをポインターに変更する */
-}
-
-#closetBtn4 {
-  border: none; /* 枠線をなくす */
-  background: transparent; /* 背景を透明にする */
-  cursor: pointer; /* ホバー時にカーソルをポインターに変更する */
-}
-
-#closetBtn5 {
-  border: none; /* 枠線をなくす */
-  background: transparent; /* 背景を透明にする */
-  cursor: pointer; /* ホバー時にカーソルをポインターに変更する */
-}
-
-#closetBtn6 {
-  border: none; /* 枠線をなくす */
-  background: transparent; /* 背景を透明にする */
-  cursor: pointer; /* ホバー時にカーソルをポインターに変更する */
+  margin-right: 25px;
 }
