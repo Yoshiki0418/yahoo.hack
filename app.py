@@ -124,7 +124,7 @@ def profile():
         return redirect(url_for('welcome'))
     my_closet = myCloset(session['usr'])
     my_info = find_user(session['usr'])
-    my_post = atherPost(session["usr"])
+    my_post = myPost(session["usr"])
     print(my_info.name)
     print(my_info.uid)
     print(my_info.iconImage)
