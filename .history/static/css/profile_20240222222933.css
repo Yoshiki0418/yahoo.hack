@@ -103,21 +103,14 @@ input[name="tab-items-sub"] {
 
 .tab-content-sub2 {
   clear: both;
-  margin-left: 40px;
-  width: 960px;
+  margin-left: 50px;
+  width: 940px;
   height: 470px;
   background-color: #FFF;
   display: flex;
   flex-wrap: wrap;
   overflow-y: scroll;
   overflow-x: hidden;
-}
-
-.tab-content-sub2 li{
-  width: 220px;
-  height: 391px;
-  margin-right: 25px;
-  margin-bottom: 25px;
 }
   
   /* 驕ｸ謚槭＆繧後※縺�ｋ繧ｿ繝悶�繧ｳ繝ｳ繝�Φ繝��縺ｿ繧定｡ｨ遉ｺ */
@@ -277,7 +270,8 @@ input[name="tab-items-sub"] {
     border: 1px solid;
 }
 
-#coordination-content li{
+#coordination-content li,
+#post-content li{
     width: calc(100% / 6);
 }
 
@@ -1382,4 +1376,8 @@ li {
   border: none; /* 枠線をなくす */
   background: transparent; /* 背景を透明にする */
   cursor: pointer; /* ホバー時にカーソルをポインターに変更する */
+}
+
+.post_image_block{
+  margin-left: 100px;
 }

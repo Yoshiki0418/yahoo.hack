@@ -118,7 +118,6 @@ def profile():
     my_info = find_user(session['usr'])
     my_post = atherPost(session["usr"])
     print(my_info.name)
-    print(my_info.uid)
     # print(my_closet)
     return render_template('profile.html', my_closet=my_closet, my_info=my_info, my_post=my_post)  
 
