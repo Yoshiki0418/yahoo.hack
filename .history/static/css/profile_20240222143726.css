@@ -455,35 +455,35 @@ input[name="tab-items-sub"] {
 
 .form-price{
     position: absolute;
-    top: 0px;
+    top: 20px;
     right: 60px;
     display: flex;
 }
 
 .form-style{
     position: absolute;
-    top: 35px;
+    top: 62px;
     right: 60px;
     display: flex;
 }
 
 .form-category{
     position: absolute;
-    top: 70px;
+    top: 104px;
     right: 60px;
     display: flex;
 }
 
 .form-brand{
     position: absolute;
-    top: 105px;
+    top: 146px;
     right: 60px;
     display: flex;
 }
 
 .form-seller-url{
     position: absolute;
-    top: 140px;
+    top: 146px;
     right: 60px;
     display: flex;
 }
@@ -498,7 +498,9 @@ input[name="tab-items-sub"] {
 
 .form-control{
     width: 150px;
+    height: 28px;
     margin-left: -2px;
+    font-size: auto;
 }
 
 .background_white{
