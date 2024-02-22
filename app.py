@@ -333,8 +333,8 @@ def create_closet(user_uid, category, brand, style_id,image, size, price, purcha
         print("成功: create_closet")
         return closet.id
     
-#投稿クローゼットの作成      
-def create_post(uid,post_, image, description):
+#投稿の作成      
+def create_post(uid, image, description):
     with app.app_context():
         post = Post(uid=uid, image=image, description=description)
         db.session.add(post)
@@ -618,7 +618,6 @@ def get_posts_by_users_with_same_style(uid):
         return posts
     else:
         return None
-
 
 
 if __name__ == '__main__':
