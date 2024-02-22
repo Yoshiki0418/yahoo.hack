@@ -764,6 +764,14 @@ li {
     justify-content: center;
     width: 100%;
   }
+
+  .screen2 closet{
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
   
   .screen2 .header {
     position: fixed; /* ヘッダーを固定位置に設定 */
@@ -804,10 +812,8 @@ li {
   .screen2 .closet {
     position: absolute;
     width: 795px;
-    height: 740px;
-    top: 120px;
+    top: 150px;
     left: 51px;
-    background-color: #fff;
   }
   
   .screen2 .data-input {
@@ -834,7 +840,6 @@ li {
     display: flex; /* 複数画像配置のため追加 */
     flex-wrap: wrap; /* 画像が複数ある場合に折り返す */
     align-items: flex-start; /* 上端から配置を開始 */
-    top: 10px;
   }
   
   #saveArea {

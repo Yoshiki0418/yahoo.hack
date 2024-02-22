@@ -757,7 +757,7 @@ li {
 
 /*イントロダクション２*/
 
-.screen2 {
+.screen {
     background-color: #ffffff;
     display: flex;
     flex-direction: row;
@@ -765,7 +765,7 @@ li {
     width: 100%;
   }
   
-  .screen2 .header {
+  .screen .header {
     position: fixed; /* ヘッダーを固定位置に設定 */
     width: 2000px;
     height: 60px;
@@ -775,7 +775,7 @@ li {
     background-color: #352f2f;
   }
   
-  .screen2 .companyname {
+  .screen .companyname {
     position: absolute;
     width: 204px;
     top: 8px;
@@ -788,7 +788,7 @@ li {
     line-height: normal;
   }
   
-  .screen2 .explanation {
+  .screen .explanation {
     width: 613px;
     top: 380px;
     left: 871px;
@@ -801,16 +801,14 @@ li {
     line-height: normal;
   }
   
-  .screen2 .closet {
+  .screen .closet {
     position: absolute;
     width: 795px;
-    height: 740px;
-    top: 120px;
+    top: 150px;
     left: 51px;
-    background-color: #fff;
   }
   
-  .screen2 .data-input {
+  .screen .data-input {
     position: absolute;
     width: 719px;
     height: 700px;
@@ -822,7 +820,7 @@ li {
     border-color: #000000;
   }
   
-  .screen2 .saveArea {
+  .screen .saveArea {
     position: absolute;
     width: 491px;
     height: 700px;
@@ -834,7 +832,6 @@ li {
     display: flex; /* 複数画像配置のため追加 */
     flex-wrap: wrap; /* 画像が複数ある場合に折り返す */
     align-items: flex-start; /* 上端から配置を開始 */
-    top: 10px;
   }
   
   #saveArea {

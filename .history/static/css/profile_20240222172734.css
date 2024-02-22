@@ -804,8 +804,7 @@ li {
   .screen2 .closet {
     position: absolute;
     width: 795px;
-    height: 740px;
-    top: 120px;
+    top: 150px;
     left: 51px;
     background-color: #fff;
   }
@@ -834,7 +833,7 @@ li {
     display: flex; /* 複数画像配置のため追加 */
     flex-wrap: wrap; /* 画像が複数ある場合に折り返す */
     align-items: flex-start; /* 上端から配置を開始 */
-    top: 10px;
+    top: 0px;
   }
   
   #saveArea {
