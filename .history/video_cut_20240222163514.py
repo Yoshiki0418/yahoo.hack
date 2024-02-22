@@ -65,7 +65,7 @@ def detect_and_crop_items_from_video(video_path, filename, detection_interval=3)
                     new_vector = vtr.vectorize(cv2.imread(cropped_image_path))
 
                     # ここで類似画像のチェックを行い、閾値を15に設定
-                    is_duplicate = any(imgsim.distance(new_vector, existing_vector) <= 15 for existing_vector in existing_vectors)
+                    is_duplicate = any(imgsim.distance(new_vector, existing_vector) >= 15 for existing_vector in existing_vectors)
 
                     if not is_duplicate:
                         existing_vectors.append(new_vector)  # 新しい画像ベクトルを追加
@@ -80,6 +80,6 @@ def detect_and_crop_items_from_video(video_path, filename, detection_interval=3)
     return cropped_images_paths
 
 # 使用例
-# video_path = '/Users/yamamoto116/ultralytics/画面収録 2024-02-19 18.45.30.mp4'
-# cropped_images = detect_and_crop_items_from_video(video_path, "aaa")
-# print(cropped_images)
+video_path = '/Users/yamamoto116/ultralytics/画面収録 2024-02-19 18.45.30.mp4'
+cropped_images = detect_and_crop_items_from_video(video_path, "aaa")
+print(cropped_images)

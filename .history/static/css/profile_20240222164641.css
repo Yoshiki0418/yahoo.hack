@@ -512,19 +512,19 @@ input[name="tab-items-sub"] {
 
 .delete-item-btn {
     position: absolute;
-    top: 0px;
+    top: 7px;
     left: 170px;
     width: 30px; /* ボタンの幅 */
     height: 30px; /* ボタンの高さ */
     border-radius: 50%; /* 角を完全に丸くする */
-    background-color: rgb(240, 65, 123); /* 背景色を赤に */
+    background-color: red; /* 背景色を赤に */
     color: white; /* テキスト色を白に */
     border: none; /* 枠線なし */
     cursor: pointer; /* カーソルをポインタに */
     display: flex; /* Flexboxを使用 */
     align-items: center; /* 中央揃え(垂直方向) */
     justify-content: center; /* 中央揃え(水平方向) */
-    font-size: 20px; /* フォントサイズ */
+    font-size: 16px; /* フォントサイズ */
 }
 
 

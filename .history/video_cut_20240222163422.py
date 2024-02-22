@@ -80,6 +80,6 @@ def detect_and_crop_items_from_video(video_path, filename, detection_interval=3)
     return cropped_images_paths
 
 # 使用例
-# video_path = '/Users/yamamoto116/ultralytics/画面収録 2024-02-19 18.45.30.mp4'
-# cropped_images = detect_and_crop_items_from_video(video_path, "aaa")
-# print(cropped_images)
+video_path = '/Users/yamamoto116/ultralytics/画面収録 2024-02-19 18.45.30.mp4'
+cropped_images = detect_and_crop_items_from_video(video_path, "aaa")
+print(cropped_images)

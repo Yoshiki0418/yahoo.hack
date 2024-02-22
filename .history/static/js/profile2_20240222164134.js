@@ -137,7 +137,7 @@ function createNewItemBlock(imageSrc) {
 
     // 削除ボタンの追加
     var deleteButton = document.createElement('button');
-    deleteButton.textContent = '×';
+    deleteButton.textContent = '削除';
     deleteButton.className = 'delete-item-btn'; // CSSでスタイルを設定できるようにクラスを追加
     deleteButton.onclick = function() {
         newItemBlock.remove(); // このボタンが属するitem_blockを削除
