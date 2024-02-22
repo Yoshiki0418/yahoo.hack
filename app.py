@@ -112,8 +112,12 @@ def introduction2():
 
 @app.route('/profile')
 def profile():
-    #データベースから情報を取得
-    return render_template('profile.html')  
+    if "usr" not in session:
+        return redirect(url_for('welcome'))
+    my_closet = myCloset(session['usr'])
+    my_info = find_user(session['usr'])
+    print(my_info.name)
+    return render_template('profile.html', my_closet=my_closet, my_info=my_info)  
 
 @app.route('/save-preference', methods=['POST'])
 def save_preference():
@@ -397,6 +401,12 @@ def find_style_id(style_name):
         style = Style.query.filter_by(style_name=style_name).first()
         print(style)
     return style.id
+
+#自分の情報を取得
+def find_user(uid):
+    with app.app_context():
+        user = User.query.filter_by(uid=uid).first()
+    return user
 
 #自分のクローゼットを取得
 def myCloset(uid):
