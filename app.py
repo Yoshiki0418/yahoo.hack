@@ -90,16 +90,19 @@ def logout():
 @app.route('/home')
 def home():
     if "usr" in session:
-        closet = myCloset(session['usr'])
-        print("自分のクローゼット:",closet)
-        kh = SimilarStyle(session['usr'])
+        mycloset = myCloset(session['usr'])
+        similarStyle = SimilarStyle(session['usr'])
         like_style = myFavoriteStyle(session['usr'])
-        print("自分の好きなスタイル：",like_style)
         postCloset = SimilarStylePostCloset(session['usr'])
-        print("好きなスタイルに基づく投稿（ホーム）：",postCloset)
         posts = SimilarStylePost(session['usr'])
-        print("好きなスタイルに基づく投稿（ホーム）：",posts)
-        return render_template('home.html', closet=closet, kh=kh)
+        data = {}
+        data['closet'] = mycloset
+        data['similarStyle'] = similarStyle
+        data['like_style'] = like_style
+        data['postCloset'] = postCloset
+        data['posts'] = posts
+        print("ホーム画面のデータ：",data)
+        return render_template('home.html', closet=mycloset,data=data)
     else:
         return render_template('welcome.html')
     
@@ -498,6 +501,13 @@ def SimilarStylePost(current_user_id):
         if Post.query.filter(Post.id==post_closet.post_id).filter(Post.uid != current_user_id).first():
             posts.add(Post.query.filter(Post.id==post_closet.post_id).filter(Post.uid != current_user_id).first())
     return posts
+
+#投稿の詳細を取得
+def postDetail(post_id):
+    with app.app_context():
+        print("投稿の詳細を取得する")
+        post_items = PsotCloset.query.filter_by(post_id=post_id).all()
+    return post_items
     
 
     
