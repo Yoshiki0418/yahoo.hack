@@ -207,6 +207,87 @@ def changeNone(e):
     return e
 
 
+
+# アップロードした画像・動画を自動で切り取る関数
+# @app.route('/ai-cuter', methods=['POST'])
+# def ai_cuter():
+#     # アップロードされたファイルを保存するディレクトリのパス
+#     UPLOAD_FOLDER_IMAGE = 'static/post_image/image'
+#     UPLOAD_FOLDER_VIDEO = 'static/post_image/video'
+#     app.config['UPLOAD_FOLDER_IMAGE'] = UPLOAD_FOLDER_IMAGE
+#     app.config['UPLOAD_FOLDER_VIDEO'] = UPLOAD_FOLDER_VIDEO
+    
+#     if 'file' not in request.files:
+#         return jsonify({'error': 'ファイルがありません'}), 400
+    
+#     file = request.files['file']
+#     media_type = request.form.get('mediaType')
+    
+#     if file.filename == '':
+#         return jsonify({'error': 'ファイルが選択されていません'}), 400
+    
+#     if file and allowed_file(file.filename):
+#         filename = secure_filename(file.filename)
+        
+#         # 画像処理のコード
+#         if media_type == 'image':
+#             file.save(os.path.join(app.config['UPLOAD_FOLDER_IMAGE'], filename))
+#             item_images = detect_and_crop_items(f"static/post_image/image/{filename}", filename)
+
+#             # 画像パスをカテゴリごとに整理
+#             items_dict = {}
+
+#             # 送信したくないカテゴリを指定
+#             excluded_categories = ['skirt.png',"cort.png","one_piece.png"]
+
+#             for item_image in item_images:
+#                 # ファイル名とカテゴリを分離
+#                 path, category = item_image.split(':')
+#                 if category not in excluded_categories:
+#                     items_dict[category] = item_image
+#             # 処理結果を格納したitems_dictをJSON形式で返す
+#             return jsonify(items_dict)
+#         # 動画処理のコード
+#         elif media_type == 'video':
+#             file.save(os.path.join(app.config['UPLOAD_FOLDER_IMAGE'], filename))
+#             item_images = detect_and_crop_items_from_video(f"static/post_image/video/{filename}", filename)
+
+#             # 画像パスをカテゴリごとに整理
+#             items_dict = {}
+
+#             # 送信したくないカテゴリを指定
+#             excluded_categories = ['skirt.png',"cort.png","one_piece.png"]
+            
+#             # カテゴリごとのアイテムカウンターと既に見た画像を保持する辞書とセット
+#             category_counters = {}
+#             seen_images = set()
+
+#             for item_image in item_images:
+#                 # ファイル名とカテゴリを分離
+#                 path, category = item_image.split(':')
+#                 if category not in excluded_categories and item_image not in seen_images:
+#                     # 画像が既に処理されていないことを確認
+#                     seen_images.add(item_image)  # 処理した画像に追加
+
+#                     # カテゴリに対するカウンターを取得または初期化
+#                     if category in category_counters:
+#                         category_counters[category] += 1
+#                     else:
+#                         category_counters[category] = 1
+
+#                     # カテゴリ名にカウンターを追加してユニークなキーを生成
+#                     key_name = f"{category}{'' if category_counters[category] == 1 else category_counters[category]}"
+#                     items_dict[key_name] = item_image
+#             # 処理結果を格納したitems_dictをJSON形式で返す
+#             print(items_dict)
+#             return jsonify(items_dict)
+            
+           
+#         else:
+#             return jsonify({'error': '不正なメディアタイプです'}), 400
+    
+#     return jsonify({'error': '許可されていないファイルタイプです'}), 400
+
 def allowed_file(filename):
     # 許可するファイルの拡張子を定義
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'mp4', 'mov'}
