@@ -294,8 +294,8 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
-            // 成功した場合、ページをリロード
-            window.location.reload();
+            // 成功した場合、クエリパラメータでタブを指定してリロード
+            window.location.href = '/profile?tab=post-content'; // '/your-page-path'を適切なパスに置き換える
         })
         .catch((error) => console.error('Error:', error));
     });
