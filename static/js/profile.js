@@ -25,6 +25,7 @@ window.onload = function() {
   document.getElementById('closetBtn3').addEventListener('click', openModal_closet);
   document.getElementById('closetBtn4').addEventListener('click', openModal_closet);
   document.getElementById('closetBtn5').addEventListener('click', openModal_closet);
+  document.getElementById('closetBtn6').addEventListener('click', openModal_closet);
   document.getElementsByClassName('close')[1].addEventListener('click', closeModal_closet);
   // window.onclick イベントは1つの関数にまとめて設定する
   window.onclick = function(event) {
@@ -167,6 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
       .catch(error => {
           console.error('Error:', error);
       });
+      closeModal_closet();
   });
   
  

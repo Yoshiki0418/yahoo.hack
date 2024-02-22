@@ -578,7 +578,12 @@ input[name="tab-items-sub"] {
 }
 
 /*繧ｯ繝ｭ繝ｼ繧ｼ繝�ヨ霑ｽ蜉�繝懊ち繝ｳ繝�じ繧､繝ｳ*/
-#closetBtn {
+#closetBtn1,
+#closetBtn2,
+#closetBtn3,
+#closetBtn4,
+#closetBtn5,
+#closetBtn6 {
     border: none;
     border-radius: 30%;
 }

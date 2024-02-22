@@ -1,0 +1,1322 @@
+body {
+    margin: 0;
+    height: 100vh;
+}
+
+
+.my_icon {
+    position: absolute;
+    top: 40px;
+    left: 280px;
+    border-radius: 30px;
+}
+
+.name {
+    position: absolute;
+    top: 40px;
+    left: 420px;
+    font-size: 24px;
+}
+
+.introduction{
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 105px;
+    left: 420px;
+    /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);*/
+}
+
+
+
+/*繧ｿ繝門�繧頑崛縺亥�菴薙�繧ｹ繧ｿ繧､繝ｫ*/
+.tabs {
+    margin-top: -30px;
+    margin-left: 100px;
+    padding-bottom: 40px;
+    /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);*/
+    width: 940px;
+    /*margin: 0 auto;*/
+    vertical-align: middle;
+    position: absolute;
+    top: 230px;
+    left: 230px;
+}
+  
+
+/* 繧ｿ繝悶�繧ｹ繧ｿ繧､繝ｫ */
+
+.tab-items {
+    width: calc(100% / 3);
+    height: 50px;
+    border-bottom: 3px solid #5ab4bd;
+    background-color: #d9d9d9;
+    line-height: 50px;
+    font-size: 16px;
+    text-align: center;
+    color: #565656;
+    display: block;
+    float: left;
+    text-align: center;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+  
+.tab-items:hover {
+    opacity: 0.75;
+}
+
+
+
+  
+ 
+  
+/* 繝ｩ繧ｸ繧ｪ繝懊ち繝ｳ繧偵☆縺ｹ縺ｦ豸医☆ */
+  
+input[name="tab-items"] {
+    display: none;
+}
+
+input[name="tab-items-sub"] {
+    display: none;
+}
+ 
+  /* 繧ｿ繝門�繧頑崛縺医�荳ｭ霄ｫ縺ｮ繧ｹ繧ｿ繧､繝ｫ */
+  
+.tab-content {
+    display: none;
+    padding: 40px 40px 0;
+    clear: both;
+    /*overflow: hidden;*/
+}
+
+.tab-content-sub {
+    display: none;
+    clear: both;
+    /*overflow: hidden;*/
+}
+  
+  /* 驕ｸ謚槭＆繧後※縺�ｋ繧ｿ繝悶�繧ｳ繝ｳ繝�Φ繝��縺ｿ繧定｡ｨ遉ｺ */
+  
+#closet:checked~#closet-content,
+#coordination:checked~#coordination-content,
+#post:checked~#post-content,
+#all:checked ~#all-content,
+#bottoms:checked~#bottoms-content,
+#shoes:checked~#shoes-content,
+#tops:checked~#tops-content,
+#others:checked~#others-content,
+#accessories:checked~#accessories-content{
+    display: block;
+}
+
+  
+  
+/* 驕ｸ謚槭＆繧後※縺�ｋ繧ｿ繝悶�繧ｹ繧ｿ繧､繝ｫ繧貞､峨∴繧� */
+
+.tabs input:not(:checked) + .tab-team {
+    color: gray;
+}
+
+.tabs input:checked + .tab-team {
+    color: black;
+    border-bottom: 1px solid;
+    border-width: medium;
+    border-color: #C0C0C0;
+}
+
+.tab-content input:not(:checked) + .tab-team-sub {
+    background-color: gray;
+}
+
+.tab-content input:checked + .tab-team-sub {
+    background-color: #66CCFF;
+    color: white;
+}
+
+/*繝｡繧､繝ｳ繧ｿ繝悶�菴咲ｽｮ隱ｿ謨ｴ*/
+.tab-team {
+    margin-left: 130px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 30px;
+}
+
+/*繧ｵ繝悶ち繝悶�繝�じ繧､繝ｳ縺ｨ菴咲ｽｮ隱ｿ謨ｴ*/
+.tab-team-sub {
+    margin-left: 15px;
+    padding: 2px 30px 2px 30px; /* 荳贋ｸ九↓15px縲∝ｷｦ蜿ｳ縺ｫ30px縺ｮ菴咏區繧定ｨｭ螳� */
+    font-size: 12px;
+    font-weight: bold;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.tab-content-sub  {
+    display: none;
+    clear: both;
+    margin-top: 15px;
+    margin-left: -80px;
+}
+
+#closet-content {
+    margin-top: -28px;
+}
+
+/*逋ｻ骭ｲ繝ｪ繧ｹ繝�*/
+#all-content ul,
+#bottoms-content ul,
+#shoes-content ul,
+#tops-content ul,
+#accessories-content ul,
+#others-content ul,
+#coordination-content ul,
+#post-content ul{
+	width: calc(100 + 20px);
+	margin: 0 -10px;
+	display: flex;
+	flex-wrap: wrap;
+    list-style-type: none;
+}
+
+#all-content li,
+#bottoms-content li,
+#shoes-content li,
+#tops-content li,
+#accessories-content li,
+#others-content li,
+#coordination-content li,
+#post-content li{
+	padding: 0 10px 20px;
+}
+
+
+
+/*繧｢繧､繝�Β縺ｮ繝ｪ繝ｳ繧ｯ*/
+#all-content li a,
+#all-content li a:visited,
+#bottoms-content li a,
+#bottoms-content li a:visited,
+#coordination-content li a,
+#coordination-content li a:visited {
+	text-decoration: none;
+	color: #111;
+}
+
+/*繧｢繧､繝�Β縺ｮ譁�ｫ�*/
+#all-content li p,
+#coordination-content li p{
+	font-size: 90%;
+	margin-bottom: 3px;
+}
+
+/*繧｢繧､繝�Β繧ｹ繝代Φ*/
+#all-content li span, 
+#coordination-content li span{
+	font-size: 80%;
+	display: block;
+}
+
+
+
+/*蝠�刀逕ｻ蜒上�隱ｿ謨ｴ*/
+#all-content img,
+#bottoms-content img,
+#shoes-content img,
+#tops-content img,
+#others-content img,
+#accessories-content img {
+    border: 1px solid;
+    border-radius: 30%;
+    
+}
+
+.tab-content-sub li {
+	/*width: calc(20% - 20px);*/
+    width: calc(100% / 7);
+}
+
+
+
+/*菫晏ｭ俶ｸ医∩繧ｳ繝ｼ繝�判蜒上�繝�じ繧､繝ｳ*/
+#coordination-content,
+#post-content {
+    margin-left: -70px;
+    margin-top: -20px;
+}
+
+#coordination-content img,
+#post-content img {
+    border-radius: 10%;
+    border: 1px solid;
+}
+
+#coordination-content li,
+#post-content li{
+    width: calc(100% / 6);
+}
+
+/*繝｢繝ｼ繝繝ｫ繧ｦ繧｣繝ｳ繝峨え*/
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.myModal{
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.myModal .modal-content {
+    color: white;
+    background-color: #352F2F;
+    margin: auto;
+    margin-top: 74px;
+    padding: 10px;
+    border: 1px solid #352F2F;
+    width: 1050px;
+    height: 750px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: modalopen;
+    animation-duration: 0.4s;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    left: 20px;
+}
+
+.myModal .close {
+    color: #aaa;
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    font-size: 28px;
+    font-weight: bold;
+  
+}
+
+.upload-show{
+    position: absolute;
+    width: 350px;
+    height: 622px;
+    left: 30px;
+    top: 80px;
+    
+}
+
+  .upload-show video,
+  .upload-show img {
+    max-width: 100%; /* 譛螟ｧ蟷�ｒ隕ｪ隕∫ｴ�縺ｮ蟷�↓蜷医ｏ縺帙ｋ */
+    max-height: 100%; /* 譛螟ｧ鬮倥＆繧定ｦｪ隕∫ｴ�縺ｮ鬮倥＆縺ｫ蜷医ｏ縺帙ｋ */
+  }
+
+#post-coordination10 {
+    position: absolute;
+    top: 30px;
+    width: 50%;
+    height: 640px;
+}
+
+#infoForm10 {
+    position: absolute;
+    display: flex;
+    width: 98%;
+    height: 730px;
+}
+
+/* 繧ｫ繧ｹ繧ｿ繝�繝輔ぃ繧､繝ｫ繧｢繝��繝ｭ繝ｼ繝峨�繧ｿ繝ｳ縺ｮ繧ｹ繧ｿ繧､繝ｫ */
+.custom-file-upload {
+    position: absolute;
+    top: 10px;
+    left: 65px;
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #4CAF50; /* 邱題牡 */
+    color: white;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.custom-file-upload:hover {
+    background-color: #45a049;
+}
+
+.modal-title{
+    font-size: 28px;
+    margin-left: 18px;
+}
+
+.post_button{
+    position: absolute;
+    right: 50px;
+    bottom: 0px;
+    width: 150px;
+    height: 50px;
+}
+
+.AI-mode_button{
+    position: absolute;
+    top: 20px;
+    right: 120px;
+    width: 190px;
+    height: 40px;
+    background-color: #352f2fba;
+    color: aliceblue;
+    z-index: 1000;
+}
+
+.hand-mode{
+    position: absolute;
+    top: 20px;
+    right: 360px;
+    width: 190px;
+    height: 40px;
+    background-color: #352f2fba;
+    color: aliceblue;
+    z-index: 1000;
+}
+
+.check_items_container{
+    position: absolute;
+    top: 70px;
+    left: 450px;
+    width: 530px;
+    height: 600px;
+    background-color: #ffffff;
+    overflow-y: scroll;
+    padding: 10px;
+}
+
+.add_item_block{
+    background-color: #fff;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.add_item_pic{
+    height: 180px;
+    width: 180px;
+    border: 1px solid #beb6b6;
+    border-radius: 40px;
+    overflow: hidden;
+    display: flex; /* Flexbox繧ｳ繝ｳ繝�リ繧貞ｮ夂ｾｩ */
+    justify-content: center; /* 豌ｴ蟷ｳ譁ｹ蜷代�荳ｭ螟ｮ謠�∴ */
+    align-items: center; /* 蝙ら峩譁ｹ蜷代�荳ｭ螟ｮ謠�∴ */
+    background-color: #fff;
+    margin-left: 10px;
+}
+
+.add_item_pic img {
+    max-width: 100%; /* 繧ｳ繝ｳ繝�リ繧定ｶ�∴縺ｪ縺�ｈ縺�↓譛螟ｧ蟷�ｒ險ｭ螳� */
+    max-height: 100%; /* 繧ｳ繝ｳ繝�リ繧定ｶ�∴縺ｪ縺�ｈ縺�↓譛螟ｧ鬮倥＆繧定ｨｭ螳� */
+    object-fit: contain; /* 逕ｻ蜒上�繧｢繧ｹ繝壹け繝域ｯ斐ｒ菫昴■縺ｪ縺後ｉ譛螟ｧ繧ｵ繧､繧ｺ縺ｫ繝輔ぅ繝�ヨ */
+}
+
+.form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  .horizontal-line1,
+  .horizontal-line2 {
+    border-bottom: 1px solid #eaeaea;
+    margin-bottom: 15px;
+  }
+
+.form-price{
+    position: absolute;
+    top: 0px;
+    right: 60px;
+    display: flex;
+}
+
+.form-style{
+    position: absolute;
+    top: 35px;
+    right: 60px;
+    display: flex;
+}
+
+.form-category{
+    position: absolute;
+    top: 70px;
+    right: 60px;
+    display: flex;
+}
+
+.form-brand{
+    position: absolute;
+    top: 105px;
+    right: 60px;
+    display: flex;
+}
+
+.form-seller-url{
+    position: absolute;
+    top: 140px;
+    right: 60px;
+    display: flex;
+}
+
+.topic{
+    color: black;
+    width: 80px;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-left: 20px;
+}
+
+.form-control{
+    width: 150px;
+    margin-left: -2px;
+}
+
+.background_white{
+    position: absolute;
+    top: 0px;
+    left: 435px;
+    height: 750px;
+    width: 650px;
+    background-color: white;
+}
+
+.delete-item-btn {
+    position: absolute;
+    top: 0px;
+    left: 170px;
+    width: 30px; /* ボタンの幅 */
+    height: 30px; /* ボタンの高さ */
+    border-radius: 50%; /* 角を完全に丸くする */
+    background-color: rgb(240, 65, 123); /* 背景色を赤に */
+    color: white; /* テキスト色を白に */
+    border: none; /* 枠線なし */
+    cursor: pointer; /* カーソルをポインタに */
+    display: flex; /* Flexboxを使用 */
+    align-items: center; /* 中央揃え(垂直方向) */
+    justify-content: center; /* 中央揃え(水平方向) */
+    font-size: 20px; /* フォントサイズ */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+/*.modal-content {
+    color: black;
+    background-color: white;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 70%;
+    height: 80% auto;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: modalopen;
+    animation-duration: 0.4s;
+  
+}*/
+  
+@keyframes modalopen {
+    from {opacity: 0}
+    to {opacity: 1}
+  
+}
+  
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  
+}
+
+.close:hover,  
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#infoForm {
+    display: flex;
+}
+
+#myBtn {
+    border: 0px solid;
+    border-radius: 10%;
+    
+}
+
+/*繧ｯ繝ｭ繝ｼ繧ｼ繝�ヨ霑ｽ蜉�繝懊ち繝ｳ繝�じ繧､繝ｳ*/
+#closetBtn {
+    border: none;
+    border-radius: 30%;
+}
+
+/*post-coordination縺ｮ菴咲ｽｮ隱ｿ謨ｴ*/
+#post-coordination {
+    margin-left: 60px;
+    margin-top: 30px;
+}
+#img-items {
+    margin-left: 10px;
+    margin-top: 30px;
+}
+
+#input-status {
+    margin-left: 390px;
+    top: -10px;
+    border: 2px solid ;
+    padding: 10px;
+}
+
+
+
+
+
+
+
+
+#button-save {
+    position: absolute;
+    margin-top: 350px;
+    margin-left: 105px;
+    width: 170px; 
+    height: 50px; 
+    background-color: #d9d9d9; 
+    border-radius: 40px; 
+    font-family: "Inter-Black", Helvetica; /* フォント */
+    font-weight: 900; /* フォントウェイト */
+    color: #000000; /* 色 */
+    font-size: 20px; /* フォントサイズ */
+    letter-spacing: 0; /* letter-spacing */
+    line-height: normal; /* のline-height */
+    border: none; /* ボーダーを削除 */
+    cursor: pointer; /* ホバー時のカーソルを指示する */
+    outline: none; /* フォーカス時のアウトラインを削除 */
+    display: flex; /* テキストを中央に配置 */
+    align-items: center; /* 垂直方向の中央揃え */
+    justify-content: center; /* 水平方向の中央揃え */
+}
+
+/*post-coordination縺ｮ蜀咏悄隱ｿ謨ｴ*/
+.imageContainer_whole img{
+    height: 300px;
+    width: 200px;
+    border-top-right-radius: 20%;
+    border-top-left-radius: 20%;
+    border-bottom-right-radius: 20%;
+    border-bottom-left-radius: 20%;
+
+}
+
+.imageContainer_part img{
+    height: 100px;
+    width: 100px;
+    border-top-right-radius: 20%;
+    border-top-left-radius: 20%;
+    border-bottom-right-radius: 20%;
+    border-bottom-left-radius: 20%;
+}
+
+.imageContainer_closet img{
+    height: 250px;
+    width: 250px;
+    border-top-right-radius: 20%;
+    border-top-left-radius: 20%;
+    border-bottom-right-radius: 20%;
+    border-bottom-left-radius: 20%;
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
+/*蜑企勁繝懊ち繝ｳ*/
+li {
+    position: relative;
+    list-style: none;
+  }
+/* 蜑企勁繝懊ち繝ｳ縺ｮ繧ｹ繧ｿ繧､繝ｫ */
+.delete-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  /* 蜑企勁繝懊ち繝ｳ縺ｫ繝槭え繧ｹ繧偵�繝舌�縺励◆譎ゅ�繧ｹ繧ｿ繧､繝ｫ */
+  .delete-button:hover {
+    background-color: darkred;
+  }
+
+.hunger-button {
+    width: 60%;
+    height: auto;
+    outline: none; 
+    border: none; /* 繝懊�繝繝ｼ繧呈ｶ医☆�亥ｿ�ｦ√↓蠢懊§縺ｦ�� */
+}
+
+.mov_button{
+    width: 220px;
+    height: 391px;
+}
+
+
+/*クローゼットモーダルウインドウ*/
+.closetmodal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.closetmodal-content {
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    left: 50px;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.closet {
+    position: absolute;
+    margin-top: -35px;
+    margin-left: -45px;
+}
+
+
+/*イントロダクション２*/
+
+.screen2 {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .screen2 .header {
+    position: fixed; /* ヘッダーを固定位置に設定 */
+    width: 2000px;
+    height: 60px;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: #352f2f;
+  }
+  
+  .screen2 .companyname {
+    position: absolute;
+    width: 204px;
+    top: 8px;
+    left: 65px;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: #fbf8f8;
+    font-size: 36px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .screen2 .explanation {
+    width: 613px;
+    top: 380px;
+    left: 871px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 36px;
+    position: absolute;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .screen2 .closet {
+    position: absolute;
+    width: 795px;
+    height: 740px;
+    top: 150px;
+    left: 51px;
+    background-color: #fff;
+  }
+  
+  .screen2 .data-input {
+    position: absolute;
+    width: 719px;
+    height: 700px;
+    top: -50px;
+    left: 6px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    border: 1px solid;
+    border-color: #000000;
+  }
+  
+  .screen2 .saveArea {
+    position: absolute;
+    width: 491px;
+    height: 700px;
+    top: -50px; /* 必要に応じて調整 */
+    left: 0;
+    background-color: #fbf8f8; /* 背景色はデザインに合わせて調整 */
+    border: 1px solid #000000;
+    border-radius: 20px;
+    display: flex; /* 複数画像配置のため追加 */
+    flex-wrap: wrap; /* 画像が複数ある場合に折り返す */
+    align-items: flex-start; /* 上端から配置を開始 */
+    top: 10px;
+  }
+  
+  #saveArea {
+    position: relative; /* 必要に応じて */
+    width: 491px; /* 既存の設定を保持 */
+    height: 700px; /* 高さを固定（またはmax-heightを使用） */
+    overflow: hidden; /* コンテンツがオーバーフローしたらスクロールバーを表示 */
+    border: 1px solid #000000; /* 既存のスタイル */
+    border-radius: 20px; /* 既存のスタイル */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow-y: scroll;
+  }
+  
+  
+  .saveArea-image {
+    width: 194px; /* 画像の幅を固定 */
+    height: 188px; /* 画像の高さを固定 */
+    margin: 10px; /* 画像間に余白を設定 */
+    object-fit: cover; /* 画像のアスペクト比を保ちながらコンテナに合わせる */
+    border-radius: 40px; /* 角丸の設定（必要に応じて） */
+    border: 1px solid #000000;
+    overflow: hidden;
+    background-color: #ffffff;
+  }
+  
+  
+  
+  .closet-image {
+    width: 50%; /* 2列で表示するための幅 */
+    margin: 5%; /* 画像の間に余白を設ける */
+  }
+  
+  .image-container {
+    position: relative;
+    width: 194px; /* 画像の幅に合わせる */
+    height: 188px; /* 画像の高さに合わせる */
+    margin: 10px;
+  }
+  
+  .delete-button {
+    position: absolute;
+    top: 0; /* ボタンを少し上に移動させる */
+    right: -5px; /* ボタンを少し右に移動させる */
+    border: none;
+    background-color: black; /* 背景色を黒に変更 */
+    color: white; /* バツ印の色を白に変更 */
+    cursor: pointer; /* カーソルをポインターに */
+    width: 30px; /* ボタンのサイズを大きく調整 */
+    height: 30px; /* ボタンのサイズを大きく調整 */
+    font-size: 20px; /* バツ印のサイズを大きく調整 */
+    border-radius: 20px; /* ボタンをより円形に */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* 影を追加して立体感を出す */
+  }
+  
+  .delete-button:hover {
+    background-color: #333; /* ホバー時の背景色を少し明るく */
+  }
+  
+  
+  
+  .screen2 .preview {
+    position: absolute;
+    width: 194px;
+    height: 188px;
+    top: -25px;
+    left: 515px;
+    background-color: #d9d9d9;
+    border-radius: 40px;
+    background-size: cover; /* 画像がdivのサイズに合うように調整 */
+    background-position: center; /* 画像を中央に配置 */
+    overflow: hidden; /* コンテナ外の画像部分を非表示にする */
+  }
+  
+  
+  
+  .screen2 .rectangle-1 {
+    position: absolute;
+    width: 229px;
+    height: 19px;
+    top: 260px;
+    left: 495px;
+    background-color: #d9d9d96b;
+  }
+  
+  .screen2 .rectangle-2 {
+    position: absolute;
+    width: 229px;
+    height: 19px;
+    top: 385px;
+    left: 496px;
+    background-color: #d9d9d96b;
+  }
+  
+  
+  .screen2 .hunger-button {
+    position: absolute;
+    width: 77px;
+    height: 61px;
+    top: 39px;
+    left: 575px;
+    object-fit: cover;
+  }
+  
+  .image-upload-label {
+    cursor: pointer; /* これにより、ラベルにマウスカーソルが重なった時にポインター（指の形）に変わります */
+  }
+  
+  
+  
+  .screen2 .text-wrapper-1 {
+    width: 207px;
+    top: 263px;
+    left: 576px;
+    font-family: "IM FELL French Canon SC-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 10px;
+    position: absolute;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .screen2 .text-wrapper-2 {
+    width: 207px;
+    top: 388px;
+    left: 588px;
+    font-family: "IM FELL French Canon SC-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 10px;
+    position: absolute;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  
+  .screen2 .input-group1 {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    top: 287px; /* text-wrapper-5のtopと同じ値 */
+    left: 508px; /* text-wrapper-5のleftと同じ値 */
+  }
+  
+  .screen2 .input-group1 .information-1 {
+    color: #888383;
+    font-family: "IM FELL French Canon SC-Regular", Helvetica;
+    font-weight: 400;
+    width: 80px;
+    line-height: normal;
+    font-size: 10px;
+    margin-right: 10px; /* ラベルと入力欄の間に適切なスペースを作る */
+  }
+  
+  .screen2 .input-field1 {
+    height: 16px; /* 適切な高さに調整 */
+    padding: 0px 0px;
+    font-size: 10px;
+    border: 1px solid #888383;
+    border-radius: 3px;
+    /* 必要に応じて幅を設定 */
+    width: 108px; /* 例: 入力欄の幅が100pxの場合 */
+  }
+  
+  .screen2 .input-group2 {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    top: 315px; /* text-wrapper-5のtopと同じ値 */
+    left: 508px; /* text-wrapper-5のleftと同じ値 */
+  }
+  
+  .screen2 .input-group2 .information-2 {
+    color: #888383;
+    font-family: "IM FELL French Canon SC-Regular", Helvetica;
+    font-weight: 400;
+    width: 80px;
+    line-height: normal;
+    font-size: 10px;
+    margin-right: 10px; /* ラベルと入力欄の間に適切なスペースを作る */
+  }
+  
+  .screen2 .input-field2 {
+    height: 16px; /* 適切な高さに調整 */
+    padding: 0px 0px;
+    font-size: 10px;
+    border: 1px solid #888383;
+    border-radius: 3px;
+    /* 必要に応じて幅を設定 */
+    width: 108px; /* 例: 入力欄の幅が100pxの場合 */
+  }
+  
+  
+  .screen2 .input-group3 {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    top: 365px; /* text-wrapper-5のtopと同じ値 */
+    left: 508px; /* text-wrapper-5のleftと同じ値 */
+  }
+  
+  .screen2 .input-group3 .information-3 {
+    color: #888383;
+    font-family: "IM FELL French Canon SC-Regular", Helvetica;
+    font-weight: 400;
+    width: 80px;
+    line-height: normal;
+    font-size: 10px;
+    margin-right: 10px; /* ラベルと入力欄の間に適切なスペースを作る */
+  }
+  
+  .screen2 .input-field3 {
+    height: 10px; /* 適切な高さに調整 */
+    padding: 2px 3px;
+    font-size: 10px;
+    border: 1px solid #888383;
+    border-radius: 3px;
+    /* 必要に応じて幅を設定 */
+    width: 100px; /* 例: 入力欄の幅が100pxの場合 */
+  }
+  
+  .screen2 .input-group4 {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    top: 413px; /* text-wrapper-5のtopと同じ値 */
+    left: 508px; /* text-wrapper-5のleftと同じ値 */
+  }
+  
+  .screen2 .input-group4 .information-4 {
+    color: #888383;
+    font-family: "IM FELL French Canon SC-Regular", Helvetica;
+    font-weight: 400;
+    width: 80px;
+    line-height: normal;
+    font-size: 10px;
+    margin-right: 10px; /* ラベルと入力欄の間に適切なスペースを作る */
+  }
+  
+  .screen2 .input-field4 {
+    height: 16px; /* 適切な高さに調整 */
+    padding: 0px 0px;
+    font-size: 10px;
+    border: 1px solid #888383;
+    border-radius: 3px;
+    /* 必要に応じて幅を設定 */
+    width: 108px; /* 例: 入力欄の幅が100pxの場合 */
+  }
+  
+  
+  .screen2 .input-group5 {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    top: 438px; /* text-wrapper-5のtopと同じ値 */
+    left: 508px; /* text-wrapper-5のleftと同じ値 */
+  }
+  
+  .screen2 .input-group5 .information-5 {
+    color: #888383;
+    font-family: "IM FELL French Canon SC-Regular", Helvetica;
+    font-weight: 400;
+    width: 80px;
+    line-height: normal;
+    font-size: 10px;
+    margin-right: 10px; /* ラベルと入力欄の間に適切なスペースを作る */
+  }
+  
+  .screen2 .input-field5 {
+    height: 10px; /* 適切な高さに調整 */
+    padding: 2px 3px;
+    font-size: 10px;
+    border: 1px solid #888383;
+    border-radius: 3px;
+    /* 必要に応じて幅を設定 */
+    width: 100px; /* 例: 入力欄の幅が100pxの場合 */
+  }
+  
+  
+  .screen2 .input-group6 {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    top: 467px; /* text-wrapper-5のtopと同じ値 */
+    left: 508px; /* text-wrapper-5のleftと同じ値 */
+  }
+  
+  .screen2 .input-group6 .information-6 {
+    color: #888383;
+    font-family: "IM FELL French Canon SC-Regular", Helvetica;
+    font-weight: 400;
+    width: 80px;
+    line-height: normal;
+    font-size: 10px;
+    margin-right: 10px; /* ラベルと入力欄の間に適切なスペースを作る */
+  }
+  
+  .screen2 .input-field6 {
+    height: 10px; /* 適切な高さに調整 */
+    padding: 2px 3px;
+    font-size: 10px;
+    border: 1px solid #888383;
+    border-radius: 3px;
+    /* 必要に応じて幅を設定 */
+    width: 100px; /* 例: 入力欄の幅が100pxの場合 */
+  }
+  
+  .screen2 .input-group7 {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    top: 495px; /* text-wrapper-5のtopと同じ値 */
+    left: 508px; /* text-wrapper-5のleftと同じ値 */
+  }
+  
+  .screen2 .input-group7 .information-7 {
+    color: #888383;
+    font-family: "IM FELL French Canon SC-Regular", Helvetica;
+    font-weight: 400;
+    width: 80px;
+    line-height: normal;
+    font-size: 10px;
+    margin-right: 10px; /* ラベルと入力欄の間に適切なスペースを作る */
+  }
+  
+  .screen2 .input-field7 {
+    height: 10px; /* 適切な高さに調整 */
+    padding: 2px 3px;
+    font-size: 10px;
+    border: 1px solid #888383;
+    border-radius: 3px;
+    /* 必要に応じて幅を設定 */
+    width: 100px; /* 例: 入力欄の幅が100pxの場合 */
+  }
+  
+  .button-save {
+    position: absolute;
+    width: 186px; 
+    height: 43px; 
+    top: 520px; 
+    left: 515px;
+    background-color: #d9d9d9; 
+    border-radius: 40px; 
+    font-family: "Inter-Black", Helvetica; /* フォント */
+    font-weight: 900; /* フォントウェイト */
+    color: #000000; /* 色 */
+    font-size: 20px; /* フォントサイズ */
+    letter-spacing: 0; /* letter-spacing */
+    line-height: normal; /* のline-height */
+    border: none; /* ボーダーを削除 */
+    cursor: pointer; /* ホバー時のカーソルを指示する */
+    outline: none; /* フォーカス時のアウトラインを削除 */
+    display: flex; /* テキストを中央に配置 */
+    align-items: center; /* 垂直方向の中央揃え */
+    justify-content: center; /* 水平方向の中央揃え */
+    cursor: default;
+  }
+  
+  .background_transparency{
+    position: absolute;
+    width: 170px; 
+    height: 30px; 
+    top: 178px; 
+    left: 525px;
+    background-color: #28bd52; 
+    border-radius: 40px; 
+    font-family: "Inter-Black", Helvetica; /* フォント */
+    font-weight: 900; /* フォントウェイト */
+    color: #ffffff; /* 色 */
+    font-size: 15px; /* フォントサイズ */
+    letter-spacing: 0; /* letter-spacing */
+    line-height: normal; /* のline-height */
+    border: none; /* ボーダーを削除 */
+    cursor: pointer; /* ホバー時のカーソルを指示する */
+    outline: none; /* フォーカス時のアウトラインを削除 */
+    display: flex; /* テキストを中央に配置 */
+    align-items: center; /* 垂直方向の中央揃え */
+    justify-content: center; /* 水平方向の中央揃え */
+    cursor: default
+  }
+  
+  .background_transparency[disabled] {
+    background-color: #d9d9d9; /* 灰色の背景 */
+    color: black; /* 黒色の文字 */ 
+    cursor: default;
+  }
+  
+  .change_photo{
+    position: absolute;
+    width: 170px; 
+    height: 30px; 
+    top: 219px; 
+    left: 525px;
+    background-color: #c04c4c; 
+    border-radius: 40px; 
+    font-family: "Inter-Black", Helvetica; /* フォント */
+    font-weight: 900; /* フォントウェイト */
+    color: #ffffff; /* 色 */
+    font-size: 15px; /* フォントサイズ */
+    letter-spacing: 0; /* letter-spacing */
+    line-height: normal; /* のline-height */
+    border: none; /* ボーダーを削除 */
+    cursor: pointer; /* ホバー時のカーソルを指示する */
+    outline: none; /* フォーカス時のアウトラインを削除 */
+    display: flex; /* テキストを中央に配置 */
+    align-items: center; /* 垂直方向の中央揃え */
+    justify-content: center; /* 水平方向の中央揃え */
+  }
+  
+  .change_photo[disabled] {
+    background-color: #d9d9d9; /* 灰色の背景 */
+    color: black; /* 黒色の文字 */ /* カーソルを禁止マークに */
+    cursor: default;
+  }
+  
+  
+  
+  .screen2 .next {
+    position: absolute;
+    width: 304px;
+    height: 88px;
+    top: 700px;
+    left: 522px;
+  }
+  
+  .screen2 .next-button {
+    position: absolute;
+    width: 186px;
+    height: 43px;
+    background-color: #d9d9d9;
+    border-radius: 40px;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: normal;
+    border: none; /* デフォルトのボーダーを削除 */
+    cursor: pointer; /* ホバー時にカーソルを指に */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0; /* ボタンの内部余白をリセット */
+    outline: none; /* フォーカス時のアウトラインを削除 */
+  }
+  
+  
+  .screen2 .supplement {
+    top: 750px;
+    left: 1067px;
+    text-shadow: 0px 4px 4px #00000040;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 15px;
+    white-space: nowrap;
+    position: absolute;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  #imageInfoModal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
