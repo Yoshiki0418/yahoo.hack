@@ -112,7 +112,6 @@ def introduction2():
 
 @app.route('/profile')
 def profile():
-    #データベースから情報を取得
     return render_template('profile.html')  
 
 @app.route('/save-preference', methods=['POST'])
@@ -236,7 +235,7 @@ class Post(db.Model):
     uid = db.Column(db.String(50), db.ForeignKey('user.uid'), nullable=False)
     image = db.Column(db.String(100), nullable=False)
     post_closet_items = db.relationship('PsotCloset', backref='post', lazy='dynamic')
-    
+    post_styles = db.relationship('Style', secondary='post_style_link', backref='posts')
    
 # クローゼットテーブル
 class Closet(db.Model):
@@ -301,6 +300,12 @@ class Style(db.Model):
 user_style_link = db.Table('user_style_link',
     db.Column('user_id', db.String(50), db.ForeignKey('user.uid', name='fk_user_style_user_id'), primary_key=True),
     db.Column('style_id', db.String(50), db.ForeignKey('style.id', name='fk_user_style_style_id'), primary_key=True)
+)
+
+# 投稿とスタイルの中間テーブル
+post_style_link = db.Table('post_style_link',
+    db.Column('post_id', db.Integer, db.ForeignKey('post.id', name='fk_post_style_post_id'), primary_key=True),
+    db.Column('style_id', db.String(50), db.ForeignKey('style.id', name='fk_post_style_style_id'), primary_key=True)
 )
 
 # クローゼットとコーディネートの中間テーブル
@@ -373,6 +378,24 @@ def add_user_style_link(user_id, style_name):
         db.session.execute(stmt)
         db.session.commit()
     print("成功: add_user_style_link")
+
+#投稿とスタイルのリンクの作成
+def add_post_style(post_id, style_id):
+    post = Post.query.filter_by(id=post_id).first()
+    style = Style.query.filter_by(id=style_id).first()
+    if post and style:
+        post.post_styles.append(style)
+        try:
+            db.session.commit()
+            print("成功: add_post_style")
+            return True
+        except Exception as e:
+            db.session.rollback()
+            print(e)
+            return False
+    else:
+        return False
+
 
 def add_coordinate_item(coordinate_id, closet_item_id):
     coordinate = Coordinate.query.filter_by(id=coordinate_id).first()
@@ -592,6 +615,7 @@ def post_file():
     for item in items_data:
         print('Item data:', item)
         create_post_closet(session['usr'], post_id, item['imageSrc'], item['sellerUrl'], item['style'], item['price'])
+        add_post_style(post_id, item['style'])
         # ここで各アイテムのデータ（imageSrc, price, style, category, brand, sellerUrl）を処理できます
 
     return jsonify({'status': 'success', 'message': 'Data uploaded successfully'})
