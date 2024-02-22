@@ -805,8 +805,8 @@ main{
 
 .screen .closet {
     position: absolute;
-    width: 0px;
-    height: 0px;
+    width: 400px;
+    height: 750px;
     left: 51px;
   }
     
@@ -814,8 +814,8 @@ main{
       position: absolute;
       width: 400px;
       height: 620px;
-      top: 30px;
-      left: 970px;
+      top: 60px;
+      left: 890px;
       background-color: #ffffff;
       border-radius: 20px;
       border: 1px solid;
@@ -992,8 +992,8 @@ main{
       position: absolute;
       width: 55px;
       height: 61px;
-      top: 690px;
-      left: 1350px;
+      top: 750px;
+      left: 1390px;
       object-fit: cover;
     }
     
@@ -1001,7 +1001,7 @@ main{
       position: absolute;
       width: 186px; 
       height: 63px; 
-      top: 690px; 
+      top: 745px; 
       left: 1130px;
       background-color: #d9d9d9; 
       border-radius: 40px; 

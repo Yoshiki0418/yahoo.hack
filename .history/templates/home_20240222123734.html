@@ -205,56 +205,55 @@
             </div>
             <h3 class="total_price">合計額  ¥300,000</h3>
         </div>
-        <div class="screen">
-            <div class="closet">
-                <div class="data-input"></div>
-            </div>
-            
-            <label for="imageUpload" class="image-upload-label" id="imageUploadLabel">
-                <img class="hunger-button" src="../static/image/hunger.jpg" />
-            </label>   
-            
-            
-            <div id="closet-modal" class="closetmodal">
-                <div class="closet-modal-content">
-                    <span class="closet-close">&times;</span>
-                    <h2 class="closet-modal-title">My Closet</h2>
-                    <div id="closetInfo">
-                        {% if closet %}
-                        {% for item in closet %}
-                        <div class="closet-item">
-                            <div class="add-button-container">
-                                <button class="add-button" data-image="{{ item.image }}" data-style_id="{{ item.style_id}}"data-category="{{ item.category }}" data-brand="{{ item.brand }}">追加</button>
-                            </div>
-                            <img src="{{ item.image }}" alt="Closet Item" style="width: 250px; height: 250px; border-radius: 40px; border: 2px solid black;">
-
-                            <div class="text-info">
-                                <p>系統: {{ item.style_id }}</p>
-                                <p>カテゴリ: {{ item.category }}</p>
-                                <p>ブランド: {{ item.brand }}</p>
-                            </div>
+        <div class="closet">
+            <div class="data-input"></div>
+        </div>
+        
+        <label for="imageUpload" class="image-upload-label" id="imageUploadLabel">
+            <img class="hunger-button" src="../static/image/hunger.jpg" />
+        </label>   
+        
+        
+        <div id="closet-modal" class="closetmodal">
+            <div class="closet-modal-content">
+                <span class="closet-close">&times;</span>
+                <h2 class="closet-modal-title">My Closet</h2>
+                <div id="closetInfo">
+                    {% if closet %}
+                    {% for item in closet %}
+                    <div class="closet-item">
+                        <div class="add-button-container">
+                            <button class="add-button" data-image="{{ item.image }}" data-style_id="{{ item.style_id}}"data-category="{{ item.category }}" data-brand="{{ item.brand }}">追加</button>
                         </div>
-                        
-                        
-                        {% endfor %}
+                        <img src="{{ item.image }}" alt="Closet Item" style="width: 250px; height: 250px; border-radius: 40px; border: 2px solid black;">
 
-                    
-                            
-                        {% else %}
-                        <p class="closet-error-message">登録されている服がありません。</p>
-                        <div class="button-container">
-                            <a href="/profile" class="closet-add-button">登録</a>
+                        <div class="text-info">
+                            <p>系統: {{ item.style_id }}</p>
+                            <p>カテゴリ: {{ item.category }}</p>
+                            <p>ブランド: {{ item.brand }}</p>
                         </div>
-                        {% endif %}
                     </div>
+                    
+                    
+                    {% endfor %}
+
+                
+                        
+                    {% else %}
+                    <p class="closet-error-message">登録されている服がありません。</p>
+                    <div class="button-container">
+                        <a href="/profile" class="closet-add-button">登録</a>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
-            
-            
-
-            
-            <button class="button-save">保存</button>
         </div>
+        
+        
+
+        
+        <button class="button-save">保存</button>
+    </div>
     </main>
     <script src="../static/js/home.js"></script>
 </body>

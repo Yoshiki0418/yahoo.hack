@@ -805,8 +805,8 @@ main{
 
 .screen .closet {
     position: absolute;
-    width: 0px;
-    height: 0px;
+    width: 400px;
+    height: 750px;
     left: 51px;
   }
     
