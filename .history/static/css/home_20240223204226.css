@@ -1189,8 +1189,8 @@ main{
   border: 2px dashed #ccc; /* 視認性向上のためのボーダー */
 }
 
-#resetButton{
-  position: fixed;
-  right: 65px;
-  bottom: 138px;
+.resetButton{
+  position: absolute;
+  right: 50px;
+  bottom: 100px;
 }

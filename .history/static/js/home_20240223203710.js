@@ -150,16 +150,6 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   });
 
-  // リセットボタンのイベントリスナーを設定
-const resetButton = document.getElementById('resetButton');
-resetButton.addEventListener('click', function() {
-    // .data-input内の全ての.input-item要素を選択して削除
-    const items = document.querySelectorAll('.data-input .input-item');
-    items.forEach(function(item) {
-        item.remove(); // 各.input-item要素を削除
-    });
-});
-
   // 保存ボタンのイベントリスナーを設定
   const saveButton = document.getElementById('saveButton');
   saveButton.addEventListener('click', function() {

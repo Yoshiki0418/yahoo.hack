@@ -1190,7 +1190,7 @@ main{
 }
 
 #resetButton{
-  position: fixed;
-  right: 65px;
-  bottom: 138px;
+  position: absolute;
+  right: 50px;
+  bottom: 100px;
 }
