@@ -275,8 +275,7 @@ display: block;
 }
 
 #coordination-content img,
-#post-content img,
-#post-content video {
+#post-content img {
   border-radius: 10%;
   border: 1px solid;
 }

@@ -539,17 +539,17 @@ main{
 
 .set2_value{
   position: absolute;
-  top: 78px;
+  top: 96px;
   left: 65%;
-  font-size: 12px;
+  font-size: 14px;
   color: #888484;
 }
 
 .set3_value{
   position: absolute;
-  top: 109px;
+  top: 133px;
   left: 61%;
-  font-size: 12px;
+  font-size: 14px;
   color: #888484;
 }
 
@@ -1161,16 +1161,3 @@ main{
   color: white;
 }
 
-.user_icon_main img {
-  width: 100%;       /* または必要な幅に設定 */
-  height: auto;      /* アスペクト比を保持 */
-  border-radius: 50%; /* 画像を円形にする */
-  object-fit: cover;  /* 画像がコンテナに収まるようにする */
-}
-
-.user_icon img {
-  width: 100%;       /* または必要な幅に設定 */
-  height: auto;      /* アスペクト比を保持 */
-  border-radius: 50%; /* 画像を円形にする */
-  object-fit: cover;  /* 画像がコンテナに収まるようにする */
-}

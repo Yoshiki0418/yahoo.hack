@@ -103,15 +103,13 @@ def home():
 
         post_details = []
         for post in posts:
-            user = User.query.filter_by(uid=post.uid).first()
-            if not user:
-                continue  # ユーザーが見つからなければ次の投稿へ
-
-            icon_image = user.iconImage  # ユーザーのアイコン画像を取得
+            # 同じpost.idを持つPsotClosetのアイテムを取得
+            post_closets = PsotCloset.query.filter_by(post_id=post.id).all()
+            
+            # 投稿ごとのアイテム情報をリストに追加
             items_for_post = []
-            total_price = 0
+            total_price = 0  # 各投稿ごとのアイテムの合計価格を初期化
 
-            post_closets = post.post_closet_items.all()  # この投稿に関連する全てのアイテムを取得
             for pc in post_closets:
                 # スタイルIDを使ってスタイルの名前を取得
                 style = Style.query.get(pc.style_id)
@@ -121,17 +119,17 @@ def home():
                     'image': pc.image,
                     'price': int(pc.price),
                     'style_name': style_name,
-                    'brand': pc.brand,
-                    'category': pc.category,
-                    'url': pc.url
+                    'url': pc.url,
+                    # 'brand': pc.brand  # 実際のモデルに合わせてください
                 }
                 items_for_post.append(item_info)
-                total_price += pc.price  # 合計価格にこのアイテムの価格を加算
+
+                # 合計価格にこのアイテムの価格を加算
+                total_price += pc.price
 
             # 投稿の詳細情報をpost_detailsに追加
             post_details.append({
                 'post_id': post.id,
-                'icon': icon_image,  # ユーザーのアイコン画像
                 'post_image': post.image,
                 'items10': items_for_post,
                 'style_name': style_name,
@@ -163,13 +161,11 @@ def profile():
     my_closet = myCloset(session['usr'])
     my_info = find_user(session['usr'])
     my_post = myPost(session["usr"])
-    my_coordinate_list = []
-    my_coordinate = myCoordinate(session['usr'])
-    for coordinate in my_coordinate:
-        items = coordinateItem(coordinate.id)
-        my_coordinate_list.append(items)
-    print(my_coordinate_list)
-    return render_template('profile.html', my_closet=my_closet, my_info=my_info, my_post=my_post, iconImage=my_info.iconImage,my_coordinate_list=my_coordinate_list)  
+    print(my_info.name)
+    print(my_info.uid)
+    print(my_info.iconImage)
+    # print(my_closet)
+    return render_template('profile.html', my_closet=my_closet, my_info=my_info, my_post=my_post, iconImage=my_info.iconImage)  
 
 @app.route('/save-preference', methods=['POST'])
 def save_preference():
@@ -210,24 +206,6 @@ def remove_background():
 
     return jsonify(response_data), 200
 
-@app.route('/save-coordinate', methods=['POST'])
-def save_coordinate():
-    items = request.form.get('items')
-    if items:
-        items = json.loads(items)
-        if not items:
-            return jsonify({'status': 'error', 'message': 'No items received'})
-        print(items)
-        coordinate_id = create_coordinate(session['usr'], "テスト名", "テスト説明")
-        for item in items:
-            item_id = item['id']
-            add_coordinate_item(coordinate_id=coordinate_id, closet_item_id=item_id)
-        return jsonify({'status': 'success', 'message': 'Items added to coordinate'})
-    else:
-        return jsonify({'status': 'error', 'message': 'No items received'})
-
-
-
 @app.route('/save-all-images', methods=['POST'])
 def upload_all():
     if "usr" not in session:
@@ -255,15 +233,10 @@ def upload_all():
         filename = secure_filename(file.filename)
         info = request.form[key.replace('images', 'infos')]
         info_dict = json.loads(info)
-        
-        if('image-url'  not in info_dict):
-            # アップロードされた画像を指定したディレクトリに保存
-            file_path = os.path.join(UPLOAD_FOLDER, filename)
-            file.save(file_path)
-            print("背景消去前の画像を使用します")
-        else:
-            file_path = info_dict['image-url']
-            print("背景消去済みの画像を使用します")
+
+        # アップロードされた画像を指定したディレクトリに保存
+        file_path = os.path.join(UPLOAD_FOLDER, filename)
+        file.save(file_path)
 
         # データベースに保存する処理を呼び出す
         create_closet(user_uid=session['usr'], category=info_dict['系統'], brand=info_dict['ブランド'],style_id=info_dict['カテゴリー'], image=file_path, size=changeNone(info_dict['サイズ']), price=changeNone(info_dict['価格']), purchase_date=changeNone(info_dict['購入日']), note=changeNone(info_dict['思い出メモ']))
@@ -414,7 +387,7 @@ def create_user(uid, name, email, image):
     print("成功: create_user")
     
 
-#ユーザーのIconを変更
+#ユーザーの名前を変更
 def add_imageIcon(uid, image):
     with app.app_context():
         user = User.query.filter_by(uid=uid).first()
@@ -443,40 +416,13 @@ def create_post(uid, image):
         return post.id
     
 #投稿クローゼットの作成
-def create_post_closet(user_uid, post_id, image, url, style_id, price, brand, category):
+def create_post_closet(user_uid, post_id, image, url, style_id, price):
     with app.app_context():
-        post_closet = PsotCloset(uid=user_uid, post_id=post_id, image=image, url=url, style_id=style_id, price=price, brand=brand, category=category)
+        post_closet = PsotCloset(uid=user_uid, post_id=post_id, image=image, url=url, style_id=style_id, price=price)
         db.session.add(post_closet)
         db.session.commit()
         print("成功: create_post_closet")
         return post_closet.id
-    
-#コーディネートの作成
-def create_coordinate(user_uid, continue_name, description):
-    with app.app_context():
-        coordinate = Coordinate(uid=user_uid, continue_name=continue_name, description=description)
-        db.session.add(coordinate)
-        db.session.commit()
-        print("成功: create_coordinate")
-        return coordinate.id
-
-#コーディネートのアイテムを追加
-def add_coordinate_item(coordinate_id, closet_item_id):
-    with app.app_context():
-        coordinate = Coordinate.query.filter_by(id=coordinate_id).first()
-        closet_item = Closet.query.filter_by(id=closet_item_id).first()
-        if coordinate and closet_item:
-            coordinate.items.append(closet_item)
-            try:
-                db.session.commit()
-                print("成功: add_coordinate_item")
-                return True
-            except Exception as e:
-                db.session.rollback()
-                print(e)
-                return False
-        else:
-            return False
     
 
 #フォロワーの作成
@@ -629,21 +575,6 @@ def postDetail(post_id):
         print("投稿の詳細を取得する")
         post_items = PsotCloset.query.filter_by(post_id=post_id).all()
     return post_items
-
-#自分のコーディネートを取得
-def myCoordinate(uid):
-    with app.app_context():
-        print("自分のコーディネートを取得する")
-        coordinate = Coordinate.query.filter_by(uid=uid).all()
-        return coordinate
-
-#コーディネートのsアイテムを取得
-def coordinateItem(coordinate_id):
-    with app.app_context():
-        print("コーディネートのアイテムを取得する")
-        items = Closet.query.join(coordinate_items, Closet.id == coordinate_items.c.closet_item_id)\
-        .filter(coordinate_items.c.coordinate_id == coordinate_id).all()
-        return items
     
 
     
@@ -690,7 +621,7 @@ def ai_cuter():
             return jsonify(items_dict)
         # 動画処理のコード
         elif media_type == 'video':
-            file.save(os.path.join(app.config['UPLOAD_FOLDER_VIDEO'], filename))
+            file.save(os.path.join(app.config['UPLOAD_FOLDER_IMAGE'], filename))
             item_images = detect_and_crop_items_from_video(f"static/post_image/video/{filename}", filename)
 
             # 画像パスをカテゴリごとに整理

@@ -154,7 +154,7 @@
                     <div class="movie_block_main">
                         {% if post_detail.post_image.endswith('.mp4') or post_detail.post_image.endswith('.mov') %}
                             <!-- 動画ファイルの場合の処理 -->
-                            <video controls autoplay muted>
+                            <video controls>
                                 <source src="{{ post_detail.post_image }}" type="video/mp4">
                                 お使いのブラウザはビデオタグをサポートしていません。
                             </video>
@@ -170,7 +170,7 @@
                     </div>
                     <div class="upload_user_main">
                         <div class="user_icon_main">
-                            <img src="{{post_detail.icon}}">
+            
                         </div>
                         <h3>＋フォローする</h3>
                     </div>
@@ -189,7 +189,7 @@
                                 <p class="set2_main_value">{{ item.category }}</p>
                                 <div class="horizontal-line2_main"></div>
                                 <p class="set3_main">ブランド</p>
-                                <p class="set3_main_value">{{ item.brand }}</p>
+                                <p class="set3_main_value">{{ item.category }}</p>
                                 <div class="horizontal-line3_main"></div>
                                 <!-- <p class="set3_main">{{ item.brand }}</p>  ブランド情報 -->
                                 <a href="{{ item.url }}" class="submit-button_main">販売元</a>
@@ -212,7 +212,7 @@
                     <div class="movie_block">
                         {% if post_detail.post_image.endswith('.mp4') or post_detail.post_image.endswith('.mov') %}
                             <!-- 動画ファイルの場合の処理 -->
-                            <video controls autoplay muted>
+                            <video controls>
                                 <source src="{{ post_detail.post_image }}" type="video/mp4">
                                 お使いのブラウザはビデオタグをサポートしていません。
                             </video>
@@ -220,14 +220,13 @@
                             <!-- 画像ファイルの場合の処理 -->
                             <img src="{{ post_detail.post_image }}">
                         {% endif %}
-                        <h1 class="text-with-stroke">{{ post_detail.style_name }}</h1>
+                        <h1 class="text-with-stroke">カジュアル系</h1>
                         <div class="favorite-container">
                             <i class="fas fa-star favorite-icon"></i>
                         </div>
                     </div>
                     <div class="upload_user">
                         <div class="user_icon">
-                            <img src="{{post_detail.icon}}">
                         </div>
                         <h3>＋フォローする</h3>
                     </div>
@@ -239,19 +238,16 @@
                                 </div>
                                 <h5 class="price">¥{{ item.price }}</h5>
                                 <p class="set1">系統</p>
-                                <p class="set1_value">{{ item.style_name }}</p>
                                 <div class="horizontal-line1"></div>
                                 <p class="set2">カテゴリー</p>
-                                <p class="set2_value">{{ item.category }}</p>
                                 <div class="horizontal-line2"></div>
                                 <p class="set3">ブランド</p>
-                                <p class="set3_value">{{ item.brand }}</p>
                                 <div class="horizontal-line3"></div>
                                 <a href="{{ item.url }}" class="submit-button">販売元</a>
                             </div>
                         {% endfor %}
                     </div>
-                    <h3 class="total_price">合計額 ¥{{ post_detail.total_price }}円</h3>
+                    <h3 class="total_price">合計額 ¥{{ post_detail.total_price }}</h3>
                 </div>
             {% endfor %}
         </div>
@@ -275,7 +271,7 @@
                         {% for item in closet %}
                         <div class="closet-item">
                             <div class="add-button-container">
-                                <button class="add-button" data-image="{{ item.image }}" data-style_id="{{ item.style_id}}"data-category="{{ item.category }}" data-brand="{{ item.brand }}" data-id={{item.id}}>追加</button>
+                                <button class="add-button" data-image="{{ item.image }}" data-style_id="{{ item.style_id}}"data-category="{{ item.category }}" data-brand="{{ item.brand }}">追加</button>
                             </div>
                             <img src="{{ item.image }}" alt="Closet Item" style="width: 250px; height: 250px; border-radius: 40px; border: 2px solid black;">
 
@@ -304,7 +300,7 @@
             
 
             
-            <button class="button-save" id="saveButton">保存</button>
+            <button class="button-save">保存</button>
         </div>
     </main>
     <script src="../static/js/home.js"></script>

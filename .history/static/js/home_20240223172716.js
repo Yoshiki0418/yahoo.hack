@@ -144,11 +144,9 @@ document.querySelectorAll('.add-button').forEach(function(button) {
         const category = this.getAttribute('data-category');
         const brand = this.getAttribute('data-brand');
         const style_id = this.getAttribute('data-style_id');
-        const id = this.getAttribute('data-id');
-
+        
         // data-inputエリアを選択
         const dataInputArea = document.querySelector('.data-input');
-        console.log(dataInputArea.innerHTML);
         
         // data-inputエリアに情報を追加（既存の内容を保持しつつ新しい内容を追加）
         dataInputArea.innerHTML += `
@@ -158,7 +156,6 @@ document.querySelectorAll('.add-button').forEach(function(button) {
                 <p>系統: ${style_id}</p>
                 <p>カテゴリ: ${category}</p>
                 <p>ブランド: ${brand}</p>
-                <p>id: ${id}</p>
             </div>
             <button class="delete-button" data-id="1">削除</button>
         </div>
@@ -173,7 +170,8 @@ document.addEventListener('click', function(e) {
             itemElement.remove();
         }
     }
-  });
+});
+
 });
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -264,37 +262,3 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  var saveButton = document.getElementById('saveButton');
-  saveButton.addEventListener('click', function() {
-    const selectedItems = document.querySelectorAll('.input-item');
-    const itemsToSave = [];
-
-    selectedItems.forEach(function(item) {
-      const id = item.querySelector('.text-info p:nth-child(4)').textContent.replace('id: ', '');
-      itemsToSave.push({id});
-    });
-
-    console.log('保存された項目:', itemsToSave);
-
-    var formData = new FormData();
-    formData.append('items', JSON.stringify(itemsToSave));
-
-    // fetch APIを使用してサーバーにPOSTリクエストを送信
-    fetch('save-coordinate', {
-      method: 'POST',
-      body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      window.location.href = '/profile';
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-  });
-});
