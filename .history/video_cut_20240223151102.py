@@ -12,7 +12,7 @@ def ensure_dir(directory):
     if not os.path.exists(directory):
         os.makedirs(directory)
 
-def detect_and_crop_items_from_video(video_path, filename, detection_interval=2.8):
+def detect_and_crop_items_from_video(video_path, filename, detection_interval=3):
     model = YOLO('static/model/best.pt')
     cap = cv2.VideoCapture(video_path)
     
@@ -79,7 +79,7 @@ def detect_and_crop_items_from_video(video_path, filename, detection_interval=2.
     cap.release()
     return cropped_images_paths
 
-# # 使用例
-# video_path = '/Users/yamamoto116/Desktop/保存用/sample2.mp4'
-# cropped_images = detect_and_crop_items_from_video(video_path, "aaa")
-# print(cropped_images)
+# 使用例
+video_path = '/Users/yamamoto116/Desktop/保存用/sample2.mp4'
+cropped_images = detect_and_crop_items_from_video(video_path, "aaa")
+print(cropped_images)

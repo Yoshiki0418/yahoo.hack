@@ -170,7 +170,7 @@
                     </div>
                     <div class="upload_user_main">
                         <div class="user_icon_main">
-                            <img src="{{post_detail.icon}}">
+            
                         </div>
                         <h3>＋フォローする</h3>
                     </div>
@@ -220,14 +220,13 @@
                             <!-- 画像ファイルの場合の処理 -->
                             <img src="{{ post_detail.post_image }}">
                         {% endif %}
-                        <h1 class="text-with-stroke">{{ post_detail.style_name }}</h1>
+                        <h1 class="text-with-stroke">カジュアル系</h1>
                         <div class="favorite-container">
                             <i class="fas fa-star favorite-icon"></i>
                         </div>
                     </div>
                     <div class="upload_user">
                         <div class="user_icon">
-                            <img src="{{post_detail.icon}}">
                         </div>
                         <h3>＋フォローする</h3>
                     </div>
@@ -245,7 +244,6 @@
                                 <p class="set2_value">{{ item.category }}</p>
                                 <div class="horizontal-line2"></div>
                                 <p class="set3">ブランド</p>
-                                <p class="set3_value">{{ item.brand }}</p>
                                 <div class="horizontal-line3"></div>
                                 <a href="{{ item.url }}" class="submit-button">販売元</a>
                             </div>

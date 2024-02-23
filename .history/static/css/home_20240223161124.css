@@ -1168,7 +1168,7 @@ main{
   object-fit: cover;  /* 画像がコンテナに収まるようにする */
 }
 
-.user_icon img {
+.user_icon_main {
   width: 100%;       /* または必要な幅に設定 */
   height: auto;      /* アスペクト比を保持 */
   border-radius: 50%; /* 画像を円形にする */

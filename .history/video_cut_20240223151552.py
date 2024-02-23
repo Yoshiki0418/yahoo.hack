@@ -12,7 +12,7 @@ def ensure_dir(directory):
     if not os.path.exists(directory):
         os.makedirs(directory)
 
-def detect_and_crop_items_from_video(video_path, filename, detection_interval=2.8):
+def detect_and_crop_items_from_video(video_path, filename, detection_interval=3):
     model = YOLO('static/model/best.pt')
     cap = cv2.VideoCapture(video_path)
     

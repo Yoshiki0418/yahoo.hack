@@ -217,16 +217,6 @@ main{
   bottom: -50px;
 }
 
-.movie_block video {
-  max-width: 100%;
-  /* max-height: 100%; */
-  min-width: 100%;
-  /* min-height: 100%; */
-  object-fit: contain; 
-  position: absolute;
-  bottom: -50px;
-}
-
 
 .movie_block h1{
   font-size: 32px;
@@ -510,46 +500,6 @@ main{
   top: 58px;
   left: 61%;
   font-size: 14px;
-  color: #888484;
-}
-
-.set2_main_value{
-  position: absolute;
-  top: 96px;
-  left: 65%;
-  font-size: 14px;
-  color: #888484;
-}
-
-.set3_main_value{
-  position: absolute;
-  top: 133px;
-  left: 61%;
-  font-size: 14px;
-  color: #888484;
-}
-
-.set1_value{
-  position: absolute;
-  top: 49px;
-  left: 61%;
-  font-size: 11px;
-  color: #888484;
-}
-
-.set2_value{
-  position: absolute;
-  top: 78px;
-  left: 65%;
-  font-size: 12px;
-  color: #888484;
-}
-
-.set3_value{
-  position: absolute;
-  top: 109px;
-  left: 61%;
-  font-size: 12px;
   color: #888484;
 }
 
@@ -1161,16 +1111,3 @@ main{
   color: white;
 }
 
-.user_icon_main img {
-  width: 100%;       /* または必要な幅に設定 */
-  height: auto;      /* アスペクト比を保持 */
-  border-radius: 50%; /* 画像を円形にする */
-  object-fit: cover;  /* 画像がコンテナに収まるようにする */
-}
-
-.user_icon img {
-  width: 100%;       /* または必要な幅に設定 */
-  height: auto;      /* アスペクト比を保持 */
-  border-radius: 50%; /* 画像を円形にする */
-  object-fit: cover;  /* 画像がコンテナに収まるようにする */
-}

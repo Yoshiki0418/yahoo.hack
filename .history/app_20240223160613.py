@@ -235,15 +235,10 @@ def upload_all():
         filename = secure_filename(file.filename)
         info = request.form[key.replace('images', 'infos')]
         info_dict = json.loads(info)
-        
-        if('image-url'  not in info_dict):
-            # アップロードされた画像を指定したディレクトリに保存
-            file_path = os.path.join(UPLOAD_FOLDER, filename)
-            file.save(file_path)
-            print("背景消去前の画像を使用します")
-        else:
-            file_path = info_dict['image-url']
-            print("背景消去済みの画像を使用します")
+
+        # アップロードされた画像を指定したディレクトリに保存
+        file_path = os.path.join(UPLOAD_FOLDER, filename)
+        file.save(file_path)
 
         # データベースに保存する処理を呼び出す
         create_closet(user_uid=session['usr'], category=info_dict['系統'], brand=info_dict['ブランド'],style_id=info_dict['カテゴリー'], image=file_path, size=changeNone(info_dict['サイズ']), price=changeNone(info_dict['価格']), purchase_date=changeNone(info_dict['購入日']), note=changeNone(info_dict['思い出メモ']))

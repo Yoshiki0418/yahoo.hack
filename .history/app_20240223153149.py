@@ -103,15 +103,13 @@ def home():
 
         post_details = []
         for post in posts:
-            user = User.query.filter_by(uid=post.uid).first()
-            if not user:
-                continue  # ユーザーが見つからなければ次の投稿へ
-
-            icon_image = user.iconImage  # ユーザーのアイコン画像を取得
+            # 同じpost.idを持つPsotClosetのアイテムを取得
+            post_closets = PsotCloset.query.filter_by(post_id=post.id).all()
+            
+            # 投稿ごとのアイテム情報をリストに追加
             items_for_post = []
-            total_price = 0
+            total_price = 0  # 各投稿ごとのアイテムの合計価格を初期化
 
-            post_closets = post.post_closet_items.all()  # この投稿に関連する全てのアイテムを取得
             for pc in post_closets:
                 # スタイルIDを使ってスタイルの名前を取得
                 style = Style.query.get(pc.style_id)
@@ -121,17 +119,17 @@ def home():
                     'image': pc.image,
                     'price': int(pc.price),
                     'style_name': style_name,
-                    'brand': pc.brand,
-                    'category': pc.category,
-                    'url': pc.url
+                    'url': pc.url,
+                    # 'brand': pc.brand  # 実際のモデルに合わせてください
                 }
                 items_for_post.append(item_info)
-                total_price += pc.price  # 合計価格にこのアイテムの価格を加算
+
+                # 合計価格にこのアイテムの価格を加算
+                total_price += pc.price
 
             # 投稿の詳細情報をpost_detailsに追加
             post_details.append({
                 'post_id': post.id,
-                'icon': icon_image,  # ユーザーのアイコン画像
                 'post_image': post.image,
                 'items10': items_for_post,
                 'style_name': style_name,
@@ -235,15 +233,10 @@ def upload_all():
         filename = secure_filename(file.filename)
         info = request.form[key.replace('images', 'infos')]
         info_dict = json.loads(info)
-        
-        if('image-url'  not in info_dict):
-            # アップロードされた画像を指定したディレクトリに保存
-            file_path = os.path.join(UPLOAD_FOLDER, filename)
-            file.save(file_path)
-            print("背景消去前の画像を使用します")
-        else:
-            file_path = info_dict['image-url']
-            print("背景消去済みの画像を使用します")
+
+        # アップロードされた画像を指定したディレクトリに保存
+        file_path = os.path.join(UPLOAD_FOLDER, filename)
+        file.save(file_path)
 
         # データベースに保存する処理を呼び出す
         create_closet(user_uid=session['usr'], category=info_dict['系統'], brand=info_dict['ブランド'],style_id=info_dict['カテゴリー'], image=file_path, size=changeNone(info_dict['サイズ']), price=changeNone(info_dict['価格']), purchase_date=changeNone(info_dict['購入日']), note=changeNone(info_dict['思い出メモ']))
