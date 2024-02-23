@@ -13,7 +13,6 @@
     <script src="../static/js/profile.js"></script>
     <script src="../static/js/profile2.js"></script>
     <script src="../static/js/home.js"></script>
-    <script src="../static/js/Introduction2.js"></script>
     <title>Document</title>
   </head>
   <body>
@@ -58,6 +57,7 @@
       </div>
     </div>
 
+
     <img src="static/image/icon_yoshi.png" class="my_icon" width="130" height="130">
     <h2 class="name">{{my_info.name}}</h2>
     <h3 class="introduction">自己紹介</h3>
@@ -94,6 +94,7 @@
 
           <div class="tab-content-sub" id="all-content">
             <ul>
+
                 <li><button id="closetBtn1"><img class="my_code_clock" src="static/image/hunger.jpg" width="200" height="200" id="add"></button></li>
                 {% for closet in my_closet %}
                 <li>
@@ -114,6 +115,7 @@
                         <a href="{{ closet.link }}"><img src="{{ closet.image }}" width="200" height="200"/></a>
                     </li>
                 {% endif %}
+
               {% endfor %}
             </ul>
           </div>
@@ -231,7 +233,7 @@
             <!-- 選択された写真・動画を表示する領域 -->
             <div id="upload-show" class="upload-show"></div>
           </div>
-          <button id="uploadButton" class="post_button" type="button">アップロード</button>
+          <input type="submit" id="post_button" class="post_button" value="アップロード">
         </div>
         <!-- アイテムを追加するためのボタン -->
         <div id="itemsContainer" class="check_items_container">
@@ -281,11 +283,11 @@
     <div id="closetModal" class="closetmodal">
       <!--<div class="closetmodal-content">
         <span class="close">&times;</span>-->
-        <div class="screen2">
+        <div class="screen-pro">
          
-              <div class="closet">
+              <div class="closet-pro">
                 
-               
+                <div class="data-input"></div>
                 <div id="saveArea" class="saveArea">
                   <!-- <img src="" alt="プレビュー画像" style="max-width: 100%; max-height: 100%; display: none;object-fit: contain;"> -->
                 </div>
@@ -298,7 +300,7 @@
                 <button class="change_photo" disabled>写真変更</button>
                 
                 <label for="imageUpload" class="image-upload-label" id="imageUploadLabel">
-                  <img class="hunger-button" src="../static/image/hunger.jpg" />
+                  <img class="hunger-button-pro" src="../static/image/hunger.jpg" />
                 </label>
                 <input type="file" id="imageUpload" accept=".jpeg, .png" style="display:none;" />
                 
@@ -361,7 +363,7 @@
                 </div>
                 
       
-                <button class="button-save">保存</button>
+                <button class="button-save-pro">収納</button>
                 
               </div>
       
@@ -375,7 +377,7 @@
               </div>
 
               <div class="next">
-                <button class="next-button">次に進む</button>
+                <button class="next-button">保存</button>
               </div>
       </div>
     </div>
