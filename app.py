@@ -333,6 +333,8 @@ class PsotCloset(db.Model):
     style_id = db.Column(db.Integer, db.ForeignKey('style.id'), nullable=True)
     style = db.relationship('Style', back_populates='post_closet_items',uselist=False)
     price = db.Column(db.Float, nullable=False)
+    category = db.Column(db.String(50))
+    brand = db.Column(db.String(50))
     
 
 #コーディネートテーブル
