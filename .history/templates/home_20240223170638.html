@@ -154,7 +154,7 @@
                     <div class="movie_block_main">
                         {% if post_detail.post_image.endswith('.mp4') or post_detail.post_image.endswith('.mov') %}
                             <!-- 動画ファイルの場合の処理 -->
-                            <video controls autoplay muted>
+                            <video controls autoplay muted loop>
                                 <source src="{{ post_detail.post_image }}" type="video/mp4">
                                 お使いのブラウザはビデオタグをサポートしていません。
                             </video>
@@ -212,7 +212,7 @@
                     <div class="movie_block">
                         {% if post_detail.post_image.endswith('.mp4') or post_detail.post_image.endswith('.mov') %}
                             <!-- 動画ファイルの場合の処理 -->
-                            <video controls autoplay muted>
+                            <video controls autoplay muted loop>
                                 <source src="{{ post_detail.post_image }}" type="video/mp4">
                                 お使いのブラウザはビデオタグをサポートしていません。
                             </video>

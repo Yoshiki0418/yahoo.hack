@@ -218,47 +218,26 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
+
 document.addEventListener('DOMContentLoaded', function() {
-  var currentIndex2 = 0; // 現在表示しているコーディネートのインデックス
+  var currentIndex = 0; // 現在表示しているコーディネートのインデックス
   var coordinations2 = document.querySelectorAll('.num_container2'); // すべてのコーディネートを取得
   var totalCoordinations2 = coordinations2.length; // コーディネートの総数
-  var changeTimeout2; // 画像の自動切り替え用タイマー
-
-  function showNextCoordination() {
-    // 現在のコーディネートを非表示にする
-    coordinations2[currentIndex2].style.display = 'none';
-    clearTimeout(changeTimeout2); // 既存のタイマーをクリアする
-
-    // 次のコーディネートのインデックスを計算する（ループさせる）
-    currentIndex2 = (currentIndex2 + 1) % totalCoordinations2;
-
-    // 次のコーディネートを表示する
-    coordinations2[currentIndex2].style.display = 'block';
-
-    // 次のコーディネートが動画か画像かに応じて処理を分岐
-    var video = coordinations2[currentIndex2].querySelector('video');
-    if (video) {
-      video.play(); // 動画の場合、再生を開始する
-      video.onended = showNextCoordination; // 動画が終了したら次のコーディネートを表示
-    } else {
-      changeTimeout2 = setTimeout(showNextCoordination, 10000); // 画像の場合、10秒後に次のコーディネートを表示
-    }
-  }
 
   // 最初のコーディネート以外を非表示にする
   coordinations2.forEach(function(coordination, index) {
-    if (index !== 0) coordination.style.display = 'none';
+      if (index !== 0) coordination.style.display = 'none';
   });
 
   // 「次のコーディネートを表示」ボタンのクリックイベント
-  document.getElementById('nextCoordination2').addEventListener('click', showNextCoordination);
+  document.getElementById('nextCoordination2').addEventListener('click', function() {
+      // 現在のコーディネートを非表示にする
+      coordinations2[currentIndex].style.display = 'none';
 
-  // 最初のコーディネートが画像か動画かに応じて自動切り替えを開始する
-  if (coordinations2[0].querySelector('video')) {
-    var firstVideo = coordinations2[0].querySelector('video');
-    firstVideo.onended = showNextCoordination; // 動画が終了したら次のコーディネートを表示
-  } else {
-    changeTimeout2 = setTimeout(showNextCoordination, 10000); // 画像の場合、10秒後に次のコーディネートを表示
-  }
+      // 次のコーディネートのインデックスを計算する（ループさせる）
+      currentIndex = (currentIndex + 1) % totalCoordinations2;
+
+      // 次のコーディネートを表示する
+      coordinations2[currentIndex].style.display = 'block';
+  });
 });
-
