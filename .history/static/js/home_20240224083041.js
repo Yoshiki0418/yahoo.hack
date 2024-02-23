@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
           const dataInputArea = document.querySelector('.data-input');
           const newItem = document.createElement('div');
           newItem.classList.add('input-item');
-          newItem.innerHTML = `<img src="${image}" alt="Closet Item" style="width: 100%; height: 100%;">`;
+          newItem.innerHTML = `<img src="${image}" alt="Closet Item" style="width: 100%; height: 100%; border-radius: 40px; border: 2px solid black;">`;
           dataInputArea.appendChild(newItem);
           makeDraggable(newItem);
       });
@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // 新しい入力項目を作成
         const newItem = document.createElement('div');
         newItem.classList.add('input-item');
-        newItem.innerHTML = `<img src="${imageSrc}" alt="Closet Item" style="width: 100%; height: 100%;">`;
+        newItem.innerHTML = `<img src="${imageSrc}" alt="Closet Item" style="width: 100%; height: 100%;>`;
         
         // 新しい入力項目をデータ入力エリアに追加
         dataInputArea.appendChild(newItem);
