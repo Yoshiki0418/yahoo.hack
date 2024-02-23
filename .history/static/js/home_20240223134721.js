@@ -62,8 +62,8 @@ document.addEventListener('DOMContentLoaded', function() {
   var section20 = document.querySelector('.movie_container_main');
   var section21 = document.querySelector('.movie_container');
 
-  var button1 = document.querySelector('#nextCoordination');
-  var button2 = document.querySelector('#nextCoordination2');
+  var button1 = document.querySelector('.nextCoordination');
+  var button2 = document.querySelector('.nextCoordination2');
 
   // サイドバー表示ボタンクリック時の動作
   if (linkSection10) {
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
           section12.style.display = ''; // コードブロックを非表示
           section20.style.display = ''; // メインコンテナを表示
           section21.style.display = 'none'; // サイドバー表示時のコンテナを非表示
-          button1.style.display = '';
+          button1.style.display = 'none';
           button2.style.display = 'none';
       });
   }

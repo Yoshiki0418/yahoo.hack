@@ -117,7 +117,7 @@ def home():
 
                 item_info = {
                     'image': pc.image,
-                    'price': int(pc.price),
+                    'price': pc.price,
                     'style_name': style_name,
                     'url': pc.url,
                     # 'brand': pc.brand  # 実際のモデルに合わせてください
@@ -132,8 +132,7 @@ def home():
                 'post_id': post.id,
                 'post_image': post.image,
                 'items10': items_for_post,
-                'style_name': style_name,
-                'total_price': int(total_price)
+                'total_price': total_price
             })
 
         print(f"私の好み:{posts}")

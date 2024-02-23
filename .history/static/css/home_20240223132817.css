@@ -1054,49 +1054,5 @@ main{
   
 #nextCoordination{
   position: absolute;
-  left: 30px;
-  bottom: 30px;
-  font-size: 24px; /* ボタンのテキストサイズ */
-  color: #333; /* ボタンのテキストカラー */
-  background-color: #0b0b1c; /* ボタンの背景カラー */
-  border: 1px solid #ddd; /* ボタンのボーダー */
-  text-decoration: none; /* テキストの下線を消す */
-  border-radius: 4px; /* ボタンの角を丸める */
-  cursor: pointer; /* ホバー時のカーソルをポインタにする */
-  border-radius: 50%; /* ボタンを円形にする */
-  padding: 10px; /* ボタンの大きさを調整するためのパディング */
-  width: 50px; /* ボタンの幅を設定 */
-  height: 50px; /* ボタンの高さを設定 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  left: -50px;
 }
-
-#nextCoordination i{
-  color: white;
-}
-
-#nextCoordination2{
-  position: absolute;
-  left: 217px;
-  bottom: 169px;
-  font-size: 24px; /* ボタンのテキストサイズ */
-  color: #333; /* ボタンのテキストカラー */
-  background-color: #0b0b1c; /* ボタンの背景カラー */
-  border: 1px solid #ddd; /* ボタンのボーダー */
-  text-decoration: none; /* テキストの下線を消す */
-  border-radius: 4px; /* ボタンの角を丸める */
-  cursor: pointer; /* ホバー時のカーソルをポインタにする */
-  border-radius: 50%; /* ボタンを円形にする */
-  padding: 10px; /* ボタンの大きさを調整するためのパディング */
-  width: 50px; /* ボタンの幅を設定 */
-  height: 50px; /* ボタンの高さを設定 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#nextCoordination2 i{
-  color: white;
-}
-

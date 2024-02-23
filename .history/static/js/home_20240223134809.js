@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
           section12.style.display = ''; // コードブロックを非表示
           section20.style.display = ''; // メインコンテナを表示
           section21.style.display = 'none'; // サイドバー表示時のコンテナを非表示
-          button1.style.display = '';
+          button1.style.display = 'none';
           button2.style.display = 'none';
       });
   }

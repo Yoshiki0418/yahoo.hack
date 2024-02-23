@@ -1077,6 +1077,7 @@ main{
 }
 
 #nextCoordination2{
+  display: none;
   position: absolute;
   left: 217px;
   bottom: 169px;

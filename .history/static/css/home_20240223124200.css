@@ -173,7 +173,6 @@ main{
   height: 740px;
   overflow: hidden;
   position: absolute;
-  background-color: #000;
 }
 
 .movie_block_main img {
@@ -182,28 +181,14 @@ main{
   min-width: 100%; /* 繧ｳ繝ｳ繝�リ縺ｮ譛蟆丞ｹ�ｒ逕ｻ蜒上�譛蟆丞ｹ�→縺励※險ｭ螳� */
   min-height: 100%; /* 繧ｳ繝ｳ繝�リ縺ｮ譛蟆城ｫ倥＆繧堤判蜒上�譛蟆城ｫ倥＆縺ｨ縺励※險ｭ螳� */
   object-fit: contain; /* 逕ｻ蜒上�繧｢繧ｹ繝壹け繝域ｯ斐ｒ邯ｭ謖√＠縺､縺､縲∵欠螳壹＆繧後◆蟷�→鬮倥＆縺ｫ蜿弱∪繧九ｈ縺�↓隱ｿ謨ｴ */
-  position: absolute;
-  bottom: 5px;
 }
-
-/* .movie_block_main video {
-  max-width: 100%;
-  max-height: 100%;
-  min-width: 100%; /* 繧ｳ繝ｳ繝�リ縺ｮ譛蟆丞ｹ�ｒ逕ｻ蜒上�譛蟆丞ｹ�→縺励※險ｭ螳� */
-  /* min-height: 100%; /* 繧ｳ繝ｳ繝�リ縺ｮ譛蟆城ｫ倥＆繧堤判蜒上�譛蟆城ｫ倥＆縺ｨ縺励※險ｭ螳� */
-  /* object-fit: contain; /* 逕ｻ蜒上�繧｢繧ｹ繝壹け繝域ｯ斐ｒ邯ｭ謖√＠縺､縺､縲∵欠螳壹＆繧後◆蟷�→鬮倥＆縺ｫ蜿弱∪繧九ｈ縺�↓隱ｿ謨ｴ */
-  /* position: absolute;
-
-} */ 
 
 .movie_block_main video {
   max-width: 100%;
-  /* max-height: 100%; */
-  min-width: 100%;
-  /* min-height: 100%; */
-  object-fit: contain; 
-  position: absolute;
-  bottom: -50px;
+  max-height: 100%;
+  min-width: 100%; /* 繧ｳ繝ｳ繝�リ縺ｮ譛蟆丞ｹ�ｒ逕ｻ蜒上�譛蟆丞ｹ�→縺励※險ｭ螳� */
+  min-height: 100%; /* 繧ｳ繝ｳ繝�リ縺ｮ譛蟆城ｫ倥＆繧堤判蜒上�譛蟆城ｫ倥＆縺ｨ縺励※險ｭ螳� */
+  object-fit: contain; /* 逕ｻ蜒上�繧｢繧ｹ繝壹け繝域ｯ斐ｒ邯ｭ謖√＠縺､縺､縲∵欠螳壹＆繧後◆蟷�→鬮倥＆縺ｫ蜿弱∪繧九ｈ縺�↓隱ｿ謨ｴ */
 }
 
 
@@ -481,14 +466,6 @@ main{
   top: 47px;
   left: 58%;
   font-size: 10px;
-  color: #888484;
-}
-
-.set1_main_value{
-  position: absolute;
-  top: 58px;
-  left: 61%;
-  font-size: 14px;
   color: #888484;
 }
 
@@ -1052,51 +1029,4 @@ main{
     cursor: default;
   }
   
-#nextCoordination{
-  position: absolute;
-  left: 30px;
-  bottom: 30px;
-  font-size: 24px; /* ボタンのテキストサイズ */
-  color: #333; /* ボタンのテキストカラー */
-  background-color: #0b0b1c; /* ボタンの背景カラー */
-  border: 1px solid #ddd; /* ボタンのボーダー */
-  text-decoration: none; /* テキストの下線を消す */
-  border-radius: 4px; /* ボタンの角を丸める */
-  cursor: pointer; /* ホバー時のカーソルをポインタにする */
-  border-radius: 50%; /* ボタンを円形にする */
-  padding: 10px; /* ボタンの大きさを調整するためのパディング */
-  width: 50px; /* ボタンの幅を設定 */
-  height: 50px; /* ボタンの高さを設定 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#nextCoordination i{
-  color: white;
-}
-
-#nextCoordination2{
-  position: absolute;
-  left: 217px;
-  bottom: 169px;
-  font-size: 24px; /* ボタンのテキストサイズ */
-  color: #333; /* ボタンのテキストカラー */
-  background-color: #0b0b1c; /* ボタンの背景カラー */
-  border: 1px solid #ddd; /* ボタンのボーダー */
-  text-decoration: none; /* テキストの下線を消す */
-  border-radius: 4px; /* ボタンの角を丸める */
-  cursor: pointer; /* ホバー時のカーソルをポインタにする */
-  border-radius: 50%; /* ボタンを円形にする */
-  padding: 10px; /* ボタンの大きさを調整するためのパディング */
-  width: 50px; /* ボタンの幅を設定 */
-  height: 50px; /* ボタンの高さを設定 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#nextCoordination2 i{
-  color: white;
-}
 

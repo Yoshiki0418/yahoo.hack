@@ -87,6 +87,17 @@ def logout():
     session.pop('usr', None)
     return redirect(url_for('welcome'))
 
+# ユーザーIDを基にユーザーの好みのスタイルIDを取得
+def get_user_favorite_style_ids(user_id):
+    user = User.query.filter_by(uid=user_id).first()
+    return [style.id for style in user.favorite_styles]
+
+# ユーザーの好みと一致するPsotClosetのIDを取得
+def get_matching_psotcloset_ids(user_id):
+    favorite_style_ids = get_user_favorite_style_ids(user_id)
+    matching_psotclosets = PsotCloset.query.filter(PsotCloset.style_id.in_(favorite_style_ids)).all()
+    return [psotcloset.id for psotcloset in matching_psotclosets]
+
 @app.route('/home')
 def home():
     if "usr" in session:
@@ -98,47 +109,31 @@ def home():
         data = {}
         data['closet'] = mycloset
 
-        
+        print(f"私の好み:{like_style}")
 
+        # for style in similarStyle:
+        #     print(style.id)
+        # # similarStyleのスタイルIDに基づいてPsotClosetのレコードを取得
+        # post_closets = PsotCloset.query.filter(PsotCloset.style_id.in_([style.id for style in similarStyle])).all()
+        # for post_item in post_closets:
+        #     print(post_item.id)
 
-        post_details = []
-        for post in posts:
-            # 同じpost.idを持つPsotClosetのアイテムを取得
-            post_closets = PsotCloset.query.filter_by(post_id=post.id).all()
-            
-            # 投稿ごとのアイテム情報をリストに追加
-            items_for_post = []
-            total_price = 0  # 各投稿ごとのアイテムの合計価格を初期化
+        # similarStyleのスタイルIDに基づいてPsotClosetのレコードを取得し、グループ化
+        post_closet_groups = {}
+        for style in similarStyle:
+            print(style.id)
+            post_closets_for_style = PsotCloset.query.filter_by(post_id=style.id).all()
+            post_closet_groups[style] = post_closets_for_style
+        print(post_closet_groups)
 
-            for pc in post_closets:
-                # スタイルIDを使ってスタイルの名前を取得
-                style = Style.query.get(pc.style_id)
-                style_name = style.style_name if style else 'Unknown Style'
-
-                item_info = {
-                    'image': pc.image,
-                    'price': int(pc.price),
-                    'style_name': style_name,
-                    'url': pc.url,
-                    # 'brand': pc.brand  # 実際のモデルに合わせてください
-                }
-                items_for_post.append(item_info)
-
-                # 合計価格にこのアイテムの価格を加算
-                total_price += pc.price
-
-            # 投稿の詳細情報をpost_detailsに追加
-            post_details.append({
-                'post_id': post.id,
-                'post_image': post.image,
-                'items10': items_for_post,
-                'style_name': style_name,
-                'total_price': int(total_price)
-            })
-
-        print(f"私の好み:{posts}")
-        
-        return render_template('home.html', closet=mycloset,post_details=post_details) 
+        # 各データセットを辞書に格納
+        data_for_template = {
+            'similar_style': similarStyle,
+            'like_style': like_style,
+            'post_closet': postCloset,
+            'posts': posts
+        }
+        return render_template('home.html', closet=mycloset,data=data)
     else:
         return render_template('welcome.html')
     

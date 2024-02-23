@@ -145,111 +145,81 @@
             </div>
             <h3 class="total_price_main">合計額  ¥300,000</h3>
         </div> -->
-        <button id="nextCoordination">
-            <i class="fas fa-arrow-down"></i>
-          </button>
         <div class="movie_container_main">
             {% for post_detail in post_details %}
-                <div class="num_container" id="coordination-{{ idx }}">
-                    <div class="movie_block_main">
-                        {% if post_detail.post_image.endswith('.mp4') or post_detail.post_image.endswith('.mov') %}
-                            <!-- 動画ファイルの場合の処理 -->
-                            <video controls>
-                                <source src="{{ post_detail.post_image }}" type="video/mp4">
-                                お使いのブラウザはビデオタグをサポートしていません。
-                            </video>
-                        {% else %}
-                            <!-- 画像ファイルの場合の処理 -->
-                            <img src="{{ post_detail.post_image }}">
-                        {% endif %}
-                        <!-- コーディネートのスタイルやその他情報もここに表示可能 -->
-                        <h1 class="text-with-stroke">{{ post_detail.style_name }}</h1>
-                        <div class="favorite-container">
-                            <i class="fas fa-star favorite-icon"></i>
-                        </div>
-                    </div>
-                    <div class="upload_user_main">
-                        <div class="user_icon_main">
-            
-                        </div>
-                        <h3>＋フォローする</h3>
-                    </div>
-                    <div class="item_container_main">
-                        {% for item in post_detail.items10 %}
-                            <div class="item_block_main">
-                                <div class="item_pic_main">
-                                    <img src="{{ item.image }}" alt="アイテム画像">
-                                </div>
-                                <h5 class="price_main">¥{{ item.price }}</h5>
-                                <!-- スタイル、カテゴリー、ブランドはモデルによって異なるため、適宜調整が必要です -->
-                                <p class="set1_main">系統</p>
-                                <p class="set1_main_value">{{ item.style_name }}</p>
-                                <div class="horizontal-line1_main"></div>
-                                <p class="set2_main">カテゴリー</p>
-                                <div class="horizontal-line2_main"></div>
-                                <p class="set3_main">ブランド</p>
-                                <div class="horizontal-line3_main"></div>
-                                <!-- <p class="set3_main">{{ item.brand }}</p>  ブランド情報 -->
-                                <a href="{{ item.url }}" class="submit-button_main">販売元</a>
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <!-- 合計額などの追加情報もここに表示可能 -->
-                    <h3 class="total_price_main">合計額  ¥{{ post_detail.total_price }} 円</h3>   
+                <div class="movie_block_main">
+                    <img src="{{ post_detail.post_image }}">
+                    <!-- コーディネートのスタイルやその他情報もここに表示可能 -->
                 </div>
-            {% endfor %}    
-                               
-        </div>
-        
-        <button id="nextCoordination2" style="display: none;">
-            <i class="fas fa-arrow-down"></i>
-          </button>
-        <div class="movie_container" style="display: none;">
-            {% for post_detail in post_details %}
-                <div class="num_container2" id="coordination-{{ loop.index }}">
-                    <div class="movie_block">
-                        {% if post_detail.post_image.endswith('.mp4') or post_detail.post_image.endswith('.mov') %}
-                            <!-- 動画ファイルの場合の処理 -->
-                            <video controls>
-                                <source src="{{ post_detail.post_image }}" type="video/mp4">
-                                お使いのブラウザはビデオタグをサポートしていません。
-                            </video>
-                        {% else %}
-                            <!-- 画像ファイルの場合の処理 -->
-                            <img src="{{ post_detail.post_image }}">
-                        {% endif %}
-                        <h1 class="text-with-stroke">カジュアル系</h1>
-                        <div class="favorite-container">
-                            <i class="fas fa-star favorite-icon"></i>
-                        </div>
-                    </div>
-                    <div class="upload_user">
-                        <div class="user_icon">
-                        </div>
-                        <h3>＋フォローする</h3>
-                    </div>
-                    <div class="item_container">
-                        {% for item in post_detail.items10 %}
-                            <div class="item_block">
-                                <div class="item_pic">
-                                    <img src="{{ item.image }}">
-                                </div>
-                                <h5 class="price">¥{{ item.price }}</h5>
-                                <p class="set1">系統</p>
-                                <div class="horizontal-line1"></div>
-                                <p class="set2">カテゴリー</p>
-                                <div class="horizontal-line2"></div>
-                                <p class="set3">ブランド</p>
-                                <div class="horizontal-line3"></div>
-                                <a href="{{ item.url }}" class="submit-button">販売元</a>
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <h3 class="total_price">合計額 ¥{{ post_detail.total_price }}</h3>
+                <div class="item_container_main">
+                    {% for item in post_detail.items %}
+                        
+                    {% endfor %}
                 </div>
+                <!-- 合計額などの追加情報もここに表示可能 -->
             {% endfor %}
         </div>
         
+
+        <!--サイドバー表示時の動画コンテナ-->
+        <div class="movie_container" style="display: none;">
+            <!--ここにアルゴリズムで選択された動画・写真・何系であるかを適用させる-->
+            <div class="movie_block">
+                <img src="../static/image/sample.png">
+                <h1 class="text-with-stroke">カジュアル系</h1>
+                <div class="favorite-container">
+                    <i class="fas fa-star favorite-icon"></i>
+                </div>
+            </div>
+            <div class="upload_user">
+                <div class="user_icon">
+    
+                </div>
+                <h3>＋フォローする</h3>
+            </div>
+            <div class="item_container">
+                <div class="item_block">
+                    <div class="item_pic">
+                        <img src="../static/image/sample2.png">
+                    </div>
+                    <h5 class="price">¥100,000</h5>
+                    <p class="set1">系統</p>
+                    <div class="horizontal-line1"></div>
+                    <p class="set2">カテゴリー</p>
+                    <div class="horizontal-line2"></div>
+                    <p class="set3">ブランド</p>
+                    <div class="horizontal-line3"></div>
+                    <button  class="submit-button">販売元</button>
+                </div>
+                <div class="item_block">
+                    <div class="item_pic">
+                        <img src="../static/image/sample1.png">
+                    </div>
+                    <h5 class="price">¥100,000</h5>
+                    <p class="set1">系統</p>
+                    <div class="horizontal-line1"></div>
+                    <p class="set2">カテゴリー</p>
+                    <div class="horizontal-line2"></div>
+                    <p class="set3">ブランド</p>
+                    <div class="horizontal-line3"></div>
+                    <button  class="submit-button">販売元</button>
+                </div>
+                <div class="item_block">
+                    <div class="item_pic">
+                        <img src="../static/image/sample3.png">
+                    </div>
+                    <h5 class="price">¥100,000</h5>
+                    <p class="set1">系統</p>
+                    <div class="horizontal-line1"></div>
+                    <p class="set2">カテゴリー</p>
+                    <div class="horizontal-line2"></div>
+                    <p class="set3">ブランド</p>
+                    <div class="horizontal-line3"></div>
+                    <button  class="submit-button">販売元</button>
+                </div>
+            </div>
+            <h3 class="total_price">合計額  ¥300,000</h3>
+        </div>
         <div class="screen">
             <div class="closet">
                 <div class="data-input"></div>
