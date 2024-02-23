@@ -44,6 +44,7 @@ window.onclick = function(event) {
       modalBackground.style.display = "none";
   }
 }
+/*
 // 選択された写真を表示する関数
 function displayImage(event, containerId) {
   var selectedFile = event.target.files[0];
@@ -74,6 +75,47 @@ function deleteItem(button) {
   var listItem = button.parentNode;
   listItem.parentNode.removeChild(listItem);
 }
+*/
+
+
+
+//データベースとの接続処理（削除）
+// 画像IDを取得するボタンのクリックイベントリスナー
+const getImageIdButton = document.getElementById('img-delete-button');
+getImageIdButton.addEventListener('click', function() {
+    const sampleImage = document.getElementById('item-img');
+    const imageId = sampleImage.getAttribute('src');
+    // 画像IDを取得したら、そのIDを使用して画像をデータベースから削除する処理を実行する
+    deleteImage(imageId);
+});
+
+// 画像をデータベースから削除する関数
+function deleteItem(imageId) {
+    fetch(`/images/${imageId}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('画像の削除中にエラーが発生しました');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // サーバーからの応答が成功した場合の処理
+        console.log('画像を削除しました:', data);
+        alert('画像を削除しました');
+        // 画像の削除後の任意の追加処理を実行することができます
+    })
+    .catch(error => {
+        // エラーメッセージをコンソールに出力し、ユーザーにエラーを通知します
+        console.error('画像の削除中にエラーが発生しました:', error.message);
+        alert('画像の削除中にエラーが発生しました');
+    });
+}
+
+
+
+
 /*
 // クローゼット収納
 document.getElementById("upload-button").addEventListener("click", function(event) {
