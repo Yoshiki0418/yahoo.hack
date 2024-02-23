@@ -293,9 +293,9 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
-            console.log('Success:', data);
-            // 成功した場合、ページをリロード
-            window.location.reload();
+            console.log('Success:');
+            // 成功した場合、URLにパラメータを追加してリロード
+            window.location.href = '/your-page-path?tab=post';
         })
         .catch((error) => console.error('Error:', error));
     });

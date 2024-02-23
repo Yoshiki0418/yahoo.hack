@@ -55,13 +55,12 @@ def welcome():
 @app.route('/sinup', methods=['POST'])
 def sinup():
     if request.method == "POST":
-        _name = request.form['name']
         _username = request.form['username']
         _password = request.form['password']
-        isFlag, usr = FB.Signup(name=_name, email=_username, password=_password)
+        isFlag, usr = FB.Signup(name="藤季", email=_username, password=_password)
         if isFlag:
             session["usr"] = usr.uid
-            create_user(usr.uid, _name , _username)
+            create_user(usr.uid, "藤季光樹" , _username)
             return redirect(url_for('Introduction'))
         else:
             return render_template('welcome.html', sinup_failed=not isFlag, sinup_error=usr)
@@ -90,19 +89,11 @@ def logout():
 @app.route('/home')
 def home():
     if "usr" in session:
-        mycloset = myCloset(session['usr'])
-        similarStyle = SimilarStyle(session['usr'])
-        like_style = myFavoriteStyle(session['usr'])
-        postCloset = SimilarStylePostCloset(session['usr'])
-        posts = SimilarStylePost(session['usr'])
-        data = {}
-        data['closet'] = mycloset
-        data['similarStyle'] = similarStyle
-        data['like_style'] = like_style
-        data['postCloset'] = postCloset
-        data['posts'] = posts
-        print("ホーム画面のデータ：",data)
-        return render_template('home.html', closet=mycloset,data=data)
+        closet = myCloset(session['usr'])
+        print(closet)
+        kh = SimilarStyle(session['usr'])
+        print(kh)
+        return render_template('home.html', closet=closet, kh=kh)
     else:
         return render_template('welcome.html')
     
@@ -120,15 +111,7 @@ def introduction2():
 
 @app.route('/profile')
 def profile():
-    if "usr" not in session:
-        return redirect(url_for('welcome'))
-    my_closet = myCloset(session['usr'])
-    my_info = find_user(session['usr'])
-    my_post = atherPost(session["usr"])
-    print(my_info.name)
-    print(my_info.uid)
-    # print(my_closet)
-    return render_template('profile.html', my_closet=my_closet, my_info=my_info, my_post=my_post)  
+    return render_template('profile.html')  
 
 @app.route('/save-preference', methods=['POST'])
 def save_preference():
@@ -251,7 +234,7 @@ class Post(db.Model):
     uid = db.Column(db.String(50), db.ForeignKey('user.uid'), nullable=False)
     image = db.Column(db.String(100), nullable=False)
     post_closet_items = db.relationship('PsotCloset', backref='post', lazy='dynamic')
-    
+    post_styles = db.relationship('Style', secondary='post_style_link', backref='posts')
    
 # クローゼットテーブル
 class Closet(db.Model):
@@ -316,6 +299,12 @@ class Style(db.Model):
 user_style_link = db.Table('user_style_link',
     db.Column('user_id', db.String(50), db.ForeignKey('user.uid', name='fk_user_style_user_id'), primary_key=True),
     db.Column('style_id', db.String(50), db.ForeignKey('style.id', name='fk_user_style_style_id'), primary_key=True)
+)
+
+# 投稿とスタイルの中間テーブル
+post_style_link = db.Table('post_style_link',
+    db.Column('post_id', db.Integer, db.ForeignKey('post.id', name='fk_post_style_post_id'), primary_key=True),
+    db.Column('style_id', db.String(50), db.ForeignKey('style.id', name='fk_post_style_style_id'), primary_key=True)
 )
 
 # クローゼットとコーディネートの中間テーブル
@@ -389,6 +378,24 @@ def add_user_style_link(user_id, style_name):
         db.session.commit()
     print("成功: add_user_style_link")
 
+#投稿とスタイルのリンクの作成
+def add_post_style(post_id, style_id):
+    post = Post.query.filter_by(id=post_id).first()
+    style = Style.query.filter_by(id=style_id).first()
+    if post and style:
+        post.post_styles.append(style)
+        try:
+            db.session.commit()
+            print("成功: add_post_style")
+            return True
+        except Exception as e:
+            db.session.rollback()
+            print(e)
+            return False
+    else:
+        return False
+
+
 def add_coordinate_item(coordinate_id, closet_item_id):
     coordinate = Coordinate.query.filter_by(id=coordinate_id).first()
     closet_item = Closet.query.filter_by(id=closet_item_id).first()
@@ -406,25 +413,18 @@ def add_coordinate_item(coordinate_id, closet_item_id):
         return False
 
     
-#スタイルのIDを取得
+#クローゼットの削除
 def find_style_id(style_name):
     with app.app_context():
         style = Style.query.filter_by(style_name=style_name).first()
         print(style)
     return style.id
 
-#自分の情報を取得
-def find_user(uid):
-    with app.app_context():
-        user = User.query.filter_by(uid=uid).first()
-    return user
-
 #自分のクローゼットを取得
 def myCloset(uid):
     with app.app_context():
         print("自分の服を取得する")
         closet = Closet.query.filter_by(uid=uid).all()
-        print(closet)
     return closet
 
 #自分の好きなスタイルを取得
@@ -432,15 +432,7 @@ def myFavoriteStyle(uid):
     with app.app_context():
         print("自分の好きなスタイルを取得する")
         style = User.query.filter_by(uid=uid).first().favorite_styles
-        print(style)
     return style
-
-#自分の投稿を取得
-def myPost(uid):
-    with app.app_context():
-        print("自分の投稿を取得する")
-        post = Post.query.filter_by(uid=uid).all()
-    return post
 
 #他のユーザーのクローゼットを取得
 def atherCloset(uid):
@@ -488,32 +480,18 @@ def SimilarStyle(current_user_id):
     return closet_items_from_similar_style_users
 
 
-# 同じスタイルを共有するユーザーの投稿したクローゼットを取得
-def SimilarStylePostCloset(current_user_id):
-    like_style =  myFavoriteStyle(current_user_id)
-    postscloset = []
-    for style in like_style:
-        postscloset += PsotCloset.query.filter_by(style_id=style.id).all()
-    return postscloset
-
-#同じスタイルを共有するユーザーの投稿を取得
+# 同じスタイルを共有するユーザーの投稿を取得
 def SimilarStylePost(current_user_id):
-    postscloset = SimilarStylePostCloset(current_user_id)
-    posts = set()
-    for post_closet in postscloset:
-        if Post.query.filter(Post.id==post_closet.post_id).filter(Post.uid != current_user_id).first():
-            posts.add(Post.query.filter(Post.id==post_closet.post_id).filter(Post.uid != current_user_id).first())
-    return posts
-
-#投稿の詳細を取得
-def postDetail(post_id):
-    with app.app_context():
-        print("投稿の詳細を取得する")
-        post_items = PsotCloset.query.filter_by(post_id=post_id).all()
-    return post_items
-    
-
-    
+    posts_from_similar_style_users = Post.query.join(User, Post.uid == User.uid)\
+    .join(user_style_link, User.uid == user_style_link.c.user_id)\
+    .join(Style, user_style_link.c.style_id == Style.id)\
+    .filter(Style.id.in_(
+        db.session.query(user_style_link.c.style_id)
+        .filter(user_style_link.c.user_id == current_user_id)
+    ))\
+    .filter(Post.uid != current_user_id)\
+    .all()
+    return posts_from_similar_style_users
 
 
 # アップロードした画像・動画を自動で切り取る関数
@@ -608,6 +586,7 @@ def post_file():
     # コーディネートの画像・動画の処理
     media_type = request.form.get('mediaType')
     uploaded_media = request.files.get('uploadedMedia')
+    tab = request.args.get('tab', 'default-tab')
 
     if uploaded_media:
         filename = uploaded_media.filename
@@ -636,12 +615,23 @@ def post_file():
     for item in items_data:
         print('Item data:', item)
         create_post_closet(session['usr'], post_id, item['imageSrc'], item['sellerUrl'], item['style'], item['price'])
+        add_post_style(post_id, item['style'])
         # ここで各アイテムのデータ（imageSrc, price, style, category, brand, sellerUrl）を処理できます
-
-    return jsonify({'status': 'success', 'message': 'Data uploaded successfully'})
-
+    return render_template('profile.html')
 
 
-    
+def get_posts_by_users_with_same_style(uid):
+    # スタイルに基づいてユーザーを検索
+    style_name =      myFavoriteStyle(uid)
+    style = Style.query.filter_by(style_name=style_name).first()
+    if style:
+        user_ids = [user.uid for user in style.users]
+        # これらのユーザーの投稿を取得
+        posts = Post.query.filter(Post.uid.in_(user_ids)).all()
+        return posts
+    else:
+        return None
+
+
 if __name__ == '__main__':
     app.run(debug=True,port=8080) 
