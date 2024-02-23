@@ -61,7 +61,7 @@ def sinup():
         isFlag, usr = FB.Signup(name=_name, email=_username, password=_password)
         if isFlag:
             session["usr"] = usr.uid
-            create_user(usr.uid, _name , _username)
+            create_user(usr.uid, _name , _username,image='static/icon/default_icon.jpeg')
             return redirect(url_for('Introduction'))
         else:
             return render_template('welcome.html', sinup_failed=not isFlag, sinup_error=usr)
@@ -160,11 +160,12 @@ def profile():
         return redirect(url_for('welcome'))
     my_closet = myCloset(session['usr'])
     my_info = find_user(session['usr'])
-    my_post = atherPost(session["usr"])
+    my_post = myPost(session["usr"])
     print(my_info.name)
     print(my_info.uid)
+    print(my_info.iconImage)
     # print(my_closet)
-    return render_template('profile.html', my_closet=my_closet, my_info=my_info, my_post=my_post)  
+    return render_template('profile.html', my_closet=my_closet, my_info=my_info, my_post=my_post, iconImage=my_info.iconImage)  
 
 @app.route('/save-preference', methods=['POST'])
 def save_preference():
@@ -273,11 +274,25 @@ class User(db.Model):
     uid = db.Column(db.String(50), primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
+    iconImage = db.Column(db.String(100), nullable=True)
     closet_items = db.relationship('Closet', backref='owner', lazy='dynamic')
     favorite_styles = db.relationship('Style', secondary='user_style_link', back_populates='users')
     post_closet_items = db.relationship('PsotCloset', backref='owner', lazy='dynamic')
     posts = db.relationship('Post', backref='owner', lazy='dynamic')
     coordinates = db.relationship('Coordinate', backref='owner', lazy='dynamic')
+    
+#Iconを変更する
+@app.route('/upload-icon', methods=['POST'])
+def changeIcon():
+    if request.method == "POST":
+        image = request.files['iconImage']
+        if image and allowed_file(image.filename):
+            filename = secure_filename(image.filename)
+            UPLOAD_FOLDER = 'static/icon'
+            image.save(os.path.join(UPLOAD_FOLDER, filename))
+            add_imageIcon(session['usr'], f'static/icon/{filename}')
+            return redirect(url_for('profile'))
+    return redirect(url_for('profile'))
     
 
 # 投稿テーブル
@@ -362,12 +377,21 @@ coordinate_items = db.Table('coordinate_items',
 
 
 #ユーザーの作成    
-def create_user(uid, name, email):
+def create_user(uid, name, email, image):
     with app.app_context():
-        user = User(uid=uid, name=name, email=email)
+        user = User(uid=uid, name=name, email=email, iconImage=image)
         db.session.add(user)
         db.session.commit()
     print("成功: create_user")
+    
+
+#ユーザーの名前を変更
+def add_imageIcon(uid, image):
+    with app.app_context():
+        user = User.query.filter_by(uid=uid).first()
+        user.iconImage = image
+        db.session.commit()
+    print("成功: add_imageIcon")
 
 #クローゼットの作成
 def create_closet(user_uid, category, brand, style_id,image, size, price, purchase_date, note):
@@ -468,8 +492,10 @@ def myFavoriteStyle(uid):
     with app.app_context():
         print("自分の好きなスタイルを取得する")
         style = User.query.filter_by(uid=uid).first().favorite_styles
-        print(style)
-    return style
+        if style:
+            print(style)
+            return style
+    return "ない"
 
 #自分の投稿を取得
 def myPost(uid):
