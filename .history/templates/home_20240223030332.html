@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    <title>Document</title>
+</head>
+<body>
+    <hedaer>
+        <nav>
+            <div class="head_block">
+                <li><a><img src="../static/image/logo.png" class="logo_pic"></a></li>
+                <div class="login-button">
+                    <a href="/logout">ログアウト</a>
+                </div>
+             </div>
+          </nav> 
+    </hedaer>
+    <main>
+        <!--サイドバーの中身-->
+        <div id="sidebar" class="sidebar" style="display:none">
+            <div class="icon-text-container">
+                <div class="type_movie selected">
+                    <i class="fas fa-home icon"></i>
+                    <span class="text">おすすめ</span>
+                </div>
+                <div class="type_movie">
+                    <i class="fas fa-user icon"></i>
+                    <span class="text">フォロー</span>
+                </div>
+                <div class="type_movie">
+                    <i class="fas fa-chart-line icon"></i>
+                    <span class="text">トレンド</span>
+                </div>
+                <div class="type_movie">
+                    <i class="fas fa-search icon"></i>
+                    <span class="text">探索</span>
+                </div>
+                <div class="type_movie">
+                    <a href="/profile">
+                    <i class="fas fa-portrait icon"></i>
+                    <span class="text">プロフィール</span>
+                    </a>
+                </div>
+                <div id="move2" class="icon-button">
+                    <i class="fas fa-arrow-left"></i> 
+                </div>
+                
+            </div>
+        </div>
+        <!--サイドバー表示ボタン-->
+        <div class="hamburger-menu">
+            <i class="fas fa-bars" id="sidebar_input"></i>
+        </div>
+        <div id="footer-ad-banner" style="display: none;">
+            <!-- 広告スライド -->
+            <div class="ad-slides fade">
+              <img src="../static/image/adv11.png" style="width:100%">
+            </div>
+            <div class="ad-slides fade">
+              <img src="../static/image/adv12.png" style="width:100%">
+            </div>
+            <div class="ad-slides fade">
+              <img src="../static/image/adv13.png" style="width:100%">
+            </div>
+            <div class="ad-slides fade">
+                <img src="../static/image/adv14.png" style="width:100%">
+              </div>
+              <div class="ad-slides fade">
+                <img src="../static/image/adv15.png" style="width:100%">
+              </div>
+              <div class="ad-slides fade">
+                <img src="../static/image/adv16.png" style="width:100%">
+              </div>
+            <!-- インジケーター -->
+            <div class="ad-indicators">
+              <span class="dot" onclick="currentSlide(1)" style="display:none"></span>
+              <span class="dot" onclick="currentSlide(2)" style="display:none"></span>
+              <span class="dot" onclick="currentSlide(3)" style="display:none"></span>
+              <span class="dot" onclick="currentSlide(4)" style="display:none"></span>
+              <span class="dot" onclick="currentSlide(5)" style="display:none"></span>
+              <span class="dot" onclick="currentSlide(6)" style="display:none"></span>
+            </div>
+        </div>
+        <!--サイドバー非表示時の動画コンテナ-->
+        <!-- <div class="movie_container_main">
+           
+            <div class="movie_block_main">
+                <img src="../static/image/sample.png">
+                <h1 class="text-with-stroke_main">カジュアル系</h1>
+                <div class="favorite-container_main">
+                    <i class="fas fa-star favorite-icon_main"></i>
+                </div>
+            </div>
+            <div class="upload_user_main">
+                <div class="user_icon_main">
+    
+                </div>
+                <h3>＋フォローする</h3>
+            </div>
+            <div class="item_container_main">
+                <div class="item_block_main">
+                    <div class="item_pic_main">
+                        <img src="../static/image/sample2.png">
+                    </div>
+                    <h5 class="price_main">¥100,000</h5>
+                    <p class="set1_main">系統</p>
+                    <div class="horizontal-line1_main"></div>
+                    <p class="set2_main">カテゴリー</p>
+                    <div class="horizontal-line2_main"></div>
+                    <p class="set3_main">ブランド</p>
+                    <div class="horizontal-line3_main"></div>
+                    <button  class="submit-button_main">販売元</button>
+                </div>
+                <div class="item_block_main">
+                    <div class="item_pic_main">
+                        <img src="../static/image/sample1.png">
+                    </div>
+                    <h5 class="price_main">¥100,000</h5>
+                    <p class="set1_main">系統</p>
+                    <div class="horizontal-line1_main"></div>
+                    <p class="set2_main">カテゴリー</p>
+                    <div class="horizontal-line2_main"></div>
+                    <p class="set3_main">ブランド</p>
+                    <div class="horizontal-line3_main"></div>
+                    <button  class="submit-button_main">販売元</button>
+                </div>
+                <div class="item_block_main">
+                    <div class="item_pic_main">
+                        <img src="../static/image/sample3.png">
+                    </div>
+                    <h5 class="price_main">¥100,000</h5>
+                    <p class="set1_main">系統</p>
+                    <div class="horizontal-line1_main"></div>
+                    <p class="set2_main">カテゴリー</p>
+                    <div class="horizontal-line2_main"></div>
+                    <p class="set3_main">ブランド</p>
+                    <div class="horizontal-line3_main"></div>
+                    <button  class="submit-button_main">販売元</button>
+                </div>
+            </div>
+            <h3 class="total_price_main">合計額  ¥300,000</h3>
+        </div> -->
+        <button id="nextCoordination">次のコーディネートを表示</button>
+
+        {% for post_detail in post_details %}
+            <div class="movie_container_main" id="coordination-{{ forloop.counter0 }}" style="display: {% if forloop.first %}block{% else %}none{% endif %};">
+                <div class="movie_block_main">
+                    {% if post_detail.post_image.endswith('.mp4') or post_detail.post_image.endswith('.mov') %}
+                        <!-- 動画ファイルの場合の処理 -->
+                        <video controls>
+                            <source src="{{ post_detail.post_image }}" type="video/mp4">
+                            お使いのブラウザはビデオタグをサポートしていません。
+                        </video>
+                    {% else %}
+                        <!-- 画像ファイルの場合の処理 -->
+                        <img src="{{ post_detail.post_image }}">
+                    {% endif %}
+                    <!-- コーディネートのスタイルやその他情報もここに表示可能 -->
+                </div>
+                <div class="item_container_main">
+                    {% for item in post_detail.items %}
+                        <div class="item_block_main">
+                            <div class="item_pic_main">
+                                <img src="{{ item.image }}" alt="アイテム画像">
+                            </div>
+                            <h5 class="price_main">¥{{ item.price }}</h5>
+                            <!-- スタイル、カテゴリー、ブランドはモデルによって異なるため、適宜調整が必要 -->
+                            <p class="set1_main">{{ item.style_id }}</p>
+                            <p class="set2_main">{{ item.url }}</p>  <!-- カテゴリー情報 -->
+                            <!-- <p class="set3_main">{{ item.brand }}</p>  ブランド情報 -->
+                            <a href="{{ item.url }}" class="submit-button_main">販売元</a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <!-- 合計額などの追加情報もここに表示可能 -->
+            </div>
+        {% endfor %}
+        
+
+        <!--サイドバー表示時の動画コンテナ-->
+        <div class="movie_container" style="display: none;">
+            <!--ここにアルゴリズムで選択された動画・写真・何系であるかを適用させる-->
+            <div class="movie_block">
+                <img src="../static/image/sample.png">
+                <h1 class="text-with-stroke">カジュアル系</h1>
+                <div class="favorite-container">
+                    <i class="fas fa-star favorite-icon"></i>
+                </div>
+            </div>
+            <div class="upload_user">
+                <div class="user_icon">
+    
+                </div>
+                <h3>＋フォローする</h3>
+            </div>
+            <div class="item_container">
+                <div class="item_block">
+                    <div class="item_pic">
+                        <img src="../static/image/sample2.png">
+                    </div>
+                    <h5 class="price">¥100,000</h5>
+                    <p class="set1">系統</p>
+                    <div class="horizontal-line1"></div>
+                    <p class="set2">カテゴリー</p>
+                    <div class="horizontal-line2"></div>
+                    <p class="set3">ブランド</p>
+                    <div class="horizontal-line3"></div>
+                    <button  class="submit-button">販売元</button>
+                </div>
+                <div class="item_block">
+                    <div class="item_pic">
+                        <img src="../static/image/sample1.png">
+                    </div>
+                    <h5 class="price">¥100,000</h5>
+                    <p class="set1">系統</p>
+                    <div class="horizontal-line1"></div>
+                    <p class="set2">カテゴリー</p>
+                    <div class="horizontal-line2"></div>
+                    <p class="set3">ブランド</p>
+                    <div class="horizontal-line3"></div>
+                    <button  class="submit-button">販売元</button>
+                </div>
+                <div class="item_block">
+                    <div class="item_pic">
+                        <img src="../static/image/sample3.png">
+                    </div>
+                    <h5 class="price">¥100,000</h5>
+                    <p class="set1">系統</p>
+                    <div class="horizontal-line1"></div>
+                    <p class="set2">カテゴリー</p>
+                    <div class="horizontal-line2"></div>
+                    <p class="set3">ブランド</p>
+                    <div class="horizontal-line3"></div>
+                    <button  class="submit-button">販売元</button>
+                </div>
+            </div>
+            <h3 class="total_price">合計額  ¥300,000</h3>
+        </div>
+        <div class="screen">
+            <div class="closet">
+                <div class="data-input"></div>
+            </div>
+            
+            <label for="imageUpload" class="image-upload-label" id="imageUploadLabel">
+                <img class="hunger-button" src="../static/image/hunger.jpg" />
+            </label>   
+            
+            
+            <div id="closet-modal" class="closetmodal">
+                <div class="closet-modal-content">
+                    <span class="closet-close">&times;</span>
+                    <h2 class="closet-modal-title">My Closet</h2>
+                    <div id="closetInfo">
+                        {% if closet %}
+                        {% for item in closet %}
+                        <div class="closet-item">
+                            <div class="add-button-container">
+                                <button class="add-button" data-image="{{ item.image }}" data-style_id="{{ item.style_id}}"data-category="{{ item.category }}" data-brand="{{ item.brand }}">追加</button>
+                            </div>
+                            <img src="{{ item.image }}" alt="Closet Item" style="width: 250px; height: 250px; border-radius: 40px; border: 2px solid black;">
+
+                            <div class="text-info">
+                                <p>系統: {{ item.style_id }}</p>
+                                <p>カテゴリ: {{ item.category }}</p>
+                                <p>ブランド: {{ item.brand }}</p>
+                            </div>
+                        </div>
+                        
+                        
+                        {% endfor %}
+
+                    
+                            
+                        {% else %}
+                        <p class="closet-error-message">登録されている服がありません。</p>
+                        <div class="button-container">
+                            <a href="/profile" class="closet-add-button">登録</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            
+
+            
+            <button class="button-save">保存</button>
+        </div>
+    </main>
+    <script src="../static/js/home.js"></script>
+</body>
+
+</html>

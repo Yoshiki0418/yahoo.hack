@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Script-Type" content="js/profile.js">
+    <link rel="stylesheet" href="/static/css/profile.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../static/js/profile.js"></script>
+    <script src="../static/js/profile2.js"></script>
+    <script src="../static/js/home.js"></script>
+    <script src="../static/js/Introduction2.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <hedaer>
+      <nav>
+          <div class="head_block">
+              <li><a><img src="../static/image/logo.png" class="logo_pic"></a></li>
+              <div class="login-button">
+                  <a href="/login">ログアウト</a>
+              </div>
+           </div>
+        </nav> 
+    </hedaer>
+    <main>
+    <!--サイドバーの中身-->
+    <div id="sidebar" class="sidebar">
+      <div class="icon-text-container">
+          <div class="type_movie">
+              <a href="/home">
+              <i class="fas fa-home icon"></i>
+              <span class="text">おすすめ</span>
+              </a>
+          </div>
+          <div class="type_movie">
+              <i class="fas fa-user icon"></i>
+              <span class="text">フォロー中</span>
+          </div>
+          <div class="type_movie">
+              <i class="fas fa-chart-line icon"></i>
+              <span class="text">トレンド</span>
+          </div>
+          <div class="type_movie">
+              <i class="fas fa-search icon"></i>
+              <span class="text">探索</span>
+          </div>
+          <div class="type_movie selected">
+            <a href="/profile">
+            <i class="fas fa-portrait icon"></i>
+            <span class="text">プロフィール</span>
+            </a>
+          </div>
+      </div>
+    </div>
+
+    <img src="static/images/a.png" class="my_icon" width="100" height="100">
+    <h2 class="name">{{my_info.name}}</h2>
+    <h3 class="introduction">自己紹介</h3>
+
+<!--メインタブ-->
+    <div class="tabs">
+      <input id="closet" type="radio" name="tab-items" checked>
+      <label class="tab-team" for="closet">クローゼット</label>
+      <input id="coordination" type="radio" name="tab-items">
+      <label class="tab-team" for="coordination">保存済みコーデ</label>
+      <input id="post" type="radio" name="tab-items">
+      <label class="tab-team" for="post">投稿</label>
+
+  <!--クローゼットタブ-->
+      <div class="tab-content" id="closet-content">
+        
+          <input id="all" type="radio" name="tab-items-sub" checked>
+          <label class="tab-team-sub" for="all">すべて</label>
+          
+          <input id="bottoms" type="radio" name="tab-items-sub">
+          <label class="tab-team-sub" for="bottoms">ボトムス</label>
+
+          <input id="shoes" type="radio" name="tab-items-sub">
+          <label class="tab-team-sub" for="shoes">シューズ</label>
+
+          <input id="tops" type="radio" name="tab-items-sub">
+          <label class="tab-team-sub" for="tops">トップス</label>        
+          
+          <input id="accessories" type="radio" name="tab-items-sub">
+          <label class="tab-team-sub" for="accessories">アクセサリー</label>
+
+          <input id="others" type="radio" name="tab-items-sub">
+          <label class="tab-team-sub" for="others">その他</label>  
+
+          <div class="tab-content-sub" id="all-content">
+            <ul>
+              <li><button id="closetBtn1"><img src="static/images/add_closet.png" width="110" height="110" id="add"></button></li>
+              {% for post in closet.imagae %}
+              <li>
+                <button class="delete-button" onclick="deleteItem(this)">X</button>
+                <a href=""><img src="" width="110" height="110"/></a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div class="tab-content-sub" id="bottoms-content">
+            <ul>
+              <li><button id="closetBtn2"><img src="static/images/add_closet.png" width="110" height="110" id="add"></button></li>
+              {% for post in posts %}
+              <li>
+                <button class="delete-button" onclick="deleteItem(this)">X</button>
+                <a href=""><img src="" width="110" height="110"/></a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div class="tab-content-sub" id="shoes-content">
+            <ul>
+              <li><button id="closetBtn3"><img src="static/images/add_closet.png" width="110" height="110" id="add"></button></li>
+              {% for post in posts %}
+              <li>
+                <button class="delete-button" onclick="deleteItem(this)">X</button>
+                <a href=""><img src="" width="110" height="110"/></a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div class="tab-content-sub" id="tops-content">
+            <ul>
+              <li><button id="closetBtn4"><img src="static/images/add_closet.png" width="110" height="110" id="add"></button></li>
+              {% for post in posts %}
+              <li>
+                <button class="delete-button" onclick="deleteItem(this)">X</button>
+                <a href=""><img src="" width="110" height="110"/></a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div class="tab-content-sub" id="accessories-content">
+            <ul>
+              <li><button id="closetBtn5"><img src="static/images/add_closet.png" width="110" height="110" id="add"></button></li>
+              {% for post in posts %}
+              <li>
+                <button class="delete-button" onclick="deleteItem(this)">X</button>
+                <a href=""><img src="" width="110" height="110"/></a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div class="tab-content-sub" id="others-content">
+            <ul>
+              <li><button id="closetBtn6"><img src="static/images/add_closet.png" width="110" height="110" id="add"></button></li>
+              {% for post in posts %}
+              <li>
+                <button class="delete-button" onclick="deleteItem(this)">X</button>
+                <a href=""><img src="" width="110" height="110"/></a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+      </div>
+
+<!--保存済みコーデのタブ-->
+      <div class="tab-content" id="coordination-content">
+        <ul>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+          <li><a href=""><img src="static/images/shoes.png" width="110" height="200"/></a></li>
+        </ul>
+      </div>
+
+      <!--マイコーデのタブ-->
+      <div class="tab-content" id="post-content">
+        <ul>
+          <li>
+            <button id="myBtn" class="mov_button">
+              <img class="hunger-button" src="../static/image/hunger.jpg">
+          </button>
+          <input type="file" id="fileInput" style="display: none;" onchange="displayImage(event, 'imageContainer')">
+          </li>
+          {% for item in posted_items %}
+          <li>
+            <a href="{{ item.link }}"><img src="{{ item.image_url }}" width="110" height="200"/></a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+
+  <!--モーダルウインドウ-->
+    <!-- モーダル内容 -->
+    <div id="myModal" class="myModal">
+      <div class="modal-content">
+        <div class="background_white"></div>
+        <span class="close">&times;</span>
+        <h3 class="modal-title">投稿のアップロード</h3>
+        <button id="AI-mode" class="AI-mode_button">AIモードを使用する</button>
+        <button type="button" id="hand-mode" class="hand-mode">カメラロールから選択</button>
+        <!-- 実際にファイルを選択するための隠れたinput要素 -->
+        <input type="file" id="hidden-file-input" style="display: none;" onchange="fileSelected(event)">
+        <div id="infoForm10">
+          <div id="post-coordination10">
+            <!-- ファイル選択用の input 要素 -->
+            <!-- 隠れたファイル入力 -->
+            <input type="file" id="uploadInput10" style="display: none;" onchange="displayImage10(event, 'upload-show')">
+            <!-- カスタムデザインのラベル -->
+            <label for="uploadInput10" class="custom-file-upload">カメラロールから写真を選ぶ</label>
+            <!-- 選択された写真・動画を表示する領域 -->
+            <div id="upload-show" class="upload-show"></div>
+          </div>
+          <button id="uploadButton" class="post_button" type="button">アップロード</button>
+        </div>
+        <!-- アイテムを追加するためのボタン -->
+        <div id="itemsContainer" class="check_items_container">
+          <!-- <div class="add_item_block">
+            <div class="add_item_pic">
+                <img src="../static/image/sample3.png">
+            </div>
+              <div class="form-price">
+                <label class="topic" for="price">価格</label>
+                <input type="text" id="price" name="price" class="form-control" value="¥100,000">
+              </div>
+            
+              <div class="form-style">
+                <label class="topic" for="style">系統</label>
+                <select id="style" name="style" class="form-control">
+                    <option value="">選択してください</option>
+                    <option value="casual">カジュアル</option>
+                    <option value="formal">フォーマル</option>
+                    <option value="sporty">スポーティ</option>
+                   
+                </select>
+            </div>
+            
+            <div class="form-category">
+                <label class="topic" for="category">カテゴリー</label>
+                <select id="category" name="category" class="form-control">
+                    <option value="">選択してください</option>
+                    <option value="tops">トップス</option>
+                    <option value="bottoms">ボトムス</option>
+                    <option value="outerwear">シューズ</option>
+             
+                </select>
+            </div>
+            
+            
+              <div class="form-brand">
+                <label class="topic" for="brand">ブランド</label>
+                <input type="text" id="brand" name="brand" class="form-control">
+              </div>
+          </div> -->
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- クローゼットモーダル内容 -->
+    <div id="closetModal" class="closetmodal">
+      <!--<div class="closetmodal-content">
+        <span class="close">&times;</span>-->
+        <div class="screen2">
+         
+              <div class="closet">
+                
+               
+                <div id="saveArea" class="saveArea">
+                  <!-- <img src="" alt="プレビュー画像" style="max-width: 100%; max-height: 100%; display: none;object-fit: contain;"> -->
+                </div>
+      
+                <div class="preview" id="imagePreview">
+                  <img src="" alt="プレビュー画像" style="max-width: 100%; max-height: 100%; min-width: 100%; min-width: 100%; display: none;">
+                </div>
+      
+                <button class="background_transparency" disabled>背景削除</button>
+                <button class="change_photo" disabled>写真変更</button>
+                
+                <label for="imageUpload" class="image-upload-label" id="imageUploadLabel">
+                  <img class="hunger-button" src="../static/image/hunger.jpg" />
+                </label>
+                <input type="file" id="imageUpload" accept=".jpeg, .png" style="display:none;" />
+                
+                <div class="rectangle-1"></div>
+                <div class="rectangle-2"></div>
+                
+                <div class="text-wrapper-1">基本情報(必須)</div>
+                <div class="text-wrapper-2">詳細情報</div>
+                
+                <div class="input-group1">
+                  <div class="information-1">系統</div>
+                  <select class="input-field1">
+                    <option value="" selected>未設定</option>
+                    <option value="tops">トップス</option>
+                    <option value="pants">パンツ</option>
+                    <option value="shoes">シューズ
+                    </option>
+                  </select>
+                </div>
+      
+                <div class="input-group2">
+                  <div class="information-2">カテゴリー</div>
+                  <select class="input-field2">
+                    <option value="" selected>未設定</option>
+                    <option value="1">ストリート系</option>
+                    <option value="2">カジュアル系</option>
+                    <option value="3">スポーツ系</option>
+                  </select>
+                </div>
+                
+                
+                <div class="input-group3">
+                  <div class="information-3">ブランド</div>
+                  <input type="text" class="input-field3" />
+                </div>
+                
+                <div class="input-group4">
+                  <div class="information-4">サイズ</div>
+                  <select class="input-field4">
+                    <option value="" selected>未設定</option>
+                    <option value="street">S</option>
+                    <option value="casual">M</option>
+                    <option value="sports">L</option>
+                  </select>
+                </div>
+                
+                <div class="input-group5">
+                  <div class="information-5">価格</div>
+                  <input type="number" class="input-field5" />
+                </div>
+                
+                <div class="input-group6">
+                  <div class="information-6">購入日</div>
+                  <input type="date" class="input-field6" />
+                </div>
+                
+                <div class="input-group7">
+                  <div class="information-7">思い出メモ</div>
+                  <input type="text" class="input-field7" />
+                </div>
+                
+      
+                <button class="button-save">保存</button>
+                
+              </div>
+      
+              <!-- モーダルのHTML、初期状態は非表示にしておく -->
+              <div class="modal-content">
+                <div id="imageInfoModal" style="display:none;">
+                  <img src="" alt="プレビュー画像" style="max-width: 100%; max-height: 100%; min-width: 100%; min-width: 100%; display: none;">
+                  <span class="close-button">&times;</span>
+                  <p id="modal-info-text">ここに情報が表示されます</p>
+                </div>
+              </div>
+
+              <div class="next">
+                <button class="next-button">次に進む</button>
+              </div>
+      </div>
+    </div>
+
+  </main>
+  <!-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('AI-mode').addEventListener('click', function() {
+        aiModeButtonClickHandler()
+    });
+});
+
+function aiModeButtonClickHandler() {
+    console.log("AIモードボタンが押されました。");
+    // AIモードを有効化するコードをここに記述
+}
+  </script> -->
+  </body>
+</html>
