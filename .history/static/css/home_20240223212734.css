@@ -1203,10 +1203,6 @@ main{
   border: none; /* 境界線を削除 */
   background-color: transparent; /* 背景色を透明に設定 */
   cursor: pointer; /* カーソルをポインターに設定 */
-  position: absolute;
-  z-index: 10;
-  top: -6px;
-  left: 150px;
 }
 
 .hunger_button img {

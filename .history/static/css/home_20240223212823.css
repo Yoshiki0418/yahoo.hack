@@ -1205,8 +1205,8 @@ main{
   cursor: pointer; /* カーソルをポインターに設定 */
   position: absolute;
   z-index: 10;
-  top: -6px;
-  left: 150px;
+  top: 0px;
+  left: 130px;
 }
 
 .hunger_button img {

@@ -1196,21 +1196,19 @@ main{
 }
 
 .hunger_button {
-  /* ボタンのサイズ設定（必要に応じて調整） */
-  width: 50px; /* 例: 50px */
-  height: 50px; /* 例: 50px */
-  padding: 0; /* パディングをゼロに設定 */
-  border: none; /* 境界線を削除 */
-  background-color: transparent; /* 背景色を透明に設定 */
-  cursor: pointer; /* カーソルをポインターに設定 */
-  position: absolute;
-  z-index: 10;
-  top: -6px;
-  left: 150px;
+  background-color: transparent;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0);
 }
 
-.hunger_button img {
-  /* 画像をボタンサイズに合わせて調整 */
-  width: 100%; /* ボタンの幅に合わせて調整 */
-  height: auto; /* 高さを自動調整（アスペクト比を維持） */
+.fas.fa-hanger {
+  color: rgb(255, 255, 255); /* アイコンの色を設定 */
+  font-size: 24px; /* アイコンのサイズを設定 */
+  width: 30px;
+    height: 30px;
+    background-color: #000;
 }

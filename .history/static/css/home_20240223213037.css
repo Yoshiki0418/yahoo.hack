@@ -1207,10 +1207,14 @@ main{
   z-index: 10;
   top: -6px;
   left: 150px;
+  border: #000;
+  border-radius: 1px;
 }
 
 .hunger_button img {
   /* 画像をボタンサイズに合わせて調整 */
   width: 100%; /* ボタンの幅に合わせて調整 */
   height: auto; /* 高さを自動調整（アスペクト比を維持） */
+  border: #000;
+  border-radius: 1px;
 }
