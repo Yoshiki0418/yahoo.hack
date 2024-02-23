@@ -133,7 +133,7 @@ def home():
                 'post_id': post.id,
                 'icon': icon_image,  # ユーザーのアイコン画像
                 'post_image': post.image,
-                'items10': items_for_post,
+                'items': items_for_post,
                 'style_name': style_name,
                 'total_price': int(total_price)
             })
