@@ -153,17 +153,14 @@ document.addEventListener('DOMContentLoaded', function() {
   // 保存ボタンのイベントリスナーを設定
   const saveButton = document.getElementById('saveButton');
   saveButton.addEventListener('click', function() {
-      // すべての画像の位置とパスを配列に格納
+      // すべての画像の位置を配列に格納
       const imagesData = [];
       document.querySelectorAll('.input-item img').forEach(function(img, index) {
           const rect = img.getBoundingClientRect();
-          // img要素のsrc属性から画像のパスを取得
-          const imagePath = img.src;
           imagesData.push({
-              path: imagePath, // 画像のパスを追加
               id: index,
-              x: rect.left + window.scrollX - 1000, // ページのスクロールを考慮したX座標
-              y: rect.top + window.scrollY - 100,  // ページのスクロールを考慮したY座標
+              x: rect.left,
+              y: rect.top,
               width: rect.width,
               height: rect.height
           });
