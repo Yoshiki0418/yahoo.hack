@@ -162,8 +162,8 @@ document.addEventListener('DOMContentLoaded', function() {
           imagesData.push({
               path: imagePath, // 画像のパスを追加
               id: index,
-              x: rect.left + window.scrollX - 1000, // ページのスクロールを考慮したX座標
-              y: rect.top + window.scrollY - 100,  // ページのスクロールを考慮したY座標
+              x: rect.left + window.scrollX, // ページのスクロールを考慮したX座標
+              y: rect.top + window.scrollY,  // ページのスクロールを考慮したY座標
               width: rect.width,
               height: rect.height
           });

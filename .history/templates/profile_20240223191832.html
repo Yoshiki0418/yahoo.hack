@@ -182,7 +182,14 @@
           <ul>
             {% for code in my_coordinate %}
               <li>
-                  <a><img class="post_image_block" src="{{ code.continue_path }}" width="220" height="391"/></a>
+                {% if post.image.endswith('.mp4') or post.image.endswith('.webm') %} <!-- Assuming these are the video formats you're dealing with -->
+                  <video width="220" height="391" controls>
+                    <source src="{{ post.image }}" type="video/mp4"> <!-- You might need to adjust the MIME type based on the actual video format -->
+                    Your browser does not support the video tag.
+                  </video>
+                {% else %}
+                  <a><img class="post_image_block" src="{{ post.image }}" width="220" height="391"/></a>
+                {% endif %}
               </li>
             {% endfor %}
           </ul>

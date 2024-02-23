@@ -167,9 +167,13 @@ def profile():
     my_closet = myCloset(session['usr'])
     my_info = find_user(session['usr'])
     my_post = myPost(session["usr"])
+    my_coordinate_list = []
     my_coordinate = myCoordinate(session['usr'])
-
-    return render_template('profile.html', my_closet=my_closet, my_info=my_info, my_post=my_post, iconImage=my_info.iconImage,my_coordinate=my_coordinate)  
+    for coordinate in my_coordinate:
+        items = coordinateItem(coordinate.id)
+        my_coordinate_list.append(items)
+    print(my_coordinate_list)
+    return render_template('profile.html', my_closet=my_closet, my_info=my_info, my_post=my_post, iconImage=my_info.iconImage,my_coordinate_list=my_coordinate_list)  
 
 @app.route('/save-preference', methods=['POST'])
 def save_preference():
