@@ -132,7 +132,6 @@ def home():
                 'post_id': post.id,
                 'post_image': post.image,
                 'items10': items_for_post,
-                'style_name': style_name,
                 'total_price': int(total_price)
             })
 

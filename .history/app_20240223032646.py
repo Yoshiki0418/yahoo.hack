@@ -111,14 +111,10 @@ def home():
             total_price = 0  # 各投稿ごとのアイテムの合計価格を初期化
 
             for pc in post_closets:
-                # スタイルIDを使ってスタイルの名前を取得
-                style = Style.query.get(pc.style_id)
-                style_name = style.style_name if style else 'Unknown Style'
-
                 item_info = {
                     'image': pc.image,
-                    'price': int(pc.price),
-                    'style_name': style_name,
+                    'price': pc.price,
+                    'style_id': pc.style_id,
                     'url': pc.url,
                     # 'brand': pc.brand  # 実際のモデルに合わせてください
                 }
@@ -132,8 +128,7 @@ def home():
                 'post_id': post.id,
                 'post_image': post.image,
                 'items10': items_for_post,
-                'style_name': style_name,
-                'total_price': int(total_price)
+                'total_price': total_price
             })
 
         print(f"私の好み:{posts}")

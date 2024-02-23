@@ -62,9 +62,6 @@ document.addEventListener('DOMContentLoaded', function() {
   var section20 = document.querySelector('.movie_container_main');
   var section21 = document.querySelector('.movie_container');
 
-  var button1 = document.querySelector('#nextCoordination');
-  var button2 = document.querySelector('#nextCoordination2');
-
   // サイドバー表示ボタンクリック時の動作
   if (linkSection10) {
       linkSection10.addEventListener('click', function(event) {
@@ -74,8 +71,6 @@ document.addEventListener('DOMContentLoaded', function() {
           section12.style.display = 'none'; // コードブロックを表示
           section20.style.display = 'none'; // メインコンテナを非表示
           section21.style.display = ''; // サイドバー表示時のコンテナを表示
-          button1.style.display = 'none';
-          button2.style.display = '';
       });
   }
 
@@ -88,8 +83,6 @@ document.addEventListener('DOMContentLoaded', function() {
           section12.style.display = ''; // コードブロックを非表示
           section20.style.display = ''; // メインコンテナを表示
           section21.style.display = 'none'; // サイドバー表示時のコンテナを非表示
-          button1.style.display = '';
-          button2.style.display = 'none';
       });
   }
 });
@@ -174,48 +167,15 @@ document.addEventListener('click', function(e) {
 
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-  var currentIndex = 0; // 現在表示しているコーディネートのインデックス
-  var coordinations = document.querySelectorAll('.num_container'); // すべてのコーディネートを取得
-  var totalCoordinations = coordinations.length; // コーディネートの総数
+var currentIndex = 0; // グローバル変数としてcurrentIndexを定義
 
-  // 最初のコーディネート以外を非表示にする
-  coordinations.forEach(function(coordination, index) {
-      if (index !== 0) coordination.style.display = 'none';
-  });
+document.getElementById('nextCoordination').addEventListener('click', function() {
+    var coordinations = document.querySelectorAll('.movie_container_main');
 
-  // 「次のコーディネートを表示」ボタンのクリックイベント
-  document.getElementById('nextCoordination').addEventListener('click', function() {
-      // 現在のコーディネートを非表示にする
-      coordinations[currentIndex].style.display = 'none';
+    // 現在表示中のコーディネートを非表示にする
+    coordinations[currentIndex].style.display = 'none';
 
-      // 次のコーディネートのインデックスを計算する（ループさせる）
-      currentIndex = (currentIndex + 1) % totalCoordinations;
-
-      // 次のコーディネートを表示する
-      coordinations[currentIndex].style.display = 'block';
-  });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-  var currentIndex = 0; // 現在表示しているコーディネートのインデックス
-  var coordinations2 = document.querySelectorAll('.num_container2'); // すべてのコーディネートを取得
-  var totalCoordinations2 = coordinations2.length; // コーディネートの総数
-
-  // 最初のコーディネート以外を非表示にする
-  coordinations2.forEach(function(coordination, index) {
-      if (index !== 0) coordination.style.display = 'none';
-  });
-
-  // 「次のコーディネートを表示」ボタンのクリックイベント
-  document.getElementById('nextCoordination2').addEventListener('click', function() {
-      // 現在のコーディネートを非表示にする
-      coordinations2[currentIndex].style.display = 'none';
-
-      // 次のコーディネートのインデックスを計算する（ループさせる）
-      currentIndex = (currentIndex + 1) % totalCoordinations2;
-
-      // 次のコーディネートを表示する
-      coordinations2[currentIndex].style.display = 'block';
-  });
+    // 次のコーディネートを計算し、表示
+    currentIndex = (currentIndex + 1) % coordinations.length;
+    coordinations[currentIndex].style.display = 'block';
 });

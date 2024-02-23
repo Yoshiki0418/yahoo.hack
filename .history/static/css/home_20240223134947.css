@@ -1078,8 +1078,8 @@ main{
 
 #nextCoordination2{
   position: absolute;
-  left: 217px;
-  bottom: 169px;
+  left: 60px;
+  bottom: 100px;
   font-size: 24px; /* ボタンのテキストサイズ */
   color: #333; /* ボタンのテキストカラー */
   background-color: #0b0b1c; /* ボタンの背景カラー */

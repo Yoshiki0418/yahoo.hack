@@ -145,10 +145,10 @@
             </div>
             <h3 class="total_price_main">合計額  ¥300,000</h3>
         </div> -->
-        <button id="nextCoordination">
-            <i class="fas fa-arrow-down"></i>
-          </button>
         <div class="movie_container_main">
+            <button id="nextCoordination">
+                <i class="fas fa-arrow-down"></i>
+              </button>
             {% for post_detail in post_details %}
                 <div class="num_container" id="coordination-{{ idx }}">
                     <div class="movie_block_main">
@@ -195,16 +195,15 @@
                         {% endfor %}
                     </div>
                     <!-- 合計額などの追加情報もここに表示可能 -->
-                    <h3 class="total_price_main">合計額  ¥{{ post_detail.total_price }} 円</h3>   
+                    <h3 class="total_price_main">合計額  ¥{{ post_detail.total_price }}</h3>   
                 </div>
             {% endfor %}    
                                
         </div>
         
-        <button id="nextCoordination2" style="display: none;">
-            <i class="fas fa-arrow-down"></i>
-          </button>
+
         <div class="movie_container" style="display: none;">
+            <button id="nextCoordination2">次のコーディネートを表示</button>
             {% for post_detail in post_details %}
                 <div class="num_container2" id="coordination-{{ loop.index }}">
                     <div class="movie_block">
