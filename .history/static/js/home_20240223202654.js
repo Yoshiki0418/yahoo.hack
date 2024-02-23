@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function sendImagesDataToBackend(imagesData) {
     console.log("送信するデータ:", JSON.stringify(imagesData)); // 送信するデータの内容を確認
     // サーバーのエンドポイントURLを指定します
-    const url = '/make_code10';
+    const url = '/make_code';
   
     // fetch APIを使用してPOSTリクエストを送信します
     fetch(url, {
@@ -194,7 +194,6 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .then(data => {
       console.log('Success:', data); // 成功した場合、コンソールにデータを表示
-      window.location.href = '/profile';
     })
     .catch((error) => {
       console.error('Error:', error); // エラーが発生した場合、コンソールにエラーを表示

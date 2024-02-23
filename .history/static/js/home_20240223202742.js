@@ -194,7 +194,6 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .then(data => {
       console.log('Success:', data); // 成功した場合、コンソールにデータを表示
-      window.location.href = '/profile';
     })
     .catch((error) => {
       console.error('Error:', error); // エラーが発生した場合、コンソールにエラーを表示
