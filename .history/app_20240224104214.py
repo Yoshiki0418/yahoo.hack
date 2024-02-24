@@ -651,7 +651,7 @@ def coordinateItem(coordinate_id):
 
 
 # アップロードした画像・動画を自動で切り取る関数
-@app.route('/ai-cuter', methods=['POST'])
+@app.route('/make_code_hand', methods=['POST'])
 def ai_cuter():
     # アップロードされたファイルを保存するディレクトリのパス
     UPLOAD_FOLDER_IMAGE = 'static/post_image/image'
@@ -774,7 +774,7 @@ def post_file():
 
     return jsonify({'status': 'success', 'message': 'Data uploaded successfully'})
 
-@app.route('/make_code_hand', methods=['POST'])
+@app.route('/make_code100', methods=['POST'])
 def make_code():
     # JSONデータを取得
     images_data = request.get_json()

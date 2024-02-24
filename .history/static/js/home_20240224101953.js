@@ -212,7 +212,7 @@ resetButton.addEventListener('click', function() {
   function sendImagesDataToBackend(imagesData) {
     console.log("送信するデータ:", JSON.stringify(imagesData)); // 送信するデータの内容を確認
     // サーバーのエンドポイントURLを指定します
-    const url = '/make_code_hand';
+    const url = '/make_code100';
   
     // fetch APIを使用してPOSTリクエストを送信します
     fetch(url, {
