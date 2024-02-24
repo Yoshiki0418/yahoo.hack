@@ -363,7 +363,12 @@ function openModal() {
                     acc[fieldName] = fieldValue; // オブジェクトにフィールド名と値を追加
                     return acc;
                 }, {});
-    
+
+                if (processedImageUrl) {
+                  console.log('processedImageUrl:', processedImageUrl);
+                  infoObject['image-url'] = processedImageUrl;
+                }
+
                 const infoJson = JSON.stringify(infoObject); // オブジェクトをJSON文字列に変換
                 img.dataset.info = infoJson;
   
