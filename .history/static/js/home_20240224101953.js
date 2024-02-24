@@ -212,7 +212,7 @@ resetButton.addEventListener('click', function() {
   function sendImagesDataToBackend(imagesData) {
     console.log("送信するデータ:", JSON.stringify(imagesData)); // 送信するデータの内容を確認
     // サーバーのエンドポイントURLを指定します
-    const url = '/make_code_hand';
+    const url = '/make_code100';
   
     // fetch APIを使用してPOSTリクエストを送信します
     fetch(url, {
@@ -444,17 +444,3 @@ document.addEventListener('DOMContentLoaded', function() {
 //     });
 //   });
 // });
-
-
-// JavaScriptでイベントリスナーを追加
-document.addEventListener('DOMContentLoaded', function() {
-  // ボタンを取得
-  var followButton = document.getElementById('followButton');
-  // クリックイベントに対するハンドラを追加
-  followButton.addEventListener('click', function() {
-      // フォローのロジックをここに追加
-      console.log('フォローしました!');
-      // ボタンのテキストを更新することもできる
-      this.textContent = 'フォロー中';
-  });
-});

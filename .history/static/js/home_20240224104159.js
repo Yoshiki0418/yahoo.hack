@@ -444,17 +444,3 @@ document.addEventListener('DOMContentLoaded', function() {
 //     });
 //   });
 // });
-
-
-// JavaScriptでイベントリスナーを追加
-document.addEventListener('DOMContentLoaded', function() {
-  // ボタンを取得
-  var followButton = document.getElementById('followButton');
-  // クリックイベントに対するハンドラを追加
-  followButton.addEventListener('click', function() {
-      // フォローのロジックをここに追加
-      console.log('フォローしました!');
-      // ボタンのテキストを更新することもできる
-      this.textContent = 'フォロー中';
-  });
-});
