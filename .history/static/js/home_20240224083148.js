@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
           const dataInputArea = document.querySelector('.data-input');
           const newItem = document.createElement('div');
           newItem.classList.add('input-item');
-          newItem.innerHTML = `<img src="${image}" alt="Closet Item" style="width: 100%; height: 100%;">`;
+          newItem.innerHTML = `<img src="${image}" alt="Closet Item" style="width: 100%; height: 100%; border-radius: 40px; border: 2px solid black;">`;
           dataInputArea.appendChild(newItem);
           makeDraggable(newItem);
       });
@@ -444,17 +444,3 @@ document.addEventListener('DOMContentLoaded', function() {
 //     });
 //   });
 // });
-
-
-// JavaScriptでイベントリスナーを追加
-document.addEventListener('DOMContentLoaded', function() {
-  // ボタンを取得
-  var followButton = document.getElementById('followButton');
-  // クリックイベントに対するハンドラを追加
-  followButton.addEventListener('click', function() {
-      // フォローのロジックをここに追加
-      console.log('フォローしました!');
-      // ボタンのテキストを更新することもできる
-      this.textContent = 'フォロー中';
-  });
-});

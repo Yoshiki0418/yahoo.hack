@@ -774,7 +774,7 @@ def post_file():
 
     return jsonify({'status': 'success', 'message': 'Data uploaded successfully'})
 
-@app.route('/make_code10', methods=['POST'])
+@app.route('/make_code', methods=['POST'])
 def make_code():
     # JSONデータを取得
     images_data = request.get_json()

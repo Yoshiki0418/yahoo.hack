@@ -172,12 +172,12 @@
                         <div class="user_icon_main">
                             <img src="{{post_detail.icon}}">
                         </div>
-                        <h3><button id="followButton" class="text-button">＋フォローする</button></h3>
+                        <h3>＋フォローする</h3>
                     </div>
                     <div class="item_container_main">
                         {% for item in post_detail.items10 %}
                             <div class="item_block_main">
-                                <button class="hunger_button"><img src="../static/image/hunger.jpg" /></button>
+                                <button class="hunger_button"><i class="fas fa-plus"></i></button>
                                 <div class="item_pic_main">
                                     <img src="{{ item.image }}" alt="アイテム画像">
                                 </div>

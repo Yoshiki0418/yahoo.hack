@@ -167,9 +167,13 @@ def profile():
     my_closet = myCloset(session['usr'])
     my_info = find_user(session['usr'])
     my_post = myPost(session["usr"])
+    my_coordinate_list = []
     my_coordinate = myCoordinate(session['usr'])
-
-    return render_template('profile.html', my_closet=my_closet, my_info=my_info, my_post=my_post, iconImage=my_info.iconImage,my_coordinate=my_coordinate)  
+    for coordinate in my_coordinate:
+        items = coordinateItem(coordinate.id)
+        my_coordinate_list.append(items)
+    print(my_coordinate_list)
+    return render_template('profile.html', my_closet=my_closet, my_info=my_info, my_post=my_post, iconImage=my_info.iconImage,my_coordinate_list=my_coordinate_list)  
 
 @app.route('/save-preference', methods=['POST'])
 def save_preference():
@@ -218,7 +222,7 @@ def save_coordinate():
         if not items:
             return jsonify({'status': 'error', 'message': 'No items received'})
         print(items)
-        coordinate_id = create_coordinate(session['usr'], "テスト名", "テスト説明",continue_path="aa")
+        coordinate_id = create_coordinate(session['usr'], "テスト名", "テスト説明")
         for item in items:
             item_id = item['id']
             add_coordinate_item(coordinate_id=coordinate_id, closet_item_id=item_id)
@@ -372,7 +376,7 @@ class Coordinate(db.Model):
     continue_name = db.Column(db.String(50))
     description = db.Column(db.Text)
     items = db.relationship('Closet', secondary='coordinate_items', back_populates='coordinates')
-    continue_path = db.Column(db.String(200))
+    continue_name = db.Column(db.String(200))
     
 # フォロワーテーブル
 class Follower(db.Model):
@@ -453,9 +457,9 @@ def create_post_closet(user_uid, post_id, image, url, style_id, price, brand, ca
         return post_closet.id
     
 #コーディネートの作成
-def create_coordinate(user_uid, continue_name, description, continue_path):
+def create_coordinate(user_uid, continue_name, description):
     with app.app_context():
-        coordinate = Coordinate(uid=user_uid, continue_name=continue_name, description=description, continue_path=continue_path)
+        coordinate = Coordinate(uid=user_uid, continue_name=continue_name, description=description)
         db.session.add(coordinate)
         db.session.commit()
         print("成功: create_coordinate")
@@ -774,7 +778,7 @@ def post_file():
 
     return jsonify({'status': 'success', 'message': 'Data uploaded successfully'})
 
-@app.route('/make_code10', methods=['POST'])
+@app.route('/make_code', methods=['POST'])
 def make_code():
     # JSONデータを取得
     images_data = request.get_json()
@@ -793,23 +797,6 @@ def make_code():
     output_path = os.path.join(save_directory, filename)
 
     result_image.save(output_path)
-
-    # 以下、データベースにパスを保存する処理
-    uid = session['usr']
-    continue_name = "tesuto"
-    description = "tesu"  # 説明
-    
-    # Coordinateインスタンスを作成
-    new_coordinate = Coordinate(
-        uid=uid,
-        continue_name=continue_name,
-        description=description,
-        continue_path=output_path  # 保存した画像のパス
-    )
-    
-    # データベースに追加
-    db.session.add(new_coordinate)
-    db.session.commit()
     # 応答をクライアントに送信
     return jsonify({'status': 'success', 'message': 'Images composed successfully.'})
 

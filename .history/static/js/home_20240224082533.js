@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
           const dataInputArea = document.querySelector('.data-input');
           const newItem = document.createElement('div');
           newItem.classList.add('input-item');
-          newItem.innerHTML = `<img src="${image}" alt="Closet Item" style="width: 100%; height: 100%;">`;
+          newItem.innerHTML = `<img src="${image}" alt="Closet Item" style="width: 100%; height: 100%; border-radius: 40px; border: 2px solid black;">`;
           dataInputArea.appendChild(newItem);
           makeDraggable(newItem);
       });
@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // 新しい入力項目を作成
         const newItem = document.createElement('div');
         newItem.classList.add('input-item');
-        newItem.innerHTML = `<img src="${imageSrc}" alt="Closet Item" style="width: 100%; height: 100%;">`;
+        newItem.innerHTML = `<img src="${imageSrc}" alt="Closet Item" style="width: 100%; height: 100%; border-radius: 40px; border: 2px solid black;">`;
         
         // 新しい入力項目をデータ入力エリアに追加
         dataInputArea.appendChild(newItem);
@@ -238,48 +238,36 @@ resetButton.addEventListener('click', function() {
     });
   }
 
-  function makeResizable(element) {
-    const resizer = document.createElement('div');
-    element.appendChild(resizer);
-    resizer.style.width = '10px';
-    resizer.style.height = '10px';
-    resizer.style.background = 'red';
-    resizer.style.position = 'absolute';
-    resizer.style.bottom = '0';
-    resizer.style.right = '0';
-    resizer.style.cursor = 'se-resize';
-  
-    let original_width = 0;
-    let original_height = 0;
-    let original_x = 0;
-    let original_y = 0;
-    let original_mouse_x = 0;
-    let original_mouse_y = 0;
-  
-    resizer.addEventListener('mousedown', function(e) {
-      e.preventDefault();
-      original_width = parseFloat(getComputedStyle(element, null).getPropertyValue('width').replace('px', ''));
-      original_height = parseFloat(getComputedStyle(element, null).getPropertyValue('height').replace('px', ''));
-      original_x = element.getBoundingClientRect().left;
-      original_y = element.getBoundingClientRect().top;
-      original_mouse_x = e.pageX;
-      original_mouse_y = e.pageY;
-      window.addEventListener('mousemove', resize);
-      window.addEventListener('mouseup', stopResize);
-    });
-  
-    function resize(e) {
-      const width = original_width + (e.pageX - original_mouse_x);
-      const height = original_height + (e.pageY - original_mouse_y);
-      element.style.width = width + 'px';
-      element.style.height = height + 'px';
-    }
-  
-    function stopResize() {
-      window.removeEventListener('mousemove', resize);
-    }
+  // 既存のコードの後に追加
+function makeResizable(element) {
+  const resizer = document.createElement('div');
+  resizer.classList.add('resizer');
+  element.appendChild(resizer);
+  resizer.style.width = '10px';
+  resizer.style.height = '10px';
+  resizer.style.background = 'red';
+  resizer.style.position = 'absolute';
+  resizer.style.bottom = '0';
+  resizer.style.right = '0';
+  resizer.style.cursor = 'se-resize';
+
+  resizer.addEventListener('mousedown', initResize, false);
+
+  function initResize(e) {
+    window.addEventListener('mousemove', resize, false);
+    window.addEventListener('mouseup', stopResize, false);
   }
-  
+
+  function resize(e) {
+    element.style.width = (e.clientX - element.getBoundingClientRect().left) + 'px';
+    element.style.height = (e.clientY - element.getBoundingClientRect().top) + 'px';
+  }
+
+  function stopResize() {
+    window.removeEventListener('mousemove', resize, false);
+    window.removeEventListener('mouseup', stopResize, false);
+  }
+}
   
 
   // ドラッグ可能にする関数
@@ -444,17 +432,3 @@ document.addEventListener('DOMContentLoaded', function() {
 //     });
 //   });
 // });
-
-
-// JavaScriptでイベントリスナーを追加
-document.addEventListener('DOMContentLoaded', function() {
-  // ボタンを取得
-  var followButton = document.getElementById('followButton');
-  // クリックイベントに対するハンドラを追加
-  followButton.addEventListener('click', function() {
-      // フォローのロジックをここに追加
-      console.log('フォローしました!');
-      // ボタンのテキストを更新することもできる
-      this.textContent = 'フォロー中';
-  });
-});

@@ -343,23 +343,6 @@ main{
   overflow: hidden; /* 繧ゅ＠繝�く繧ｹ繝医′譫�繧定ｶ�∴縺溷�ｴ蜷医↓髫�縺� */
   white-space: nowrap; /* 繝�く繧ｹ繝医′隍�焚陦後↓縺ｪ繧峨↑縺�ｈ縺�↓縺吶ｋ */
 }
-.text-button {
-  background: none; /* 背景色を無しに */
-  border: none; /* ボーダーを無しに */
-  padding: 0; /* パディングを無しに */
-  margin: 0; /* マージンを無しに */
-  color: #FB1313; /* テキストの色をリンクの色に */
-  cursor: pointer; /* カーソルをポインターに */
-  font-family: inherit; /* フォントは継承 */
-  font-size: inherit; /* フォントサイズは継承 */
-}
-
-/* ボタンにマウスが乗ったときのスタイル */
-.text-button:hover {
-  color: #FB1313; /* 色を変える */
-  text-decoration: underline; /* 下線をつける */
-}
-
 
 .item_container{
   width: 300px;
@@ -1042,6 +1025,7 @@ main{
 
 .input-item img {
   border-radius: 40px;
+  border: 2px solid black;
   width: 250px;
   height: 250px;
   /* 蜿ｳ蛛ｴ縺ｫ菴咏區繧定ｿｽ蜉� */
@@ -1220,8 +1204,8 @@ main{
   background-color: transparent; /* 背景色を透明に設定 */
   cursor: pointer; /* カーソルをポインターに設定 */
   position: absolute;
-  z-index: 1;
-  top: -6px;
+  z-index: 10;
+  top: -10px;
   left: 150px;
 }
 

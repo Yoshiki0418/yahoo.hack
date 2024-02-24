@@ -144,43 +144,11 @@ document.addEventListener('DOMContentLoaded', function() {
           const dataInputArea = document.querySelector('.data-input');
           const newItem = document.createElement('div');
           newItem.classList.add('input-item');
-          newItem.innerHTML = `<img src="${image}" alt="Closet Item" style="width: 100%; height: 100%;">`;
+          newItem.innerHTML = `<img src="${image}" alt="Closet Item" style="width: 100%; height: 100%; border-radius: 40px; border: 2px solid black;">`;
           dataInputArea.appendChild(newItem);
           makeDraggable(newItem);
       });
   });
-
-  document.querySelectorAll('.hunger_button').forEach(function(button) {
-    button.addEventListener('click', function() {
-        // 画像の追加処理
-        // ハンガーボタンの親要素から画像のsrc属性を取得
-        const imageSrc = this.nextElementSibling.querySelector('img').src;
-        
-        // データ入力エリアを選択
-        const dataInputArea = document.querySelector('.data-input');
-        
-        // 新しい入力項目を作成
-        const newItem = document.createElement('div');
-        newItem.classList.add('input-item');
-        newItem.innerHTML = `<img src="${imageSrc}" alt="Closet Item" style="width: 100%; height: 100%;">`;
-        
-        // 新しい入力項目をデータ入力エリアに追加
-        dataInputArea.appendChild(newItem);
-        
-        // 新しい項目をドラッグ可能にする（既存の関数を利用）
-        makeDraggable(newItem);
-    });
-});
-
-  // リセットボタンのイベントリスナーを設定
-const resetButton = document.getElementById('resetButton');
-resetButton.addEventListener('click', function() {
-    // .data-input内の全ての.input-item要素を選択して削除
-    const items = document.querySelectorAll('.data-input .input-item');
-    items.forEach(function(item) {
-        item.remove(); // 各.input-item要素を削除
-    });
-});
 
   // 保存ボタンのイベントリスナーを設定
   const saveButton = document.getElementById('saveButton');
@@ -200,19 +168,13 @@ resetButton.addEventListener('click', function() {
               height: rect.height
           });
       });
-    // imagesDataが空でない場合のみバックエンドに送信する
-    if (imagesData.length > 0) {
-      sendImagesDataToBackend(imagesData);
-  } else {
-      // imagesDataが空の場合、何もしない（オプションでユーザーに通知することも可能）
-      console.log('No images to save.'); // デバッグ用のメッセージ、またはユーザー向けのフィードバックを表示
-  }
+    // ここで imagesData をバックエンドに送信する処理を記述
+    sendImagesDataToBackend(imagesData);
   });
 
   function sendImagesDataToBackend(imagesData) {
-    console.log("送信するデータ:", JSON.stringify(imagesData)); // 送信するデータの内容を確認
     // サーバーのエンドポイントURLを指定します
-    const url = '/make_code10';
+    const url = '/make_code';
   
     // fetch APIを使用してPOSTリクエストを送信します
     fetch(url, {
@@ -220,7 +182,7 @@ resetButton.addEventListener('click', function() {
       headers: {
         'Content-Type': 'application/json' // コンテンツタイプをJSONに設定
       },
-      body: JSON.stringify(imagesData)
+      body: JSON.stringify(imagesData) // 画像データをJSONに変換してボディにセット
     })
     .then(response => {
       if (response.ok) {
@@ -231,55 +193,11 @@ resetButton.addEventListener('click', function() {
     })
     .then(data => {
       console.log('Success:', data); // 成功した場合、コンソールにデータを表示
-      window.location.href = '/profile';
     })
     .catch((error) => {
       console.error('Error:', error); // エラーが発生した場合、コンソールにエラーを表示
     });
   }
-
-  function makeResizable(element) {
-    const resizer = document.createElement('div');
-    element.appendChild(resizer);
-    resizer.style.width = '10px';
-    resizer.style.height = '10px';
-    resizer.style.background = 'red';
-    resizer.style.position = 'absolute';
-    resizer.style.bottom = '0';
-    resizer.style.right = '0';
-    resizer.style.cursor = 'se-resize';
-  
-    let original_width = 0;
-    let original_height = 0;
-    let original_x = 0;
-    let original_y = 0;
-    let original_mouse_x = 0;
-    let original_mouse_y = 0;
-  
-    resizer.addEventListener('mousedown', function(e) {
-      e.preventDefault();
-      original_width = parseFloat(getComputedStyle(element, null).getPropertyValue('width').replace('px', ''));
-      original_height = parseFloat(getComputedStyle(element, null).getPropertyValue('height').replace('px', ''));
-      original_x = element.getBoundingClientRect().left;
-      original_y = element.getBoundingClientRect().top;
-      original_mouse_x = e.pageX;
-      original_mouse_y = e.pageY;
-      window.addEventListener('mousemove', resize);
-      window.addEventListener('mouseup', stopResize);
-    });
-  
-    function resize(e) {
-      const width = original_width + (e.pageX - original_mouse_x);
-      const height = original_height + (e.pageY - original_mouse_y);
-      element.style.width = width + 'px';
-      element.style.height = height + 'px';
-    }
-  
-    function stopResize() {
-      window.removeEventListener('mousemove', resize);
-    }
-  }
-  
   
 
   // ドラッグ可能にする関数
@@ -316,8 +234,6 @@ resetButton.addEventListener('click', function() {
           document.onmouseup = null;
           document.onmousemove = null;
       }
-
-      makeResizable(element); // 新しい要素をリサイズ可能にする
   }
 });
 
@@ -445,16 +361,3 @@ document.addEventListener('DOMContentLoaded', function() {
 //   });
 // });
 
-
-// JavaScriptでイベントリスナーを追加
-document.addEventListener('DOMContentLoaded', function() {
-  // ボタンを取得
-  var followButton = document.getElementById('followButton');
-  // クリックイベントに対するハンドラを追加
-  followButton.addEventListener('click', function() {
-      // フォローのロジックをここに追加
-      console.log('フォローしました!');
-      // ボタンのテキストを更新することもできる
-      this.textContent = 'フォロー中';
-  });
-});

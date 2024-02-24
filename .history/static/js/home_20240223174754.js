@@ -136,191 +136,68 @@ window.onclick = function(event) {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-  // すべての「追加」ボタンにイベントリスナーを設定
+  // すべての「追加」ボタンに対してイベントリスナーを設定
   document.querySelectorAll('.add-button').forEach(function(button) {
       button.addEventListener('click', function() {
-          // 画像の追加処理（前回と同じ）
+          // ボタンから画像情報を取得
           const image = this.getAttribute('data-image');
+
+          // data-inputエリアを選択
           const dataInputArea = document.querySelector('.data-input');
+
+          // data-inputエリアに情報を追加（既存の内容を保持しつつ新しい内容を追加）
           const newItem = document.createElement('div');
+          newItem.innerHTML = `
+              <img src="${image}" alt="Closet Item" class="draggable" style="width: 100px; height: 100px; border-radius: 10px;">
+              <button class="delete-button">削除</button>
+          `;
           newItem.classList.add('input-item');
-          newItem.innerHTML = `<img src="${image}" alt="Closet Item" style="width: 100%; height: 100%;">`;
           dataInputArea.appendChild(newItem);
-          makeDraggable(newItem);
+
+          // ドラッグアンドドロップ機能を追加
+          makeDraggable(newItem.querySelector('.draggable'));
       });
   });
 
-  document.querySelectorAll('.hunger_button').forEach(function(button) {
-    button.addEventListener('click', function() {
-        // 画像の追加処理
-        // ハンガーボタンの親要素から画像のsrc属性を取得
-        const imageSrc = this.nextElementSibling.querySelector('img').src;
-        
-        // データ入力エリアを選択
-        const dataInputArea = document.querySelector('.data-input');
-        
-        // 新しい入力項目を作成
-        const newItem = document.createElement('div');
-        newItem.classList.add('input-item');
-        newItem.innerHTML = `<img src="${imageSrc}" alt="Closet Item" style="width: 100%; height: 100%;">`;
-        
-        // 新しい入力項目をデータ入力エリアに追加
-        dataInputArea.appendChild(newItem);
-        
-        // 新しい項目をドラッグ可能にする（既存の関数を利用）
-        makeDraggable(newItem);
-    });
-});
-
-  // リセットボタンのイベントリスナーを設定
-const resetButton = document.getElementById('resetButton');
-resetButton.addEventListener('click', function() {
-    // .data-input内の全ての.input-item要素を選択して削除
-    const items = document.querySelectorAll('.data-input .input-item');
-    items.forEach(function(item) {
-        item.remove(); // 各.input-item要素を削除
-    });
-});
-
-  // 保存ボタンのイベントリスナーを設定
-  const saveButton = document.getElementById('saveButton');
-  saveButton.addEventListener('click', function() {
-      // すべての画像の位置とパスを配列に格納
-      const imagesData = [];
-      document.querySelectorAll('.input-item img').forEach(function(img, index) {
-          const rect = img.getBoundingClientRect();
-          // img要素のsrc属性から画像のパスを取得
-          const imagePath = img.src;
-          imagesData.push({
-              path: imagePath, // 画像のパスを追加
-              id: index,
-              x: rect.left + window.scrollX - 1000, // ページのスクロールを考慮したX座標
-              y: rect.top + window.scrollY - 100,  // ページのスクロールを考慮したY座標
-              width: rect.width,
-              height: rect.height
-          });
-      });
-    // imagesDataが空でない場合のみバックエンドに送信する
-    if (imagesData.length > 0) {
-      sendImagesDataToBackend(imagesData);
-  } else {
-      // imagesDataが空の場合、何もしない（オプションでユーザーに通知することも可能）
-      console.log('No images to save.'); // デバッグ用のメッセージ、またはユーザー向けのフィードバックを表示
-  }
-  });
-
-  function sendImagesDataToBackend(imagesData) {
-    console.log("送信するデータ:", JSON.stringify(imagesData)); // 送信するデータの内容を確認
-    // サーバーのエンドポイントURLを指定します
-    const url = '/make_code10';
-  
-    // fetch APIを使用してPOSTリクエストを送信します
-    fetch(url, {
-      method: 'POST', // HTTPメソッドをPOSTに設定
-      headers: {
-        'Content-Type': 'application/json' // コンテンツタイプをJSONに設定
-      },
-      body: JSON.stringify(imagesData)
-    })
-    .then(response => {
-      if (response.ok) {
-        return response.json(); // 正常なレスポンスの場合、JSONを解析して返す
-      } else {
-        throw new Error('Network response was not ok.'); // レスポンスが正常でない場合、エラーを投げる
-      }
-    })
-    .then(data => {
-      console.log('Success:', data); // 成功した場合、コンソールにデータを表示
-      window.location.href = '/profile';
-    })
-    .catch((error) => {
-      console.error('Error:', error); // エラーが発生した場合、コンソールにエラーを表示
-    });
-  }
-
-  function makeResizable(element) {
-    const resizer = document.createElement('div');
-    element.appendChild(resizer);
-    resizer.style.width = '10px';
-    resizer.style.height = '10px';
-    resizer.style.background = 'red';
-    resizer.style.position = 'absolute';
-    resizer.style.bottom = '0';
-    resizer.style.right = '0';
-    resizer.style.cursor = 'se-resize';
-  
-    let original_width = 0;
-    let original_height = 0;
-    let original_x = 0;
-    let original_y = 0;
-    let original_mouse_x = 0;
-    let original_mouse_y = 0;
-  
-    resizer.addEventListener('mousedown', function(e) {
-      e.preventDefault();
-      original_width = parseFloat(getComputedStyle(element, null).getPropertyValue('width').replace('px', ''));
-      original_height = parseFloat(getComputedStyle(element, null).getPropertyValue('height').replace('px', ''));
-      original_x = element.getBoundingClientRect().left;
-      original_y = element.getBoundingClientRect().top;
-      original_mouse_x = e.pageX;
-      original_mouse_y = e.pageY;
-      window.addEventListener('mousemove', resize);
-      window.addEventListener('mouseup', stopResize);
-    });
-  
-    function resize(e) {
-      const width = original_width + (e.pageX - original_mouse_x);
-      const height = original_height + (e.pageY - original_mouse_y);
-      element.style.width = width + 'px';
-      element.style.height = height + 'px';
-    }
-  
-    function stopResize() {
-      window.removeEventListener('mousemove', resize);
-    }
-  }
-  
-  
-
-  // ドラッグ可能にする関数
   function makeDraggable(element) {
-      let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-      element.onmousedown = dragMouseDown;
+      let offsetX, offsetY;
 
-      function dragMouseDown(e) {
-          e = e || window.event;
-          e.preventDefault();
-          // マウスの開始位置を取得
-          pos3 = e.clientX;
-          pos4 = e.clientY;
-          document.onmouseup = closeDragElement;
-          // マウスが移動すると発火するイベント
-          document.onmousemove = elementDrag;
+      element.addEventListener('mousedown', function(e) {
+          // マウスの位置と要素の左上隅の相対位置を取得
+          offsetX = e.clientX - element.getBoundingClientRect().left;
+          offsetY = e.clientY - element.getBoundingClientRect().top;
+          // mousemoveイベントを追加
+          document.addEventListener('mousemove', onMouseMove);
+          // mouseupイベントを追加
+          element.addEventListener('mouseup', onMouseUp);
+      });
+
+      function onMouseMove(e) {
+          // 要素を新しい位置に移動
+          element.style.position = 'absolute';
+          element.style.left = e.clientX - offsetX + 'px';
+          element.style.top = e.clientY - offsetY + 'px';
+          element.style.zIndex = 1000; // 他の要素の上に表示
       }
 
-      function elementDrag(e) {
-          e = e || window.event;
-          e.preventDefault();
-          // 新しい位置を計算
-          pos1 = pos3 - e.clientX;
-          pos2 = pos4 - e.clientY;
-          pos3 = e.clientX;
-          pos4 = e.clientY;
-          // 要素の新しい位置を設定
-          element.style.top = (element.offsetTop - pos2) + "px";
-          element.style.left = (element.offsetLeft - pos1) + "px";
+      function onMouseUp() {
+          // イベントリスナーを削除
+          document.removeEventListener('mousemove', onMouseMove);
+          element.removeEventListener('mouseup', onMouseUp);
       }
-
-      function closeDragElement() {
-          // 動きを停止
-          document.onmouseup = null;
-          document.onmousemove = null;
-      }
-
-      makeResizable(element); // 新しい要素をリサイズ可能にする
   }
 });
 
+
+document.addEventListener('click', function(e) {
+    if (e.target && e.target.matches('.delete-button')) {
+        const itemElement = e.target.closest('.input-item');
+        if (itemElement) {
+            itemElement.remove();
+        }
+    }
+  });
+});
 
 document.addEventListener('DOMContentLoaded', function() {
   var currentIndex = 0; // 現在表示しているコーディネートのインデックス
@@ -413,48 +290,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-// document.addEventListener('DOMContentLoaded', function() {
-//   var saveButton = document.getElementById('saveButton');
-//   saveButton.addEventListener('click', function() {
-//     const selectedItems = document.querySelectorAll('.input-item');
-//     const itemsToSave = [];
-
-//     selectedItems.forEach(function(item) {
-//       const id = item.querySelector('.text-info p:nth-child(4)').textContent.replace('id: ', '');
-//       itemsToSave.push({id});
-//     });
-
-//     console.log('保存された項目:', itemsToSave);
-
-//     var formData = new FormData();
-//     formData.append('items', JSON.stringify(itemsToSave));
-
-//     // fetch APIを使用してサーバーにPOSTリクエストを送信
-//     fetch('save-coordinate', {
-//       method: 'POST',
-//       body: formData
-//     })
-//     .then(response => response.json())
-//     .then(data => {
-//       console.log(data);
-//       window.location.href = '/profile';
-//     })
-//     .catch(error => {
-//       console.error('Error:', error);
-//     });
-//   });
-// });
-
-
-// JavaScriptでイベントリスナーを追加
 document.addEventListener('DOMContentLoaded', function() {
-  // ボタンを取得
-  var followButton = document.getElementById('followButton');
-  // クリックイベントに対するハンドラを追加
-  followButton.addEventListener('click', function() {
-      // フォローのロジックをここに追加
-      console.log('フォローしました!');
-      // ボタンのテキストを更新することもできる
-      this.textContent = 'フォロー中';
+  var saveButton = document.getElementById('saveButton');
+  saveButton.addEventListener('click', function() {
+    const selectedItems = document.querySelectorAll('.input-item');
+    const itemsToSave = [];
+
+    selectedItems.forEach(function(item) {
+      const id = item.querySelector('.text-info p:nth-child(4)').textContent.replace('id: ', '');
+      itemsToSave.push({id});
+    });
+
+    console.log('保存された項目:', itemsToSave);
+
+    var formData = new FormData();
+    formData.append('items', JSON.stringify(itemsToSave));
+
+    // fetch APIを使用してサーバーにPOSTリクエストを送信
+    fetch('save-coordinate', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      window.location.href = '/profile';
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
   });
 });
