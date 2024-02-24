@@ -343,6 +343,23 @@ main{
   overflow: hidden; /* 繧ゅ＠繝�く繧ｹ繝医′譫�繧定ｶ�∴縺溷�ｴ蜷医↓髫�縺� */
   white-space: nowrap; /* 繝�く繧ｹ繝医′隍�焚陦後↓縺ｪ繧峨↑縺�ｈ縺�↓縺吶ｋ */
 }
+.text-button {
+  background: none; /* 背景色を無しに */
+  border: none; /* ボーダーを無しに */
+  padding: 0; /* パディングを無しに */
+  margin: 0; /* マージンを無しに */
+  color: #FB1313; /* テキストの色をリンクの色に */
+  cursor: pointer; /* カーソルをポインターに */
+  font-family: inherit; /* フォントは継承 */
+  font-size: inherit; /* フォントサイズは継承 */
+}
+
+/* ボタンにマウスが乗ったときのスタイル */
+.text-button:hover {
+  color: #FB1313; /* 色を変える */
+  text-decoration: underline; /* 下線をつける */
+}
+
 
 .item_container{
   width: 300px;
